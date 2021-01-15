@@ -48,7 +48,7 @@ def load_data(file_name):
      If you want to add new images to test, create a new elif of the same format as those
      for notre_dame, mt_rushmore, etc. You do not need to set the eval_file variable unless
      you hand create a ground truth annotations. To run with your new images use
-     python main.py -p <your file name>.
+     python main.py -d <your file name>.
 
     :param file_name: string for which image pair to compute correspondence for
 
@@ -88,21 +88,22 @@ def main():
     """
     Reads in the data,
 
-    Command line usage: python main.py -p | --pair <image pair name>
+    Command line usage: python main.py -d | --data <image pair name>
 
-    -p | --pair - flag - required. specifies which image pair to match
+    -d | --data - flag - required. specifies which image pair to match
 
     """
 
     # create the command line parser
     parser = argparse.ArgumentParser()
-
-    parser.add_argument("-p", "--pair", required=True, help="Either notre_dame, mt_rushmore, or e_gaudi. Specifies which image pair to match")
-
+    parser.add_argument("-d", "--data",
+                        required=True,
+                        choices=["notre_dame","mt_rushmore","e_gaudi"],
+                        help="Either notre_dame, mt_rushmore, or e_gaudi. Specifies which image pair to match")
     args = parser.parse_args()
 
     # (1) Load in the data
-    image1_color, image2_color, eval_file = load_data(args.pair)
+    image1_color, image2_color, eval_file = load_data(args.data)
 
     # You don't have to work with grayscale images. Matching with color
     # information might be helpful. If you choose to work with RGB images, just
@@ -190,7 +191,7 @@ def main():
     num_pts_to_visualize = 50
 
     evaluate_correspondence(image1_color, image2_color, eval_file, scale_factor,
-        x1, y1, x2, y2, matches, confidences, num_pts_to_visualize, args.pair + '_matches.jpg')
+        x1, y1, x2, y2, matches, confidences, num_pts_to_visualize, args.data + '_matches.png')
 
     return
 
