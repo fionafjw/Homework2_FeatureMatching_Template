@@ -75,6 +75,7 @@
 \or A2
 \or A3(a)
 \or A3(b)
+\or A3(c)
 \or A4
 \or A5(a)
 \or A5(b)
@@ -98,7 +99,7 @@ should be on this page
 
 \section*{Instructions}
 \begin{itemize}
-  \item One exercise graded for completion only. 
+  \item One exercise graded for completion only.
   \item Five graded questions.
   \item Write code where appropriate.
   \item Feel free to include images or equations.
@@ -149,12 +150,12 @@ Extra space
 \pagebreak
 \section*{Questions}
 
-\paragraph{Q1:} Imagine we wished to find points in one image which matched to the same world point in another image---so-called feature point correspondence matching. We are tasked with designing an image feature point algorithm which could match world points in the following three pairs of images. 
+\paragraph{Q1:} Imagine we wished to find points in one image which matched to the same world point in another image---so-called feature point correspondence matching. We are tasked with designing an image feature point algorithm which could match world points in the following three pairs of images.
 \newline
 \newline
 \emph{RISHLibrary:} \href{RISHLibrary1.jpg}{One} \href{RISHLibrary2.jpg}{Two} | \emph{Chase:} \href{Chase1.jpg}{One} \href{Chase2.jpg}{Two} | \emph{LaddObservatory:} \href{LaddObservatory1.jpg}{One} \href{LaddObservatory2.jpg}{Two}
 
-Please use the included python script \texttt{plot\_corners.py} to find corners using Harris corner detection for each image above. 
+Please use the included python script \texttt{plot\_corners.py} to find corners using Harris corner detection for each image above.
 
 For each pair, discuss the differences in the returned corners (if any), and what aspects of the images may have caused these differences. Then discuss what real world challenges exist in matching features between images.
 
@@ -188,8 +189,8 @@ For each pair, discuss the differences in the returned corners (if any), and wha
 % Please leave the pagebreak
 
 \pagebreak
-\paragraph{Q2:} 
-The Harris Corner Detector is commonly used in computer vision algorithms to find locations from which to extract stable features for image matching. 
+\paragraph{Q2:}
+The Harris Corner Detector is commonly used in computer vision algorithms to find locations from which to extract stable features for image matching.
 
 How do the eigenvalues of the `M' second moment matrix vary with local image brightness, and how might we interpret the eigenvalues geometrically?
 
@@ -205,18 +206,37 @@ How do the eigenvalues of the `M' second moment matrix vary with local image bri
 % Please leave the pagebreak
 \pagebreak
 \paragraph{Q3:}
-Drones are often used by individuals, companies, and governments for photography, with some organizations demonstrating delivery applications, too. In the U.S., the federal government has started using drones for domestic surveillance. From the \href{https://www.eff.org/issues/surveillance-drones}{Electronic Frontier Foundation}: 
-    
-``Drones already in use by law enforcement can carry various types of equipment including live-feed video cameras, infrared cameras, heat sensors, and radar. Some military versions can stay in the air for hours or days at a time, and their high-tech cameras can scan entire cities, or alternatively, zoom in and read a milk carton from 60,000 feet. They can also carry WiFi crackers and fake cell phone towers that can determine your location or intercept your texts and phone calls. Drone manufacturers even admit they are made to carry “less lethal” weapons such as tasers or rubber bullets."
-
-Drone surveillance may improve security, but it may also degrade personal privacy.
+Please read this \href{https://www.browndailyherald.com/2008/01/10/surveillance-cameras-on-campus-triple/}{2008 Brown Daily Herald article} describing the gradual increase in surveillance cameras on Brown’s campus. Then, read this \href{https://www.browndailyherald.com/2020/02/21/cameras-installed-hegeman-hall/}{2020 Brown Daily Herald article}, which mentions that there are now 800 surveillance cameras on campus, about as many cameras as full-time faculty. Note, that since 2015 Axis Communication, Brown’s primary supplier of surveillance cameras has \href{https://www.axis.com/customer-story/3767}{advertised} its cameras’ abilities to perform onboard facial recognition.
 
 \begin{enumerate}[(a)]
-    \item Imagine that Brown's Department of Public Safety purchased a drone fleet, and built its recharging station atop the Science Library. Under what conditions would you be comfortable with security drones around campus?
+    \item Were you aware of Brown’s high number of surveillance cameras before reading these articles? How comfortable are you with Brown’s existing surveillance apparatus? Do you have any concerns? Do you believe that the potential benefits outweigh potential concerns? Why or why not? Please respond in 3-4 sentences.
 \end{enumerate}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{A3 (a):} Your answer here.
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+Drones are often used by individuals, companies, and governments for photography, with some organizations demonstrating delivery applications, too. In the U.S., the federal government has started using drones for domestic surveillance. From the \href{https://www.eff.org/issues/surveillance-drones}{Electronic Frontier Foundation}:
+
+``Drones already in use by law enforcement can carry various types of equipment including live-feed video cameras, infrared cameras, heat sensors, and radar. Some military versions can stay in the air for hours or days at a time, and their high-tech cameras can scan entire cities, or alternatively, zoom in and read a milk carton from 60,000 feet. They can also carry WiFi crackers and fake cell phone towers that can determine your location or intercept your texts and phone calls. Drone manufacturers even admit they are made to carry “less lethal” weapons such as tasers or rubber bullets."
+
+Drone surveillance may improve security, but it may also degrade personal privacy.
+
+\begin{enumerate}[(b)]
+    \item Imagine that Brown's Department of Public Safety purchased a drone fleet, and built its recharging station atop the Science Library. Under what conditions would you be comfortable with security drones around campus?
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\paragraph{A3 (b):} Your answer here.
 
 
 
@@ -226,13 +246,13 @@ Drone surveillance may improve security, but it may also degrade personal privac
 Drones do not require cameras if they are remotely controlled within line of sight. However, \href{https://link.springer.com/article/10.1007/s10846-017-0483-z}{drones use increasingly-sophisticated computer vision} to aid control. One set of techniques are feature detection, description, and matching algorithms to provide correspondence between images. When applied to video, this allows drones to estimate their motion relative to the world. As such, cameras and image correspondence are foundational technologies for reliable drone localization and navigation. This enables assisted or even autonomous flying in complex environments, such as for \href{https://www.cnn.com/2019/05/01/health/drone-organ-transplant-bn-trnd/index.html}{life-saving organ delivery}. Yet, adding cameras to drones also makes them potentially capable as surveillance platforms.
 
 
-\begin{enumerate}[resume*]
+\begin{enumerate}[(c)]
     \item With respect to cameras, what solutions might we consider to reconcile a desire for useful drones with a desire for privacy? \\
     \emph{These might be technological, sociological, legal, etc.---wide scope.}
 \end{enumerate}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\paragraph{A3 (b):} Your answer here.
+\paragraph{A3 (c):} Your answer here.
 
 
 
