@@ -73,9 +73,9 @@
 \or A1(b)
 \or A1(c)
 \or A2
-\or A3(a)
-\or A3(b)
-\or A3(c)
+\or A3(a,b,c)
+\or A3(d)
+\or A3(e)
 \or A4
 \or A5(a)
 \or A5(b)
@@ -111,7 +111,7 @@ should be on this page
 
 \section*{Exercise}
 
-\paragraph{E1:} Let's look again at the webcam Fourier decomposition demo which James showed in class. Let's run it in our CSCI 1430 virtual environment \emph{preferably on a computer with a webcam}, from within the 'questions' directory.
+\paragraph{E1:} Let's look again at the webcam Fourier decomposition demo which James showed in class. Let's run it in our CSCI 1430 virtual environment from within the 'questions' directory. \emph{Preferably, use a computer with a webcam}; if you don't have a webcam, the software will use a static image.
 
 \begin{verbatim}
 $ python liveFFT2.py
@@ -192,7 +192,7 @@ For each pair, discuss the differences in the returned corners (if any), and wha
 \paragraph{Q2:}
 The Harris Corner Detector is commonly used in computer vision algorithms to find locations from which to extract stable features for image matching.
 
-How do the eigenvalues of the `M' second moment matrix vary with local image brightness, and how might we interpret the eigenvalues geometrically?
+How do the eigenvalues of the `M' second moment matrix vary with local image brightness, and how might we interpret the eigenvalues geometrically (think `shape')?
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{A2:} Your answer here.
@@ -206,10 +206,32 @@ How do the eigenvalues of the `M' second moment matrix vary with local image bri
 % Please leave the pagebreak
 \pagebreak
 \paragraph{Q3:}
-Please read this \href{https://www.browndailyherald.com/2008/01/10/surveillance-cameras-on-campus-triple/}{2008 Brown Daily Herald article} describing the gradual increase in surveillance cameras on Brown’s campus. Then, read this \href{https://www.browndailyherald.com/2020/02/21/cameras-installed-hegeman-hall/}{2020 Brown Daily Herald article}, which mentions that there are now 800 surveillance cameras on campus, about as many cameras as full-time faculty. Note, that since 2015 Axis Communication, Brown’s primary supplier of surveillance cameras has \href{https://www.axis.com/customer-story/3767}{advertised} its cameras’ abilities to perform onboard facial recognition.
+Digital cameras, computer networks, and computer storage have allowed us to build large sensor networks, and Brown is no exception in their use. The Brown Daily Herald has written about this practice \href{https://www.browndailyherald.com/2008/01/10/surveillance-cameras-on-campus-triple/}{both in 2008} and \href{https://www.browndailyherald.com/2020/02/21/cameras-installed-hegeman-hall/}{in 2020}---please read these articles in chronological order.
+
+\emph{Please respond in 3-4 sentences to each question.}
 
 \begin{enumerate}[(a)]
-    \item Were you aware of Brown’s high number of surveillance cameras before reading these articles? How comfortable are you with Brown’s existing surveillance apparatus? Do you have any concerns? Do you believe that the potential benefits outweigh potential concerns? Why or why not? Please respond in 3-4 sentences.
+    \item What was your initial reaction to reading these articles twelve years apart?
+    \item What arguments are made for the potential positives and negatives of having such a system at Brown?
+\end{enumerate}
+
+There are now about as many cameras at Brown as full-time faculty.
+
+%
+% NOT REQUIRED
+% 
+% With keen eyes, take a short walk to campus or to a local center and count the number of cameras that you see from start to finish. \\
+% \emph{COVID-19: Please be responsible and respect social distancing and local norms; use good judgement and complete the exercise as best as you can. If you do not feel comfortable, it is of course appropriate to skip this question.}
+
+% \begin{enumerate}[(c)]
+%     \item Where are you, and how many cameras did you see? \\Were there any cameras inside your living space?
+% \end{enumerate}
+
+This much data is time consuming to process manually, but computer vision allows us to analyze captured image and video data automatically.
+Since 2015, Brown’s primary supplier of surveillance cameras---Axis Communication---has \href{https://www.axis.com/customer-story/3767}{advertised} its cameras’ abilities to perform onboard facial recognition. But, the decision to use the function is left to the implementing organization.
+
+\begin{enumerate}[(c)]
+    \item Does knowing that this capability exists change your reaction? How?
 \end{enumerate}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -217,42 +239,47 @@ Please read this \href{https://www.browndailyherald.com/2008/01/10/surveillance-
 
 
 
-
-
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
-Drones are often used by individuals, companies, and governments for photography, with some organizations demonstrating delivery applications, too. In the U.S., the federal government has started using drones for domestic surveillance. From the \href{https://www.eff.org/issues/surveillance-drones}{Electronic Frontier Foundation}:
-
-``Drones already in use by law enforcement can carry various types of equipment including live-feed video cameras, infrared cameras, heat sensors, and radar. Some military versions can stay in the air for hours or days at a time, and their high-tech cameras can scan entire cities, or alternatively, zoom in and read a milk carton from 60,000 feet. They can also carry WiFi crackers and fake cell phone towers that can determine your location or intercept your texts and phone calls. Drone manufacturers even admit they are made to carry “less lethal” weapons such as tasers or rubber bullets."
-
-Drone surveillance may improve security, but it may also degrade personal privacy.
-
-\begin{enumerate}[(b)]
-    \item Imagine that Brown's Department of Public Safety purchased a drone fleet, and built its recharging station atop the Science Library. Under what conditions would you be comfortable with security drones around campus?
-\end{enumerate}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{A3 (b):} Your answer here.
 
 
 
+\paragraph{A3 (c):} Your answer here.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
-Drones do not require cameras if they are remotely controlled within line of sight. However, \href{https://link.springer.com/article/10.1007/s10846-017-0483-z}{drones use increasingly-sophisticated computer vision} to aid control. One set of techniques are feature detection, description, and matching algorithms to provide correspondence between images. When applied to video, this allows drones to estimate their motion relative to the world. As such, cameras and image correspondence are foundational technologies for reliable drone localization and navigation. This enables assisted or even autonomous flying in complex environments, such as for \href{https://www.cnn.com/2019/05/01/health/drone-organ-transplant-bn-trnd/index.html}{life-saving organ delivery}. Yet, adding cameras to drones also makes them potentially capable as surveillance platforms.
+Rather than fixed-in-place cameras, one way to reduce the number of cameras needed in outdoor environments could be to use mobile cameras attached to manually-operated drones. 
+
+Drones are often used by individuals, companies, and governments for photography, with some organizations demonstrating delivery applications, too. In the U.S., the federal government has started using drones for domestic surveillance---please read the \href{https://www.eff.org/issues/surveillance-drones}{Electronic Frontier Foundation}'s summary. Drone surveillance may improve security, but it may also degrade personal privacy.
+
+% ``Drones already in use by law enforcement can carry various types of equipment including live-feed video cameras, infrared cameras, heat sensors, and radar. Some military versions can stay in the air for hours or days at a time, and their high-tech cameras can scan entire cities, or alternatively, zoom in and read a milk carton from 60,000 feet. They can also carry WiFi crackers and fake cell phone towers that can determine your location or intercept your texts and phone calls. Drone manufacturers even admit they are made to carry “less lethal” weapons such as tasers or rubber bullets."
+
+% Drone surveillance may improve security, but it may also degrade personal privacy. \\
+Imagine that Brown's Department of Public Safety purchased a drone fleet, and built its recharging station atop the Science Library. 
+
+\begin{enumerate}[(d)]
+    \item Under what conditions would you be comfortable with security drones around campus?
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\paragraph{A3 (d):} Your answer here.
 
 
-\begin{enumerate}[(c)]
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+Drones could become automatic to operate, and  \href{https://link.springer.com/article/10.1007/s10846-017-0483-z}{drones use increasingly-sophisticated computer vision} to aid control. In Project 2, we learn about feature detection, description, and matching algorithms to provide correspondence between images. When applied to video, this allows drones to estimate their motion relative to the world. Please \href{https://www.youtube.com/watch?v=jIvJuWdmemE}{watch this video} for a demonstration---at one minute in, we see the real-time feature matching in the bottom left.
+
+As such, cameras and image correspondence are foundational technologies for reliable drone localization and navigation. This enables assisted or even autonomous flying in complex environments, such as for \href{https://www.cnn.com/2019/05/01/health/drone-organ-transplant-bn-trnd/index.html}{life-saving organ delivery}. Yet, adding cameras to drones also makes them potentially capable as autonomous surveillance platforms.
+
+\begin{enumerate}[(e)]
     \item With respect to cameras, what solutions might we consider to reconcile a desire for useful drones with a desire for privacy? \\
     \emph{These might be technological, sociological, legal, etc.---wide scope.}
 \end{enumerate}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\paragraph{A3 (c):} Your answer here.
+\paragraph{A3 (e):} Your answer here.
 
 
 
