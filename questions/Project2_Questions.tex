@@ -73,19 +73,17 @@
 \or A1(b)
 \or A1(c)
 \or A2
-\or A3(a,b,c)
-\or A3(d)
-\or A3(e)
-\or A4
-\or A5(a)
-\or A5(b)
+\or A3
+\or A4(a,b,c)
+\or A4(d)
+\or A4(e)
 \or feedback
 \else
 EXTRA PAGE ADDED
 \fi
 should be on this page
 }}
-\rfoot{\thepage/13}
+\rfoot{\thepage~/ 12}
 
 \date{}
 
@@ -100,7 +98,7 @@ should be on this page
 \section*{Instructions}
 \begin{itemize}
   \item One exercise graded for completion only.
-  \item Five graded questions.
+  \item Four graded questions.
   \item Write code where appropriate.
   \item Feel free to include images or equations.
   \item Please make this document anonymous.
@@ -203,9 +201,40 @@ How do the eigenvalues of the `M' second moment matrix vary with local image bri
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
 % Please leave the pagebreak
 \pagebreak
-\paragraph{Q3:}
+\paragraph{Q3:} Given a feature point location, the SIFT algorithm converts a 16$\times$16 patch around the feature point into a 128$\times$1 descriptor of the gradient magnitudes and orientations therein. Write pseudocode \emph{with matrix/array indices} for these steps.
+
+\emph{Notes:} Do this for just one feature point at one scale; ignore the overall feature point orientation; ignore the Gaussian weighting; ignore all normalization post-processing; ignore image boundaries; ignore sub-pixel interpolation and just pick an arbitrary center within the 16$\times$16 for your descriptor. Please just explain in pseudocode how to go from the 16$\times$16 patch to the 128$\times$1 vector. You are free to simplify the gradient computation.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\paragraph{A3:} Your answer here.
+
+\begin{python}
+# You can assume access to the image, x and y gradients, and their magnitudes/orientations.
+image = imread('rara.jpg')
+grad_x = filter(image, 'sobelX')
+grad_y = filter(image, 'sobelY')
+grad_mag = sqrt( grad_x .^2 + grad_y.^2 )
+grad_ori = atan2( grad_y, grad_x )
+
+# Takes in a feature point x,y location and returns a descriptor
+def SIFTdescriptor(x, y)
+    descriptor = zeros(128,1)
+
+
+    return descriptor
+\end{python}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Please leave the pagebreak
+\pagebreak
+\paragraph{Q4:}
 Digital cameras, computer networks, and computer storage have allowed us to build large sensor networks, and Brown is no exception in their use. The Brown Daily Herald has written about this practice \href{https://www.browndailyherald.com/2008/01/10/surveillance-cameras-on-campus-triple/}{both in 2008} and \href{https://www.browndailyherald.com/2020/02/21/cameras-installed-hegeman-hall/}{in 2020}---please read these articles in chronological order.
 
 \emph{Please respond in 3-4 sentences to each question.}
@@ -235,15 +264,15 @@ Since 2015, Brown’s primary supplier of surveillance cameras---Axis Communicat
 \end{enumerate}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\paragraph{A3 (a):} Your answer here.
+\paragraph{A4 (a):} Your answer here.
 
 
 
-\paragraph{A3 (b):} Your answer here.
+\paragraph{A4 (b):} Your answer here.
 
 
 
-\paragraph{A3 (c):} Your answer here.
+\paragraph{A4 (c):} Your answer here.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -262,7 +291,7 @@ Imagine that Brown's Department of Public Safety purchased a drone fleet, and bu
 \end{enumerate}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\paragraph{A3 (d):} Your answer here.
+\paragraph{A4 (d):} Your answer here.
 
 
 
@@ -279,72 +308,52 @@ As such, cameras and image correspondence are foundational technologies for reli
 \end{enumerate}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\paragraph{A3 (e):} Your answer here.
+\paragraph{A4 (e):} Your answer here.
 
 
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-% Please leave the pagebreak
-\pagebreak
-\paragraph{Q4:} Given a feature point location, the SIFT algorithm converts a 16$\times$16 patch around the feature point into a 128$\times$1 descriptor of the gradient magnitudes and orientations therein. Write pseudocode \emph{with matrix/array indices} for these steps.
-
-\emph{Notes:} Do this for just one feature point at one scale; ignore the overall feature point orientation; ignore the Gaussian weighting; ignore all normalization post-processing; ignore image boundaries; ignore sub-pixel interpolation and just pick an arbitrary center within the 16$\times$16 for your descriptor. Please just explain in pseudocode how to go from the 16$\times$16 patch to the 128$\times$1 vector. You are free to simplify the gradient computation.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\paragraph{A4:} Your answer here.
-
-\begin{python}
-# You can assume access to the image, x and y gradients, and their magnitudes/orientations.
-image = imread('rara.jpg')
-grad_x = filter(image, 'sobelX')
-grad_y = filter(image, 'sobelY')
-grad_mag = sqrt( grad_x .^2 + grad_y.^2 )
-grad_ori = atan2( grad_y, grad_x )
-
-# Takes in a feature point x,y location and returns a descriptor
-def SIFTdescriptor(x, y)
-    descriptor = zeros(128,1)
-
-
-    return descriptor
-\end{python}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-% Please leave the pagebreak
-\pagebreak
-\paragraph{Q5:} Distance metrics for feature matching.
-
-\begin{enumerate}[(a)]
-    \item Explain the differences between the geometric interpretations of the Euclidean distance and the cosine similarity metrics. What does this tell us about when each should be used?
-\end{enumerate}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\paragraph{A5 (a):} Your answer here.
 
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\pagebreak
-\begin{enumerate}[resume*]
-    \item Given a distance metric, what is a good method for feature descriptor matching and why?
-\end{enumerate}
+
+%
+% NOT REQUIRED
+%
+
+% % Please leave the pagebreak
+% \pagebreak
+% \paragraph{Q5:} Distance metrics for feature matching.
+
+% \begin{enumerate}[(a)]
+%     \item Explain the differences between the geometric interpretations of the Euclidean distance and the cosine similarity metrics. What does this tell us about when each should be used?
+% \end{enumerate}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \paragraph{A5 (a):} Your answer here.
+
+
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \pagebreak
+% \begin{enumerate}[resume*]
+%     \item Given a distance metric, what is a good method for feature descriptor matching and why?
+% \end{enumerate}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \paragraph{A5 (b):} Your answer here.
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\paragraph{A5 (b):} Your answer here.
 
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% NOT REQUIRED
+%
 
 % \pagebreak
 % \paragraph{Secret `something to think about' (ungraded):} 
@@ -353,6 +362,7 @@ def SIFTdescriptor(x, y)
 % We are faced with a fundamental trade-off between feature point invariance (how much variation in appearance I allow and still say that two points are the same) and discriminative power (our ability to say that two points are different or the same at all). 
 
 % How should we design for this trade-off?
+
 
 \pagebreak
 \section*{Feedback? (Optional)}
