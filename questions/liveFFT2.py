@@ -26,7 +26,7 @@ them and show the Fourier transformed image alongside the original on the screen
 
 $ ./liveFFT2.py
 
-Required: A Python 3.x installation (tested on 3.5.3),
+Required: A Python 3.x installation (tested on 3.7.9),
 with: 
     - OpenCV (for camera reading)
     - numpy, matplotlib, scipy, argparse
@@ -72,7 +72,7 @@ class live_FFT2():
 
         # Camera device
         # If you have more than one camera, you can access them by cv2.VideoCapture(1), etc.
-        self.vc = cv2.VideoCapture(1)
+        self.vc = cv2.VideoCapture(0)
         if not self.vc.isOpened():
             print( "No camera found or error opening camera; using a static image instead." )
             self.use_camera = False
