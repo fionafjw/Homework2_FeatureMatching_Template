@@ -48,34 +48,34 @@ def get_interest_points(image, feature_width):
     # TODO: Your implementation here! See block comments and the project webpage for instructions
 
     # These are placeholders - replace with the coordinates of your interest points!
-    
+
+    xs = np.zeros(1)
+    ys = np.zeros(1)
+
     # STEP 1: Calculate the gradient (partial derivatives on two directions).
     # STEP 2: Apply Gaussian filter with appropriate sigma.
     # STEP 3: Calculate Harris cornerness score for all pixels.
     # STEP 4: Peak local max to eliminate clusters. (Try different parameters.)
     
     # BONUS: There are some ways to improve:
-    # 1. Making feature detection multi-scaled.
+    # 1. Making interest point detection multi-scaled.
     # 2. Use adaptive non-maximum suppression.
-    
-    xs = np.zeros(1)
-    ys = np.zeros(1)
 
     return xs, ys
 
 
 def get_features(image, x, y, feature_width):
     '''
-    Returns feature descriptors for a given set of interest points.
+    Returns features for a given set of interest points.
 
     To start with, you might want to simply use normalized patches as your
-    local feature. This is very simple to code and works OK. However, to get
-    full credit you will need to implement the more effective SIFT-like descriptor
+    local feature descriptor. This is very simple to code and works OK. However, to get
+    full credit you will need to implement the more effective SIFT-like feature descriptor
     (See Szeliski 4.1.2 or the original publications at
     http://www.cs.ubc.ca/~lowe/keypoints/)
 
     Your implementation does not need to exactly match the SIFT reference.
-    Here are the key properties your (baseline) descriptor should have:
+    Here are the key properties your (baseline) feature descriptor should have:
     (1) a 4x4 grid of cells, each feature_width / 4 pixels square.
     (2) each cell should have a histogram of the local distribution of
         gradients in 8 orientations. Appending these histograms together will
@@ -92,7 +92,7 @@ def get_features(image, x, y, feature_width):
     You do not have to explicitly compute the gradient orientation at each
     pixel (although you are free to do so). You can instead filter with
     oriented filters (e.g. a filter that responds to edges with a specific
-    orientation). All of your SIFT-like feature can be constructed entirely
+    orientation). All of your SIFT-like features can be constructed entirely
     from filtering fairly quickly in this way.
 
     You do not need to do the normalize -> threshold -> normalize again
@@ -129,18 +129,18 @@ def get_features(image, x, y, feature_width):
     # TODO: Your implementation here! See block comments and the project webpage for instructions
     
     # STEP 1: Calculate the gradient (partial derivatives on two directions) on all pixels.
-    # STEP 2: Decompose the graident vectors to magnitude and direction.
-    # STEP 3: For each feature point, calculate the local histogram based on related 4x4 grid cells.
+    # STEP 2: Decompose the gradient vectors to magnitude and direction.
+    # STEP 3: For each interest point, calculate the local histogram based on related 4x4 grid cells.
     #         Each cell is a square with feature_width / 4 pixels length of side.
     #         For each cell, we assign these gradient vectors corresponding to these pixels to 8 bins
     #         based on the direction (angle) of the gradient vectors. 
     # STEP 4: Now for each cell, we have a 8-dimensional vector. Appending the vectors in the 4x4 cells,
-    #         we have a 128-dimensional descriptor.
-    # STEP 5: Don't forget to normalize your descriptor.
+    #         we have a 128-dimensional feature.
+    # STEP 5: Don't forget to normalize your feature.
     
     # BONUS: There are some ways to improve:
-    # 1. Use multi-scaled descriptor.
-    # 2. Borrow ideas from GLOH or other type of descriptors.
+    # 1. Use a multi-scaled feature descriptor.
+    # 2. Borrow ideas from GLOH or other type of feature descriptors.
 
     # This is a placeholder - replace this with your features!
     features = np.zeros((1,128))

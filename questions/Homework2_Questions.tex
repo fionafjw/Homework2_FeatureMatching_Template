@@ -20,7 +20,7 @@
 % https://en.wikibooks.org/wiki/LaTeX
 %
 % Good luck!
-% James and the 1430 staff
+% Srinath and the 1430 staff
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -169,7 +169,7 @@ For each pair, discuss the differences in the returned corners (if any), and wha
 
 \pagebreak
 \paragraph{Q2:} 
-The Harris Corner Detector is commonly used in computer vision algorithms to find locations from which to extract stable features for image matching. 
+The Harris Corner Detector is commonly used in computer vision algorithms to find interest points from which to extract stable features for image matching. 
 
 How do the eigenvalues of the `M' second moment matrix vary with local image brightness, and how might we interpret the eigenvalues geometrically?
 
@@ -222,9 +222,9 @@ Drones do not require cameras if they are remotely controlled within line of sig
 
 % Please leave the pagebreak
 \pagebreak
-\paragraph{Q4:} Given a feature point location, the SIFT algorithm converts a 16$\times$16 patch around the feature point into a 128$\times$1 descriptor of the gradient magnitudes and orientations therein. Write pseudocode \emph{with matrix/array indices} for these steps.
+\paragraph{Q4:} Given a interest point location, the SIFT algorithm converts a 16$\times$16 patch around the interest point into a 128$\times$1 feature descriptor of the gradient magnitudes and orientations therein. Write pseudocode \emph{with matrix/array indices} for these steps.
 
-\emph{Notes:} Do this for just one feature point at one scale; ignore the overall feature point orientation; ignore the Gaussian weighting; ignore all normalization post-processing; ignore image boundaries; ignore sub-pixel interpolation and just pick an arbitrary center within the 16$\times$16 for your descriptor. Please just explain in pseudocode how to go from the 16$\times$16 patch to the 128$\times$1 vector. You are free to simplify the gradient computation.
+\emph{Notes:} Do this for just one interest point at one scale; ignore the overall interest point orientation; ignore the Gaussian weighting; ignore all normalization post-processing; ignore image boundaries; ignore sub-pixel interpolation and just pick an arbitrary center within the 16$\times$16 for your feature descriptor. Please just explain in pseudocode how to go from the 16$\times$16 patch to the 128$\times$1 vector. You are free to simplify the gradient computation.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{A4:} Your answer here.
@@ -237,7 +237,7 @@ grad_y = filter(image, 'sobelY')
 grad_mag = sqrt( grad_x .^2 + grad_y.^2 )
 grad_ori = atan2( grad_y, grad_x )
 
-# Takes in a feature point x,y location and returns a descriptor
+# Takes in a interest point x,y location and returns a feature descriptor
 def SIFTdescriptor(x, y)
     descriptor = zeros(128,1)
 
