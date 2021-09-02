@@ -28,11 +28,13 @@ def get_interest_points(image, feature_width):
 
         - skimage.feature.peak_local_max (experiment with different min_distance values to get good results)
         - skimage.measure.regionprops
-
+          
+    Note: You may decide it is unnecessary to use feature_width in get_interest_points, or you may also decide to 
+    use this parameter to exclude the points near image edges.
 
     :params:
     :image: a grayscale or color image (your choice depending on your implementation)
-    :feature_width:
+    :feature_width: the width and height of each local feature in pixels
 
     :returns:
     :xs: an np array of the x coordinates of the interest points in the image
