@@ -119,7 +119,8 @@ def get_features(image, x, y, feature_width):
                     that feature_width will be a multiple of 4 (i.e. every cell of your
                     local SIFT-like feature will have an integer width and height).
     If you want to detect and describe features at multiple scales or
-    particular orientations you can add input arguments.
+    particular orientations you can add input arguments. Make sure input arguments 
+    are optional or the autograder will break.
 
     :returns:
     :features: np array of computed features. It should be of size
