@@ -187,7 +187,7 @@ def match_features(im1_features, im2_features):
     # These are placeholders - replace with your matches and confidences!
     
     # STEP 1: Calculate the distances between each pairs of features between im1_features and im2_features.
-    #         HINT: https://docs.google.com/document/d/1SlzMaiS4rq6M8ySDXZTgUH_tyVV2rBQQzb_c1PQZfKI/edit
+    #         HINT: https://browncsci1430.github.io/webpage/resources/efficient_sift/
     # STEP 2: Sort and find closest features for each feature, then performs NNDR test.
     
     # BONUS: Using PCA might help the speed (but maybe not the accuracy).
