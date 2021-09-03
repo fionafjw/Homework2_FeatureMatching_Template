@@ -146,7 +146,7 @@ def get_features(image, x, y, feature_width):
     # 2. Borrow ideas from GLOH or other type of feature descriptors.
 
     # This is a placeholder - replace this with your features!
-    features = np.zeros((1,128))
+    features = np.zeros((len(x),128))
 
     return features
 
