@@ -53,6 +53,8 @@ def get_interest_points(image, feature_width):
 
     xs = np.zeros(1)
     ys = np.zeros(1)
+    # Note that xs and ys represent the coordinates of the image. Thus, xs actually denote the columns
+    # of the respective points and ys denote the rows of the respective points.
 
     # STEP 1: Calculate the gradient (partial derivatives on two directions).
     # STEP 2: Apply Gaussian filter with appropriate sigma.
