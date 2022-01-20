@@ -150,8 +150,9 @@ def main():
 
     # (x1, y1, x2, y2) = cheat_interest_points(eval_file, scale_factor)
 
-    # if you want to view your corners uncomment these next lines!
 
+    # Viewing your interest points on your images.
+    # !!! You will need to implement plot_interest_points. !!!
     student.plot_interest_points(image1, x1, y1)
     student.plot_interest_points(image2, x2, y2)
 
