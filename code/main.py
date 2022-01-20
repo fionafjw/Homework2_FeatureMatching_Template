@@ -26,10 +26,11 @@ from helpers import cheat_interest_points, evaluate_correspondence
 # This script
 # (1) Loads and resizes images
 # (2) Finds interest points in those images                 (you code this)
-# (3) Describes each interest point with a local feature    (you code this)
-# (4) Finds matching features                               (you code this)
-# (5) Visualizes the matches
-# (6) Evaluates the matches based on ground truth correspondences
+# (3) Visualizes interest points on these images            (you code this)
+# (4) Describes each interest point with a local feature    (you code this)
+# (5) Finds matching features                               (you code this)
+# (6) Visualizes the matches
+# (7) Evaluates the matches based on ground truth correspondences
 
 def load_data(file_name):
     """
@@ -151,13 +152,8 @@ def main():
 
     # if you want to view your corners uncomment these next lines!
 
-    # plt.imshow(image1, cmap="gray")
-    # plt.scatter(x1, y1, alpha=0.9, s=3)
-    # plt.show()
-
-    # plt.imshow(image2, cmap="gray")
-    # plt.scatter(x2, y2, alpha=0.9, s=3)
-    # plt.show()
+    student.plot_interest_points(image1, x1, y1)
+    student.plot_interest_points(image2, x2, y2)
 
     print("Done!")
 

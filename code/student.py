@@ -3,6 +3,22 @@ import matplotlib.pyplot as plt
 from skimage import filters, feature, img_as_int
 from skimage.measure import regionprops
 
+def plot_interest_points(image, x, y):
+    '''
+    Plot interest points for the input image. 
+    
+    Show the interest points given on the input image. Be sure to add the images you make to your writeup. 
+
+    Useful functions: Some helpful (not necessarily required) functions may include
+        - matplotlib.pyplot.imshow, matplotlib.pyplot.scatter, matplotlib.pyplot.show, matplotlib.pyplot.savefig
+    
+    :params:
+    :image: a grayscale or color image (your choice depending on your implementation)
+    :x: np array of x coordinates of interest points
+    :y: np array of y coordinates of interest points
+    '''
+
+    # TODO: Your implementation here! See block comments and the project webpage for instructions
 
 def get_interest_points(image, feature_width):
     '''
