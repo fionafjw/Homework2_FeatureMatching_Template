@@ -64,7 +64,26 @@
 \fancyhf{}
 \lhead{Homework 2 Questions}
 \rhead{CSCI 1430}
-\rfoot{\thepage}
+\lfoot{\textcolor{red}{Only 
+\ifcase\thepage
+\or instructions
+\or E1 results
+\or E1 results
+\or A1(a)
+\or A1(b)
+\or A1(c)
+\or A2
+\or A3
+\or A4(a,b,c)
+\or A4(d)
+\or A4(e)
+\or feedback
+\else
+EXTRA PAGE ADDED
+\fi
+should be on this page
+}}
+\rfoot{\thepage~/ 12}
 
 \date{}
 
@@ -78,8 +97,8 @@
 
 \section*{Instructions}
 \begin{itemize}
-  \item One exercise graded for completion only. 
-  \item Five graded questions.
+  \item One exercise graded for completion only.
+  \item Four graded questions.
   \item Write code where appropriate.
   \item Feel free to include images or equations.
   \item Please make this document anonymous.
@@ -90,7 +109,7 @@
 
 \section*{Exercise}
 
-\paragraph{E1:} Let's look again at the webcam Fourier decomposition demo which Srinath showed in class. Let's run it in our CSCI 1430 virtual environment \emph{preferably on a computer with a webcam}, from within the 'questions' directory.
+\paragraph{E1:} Let's look again at the webcam Fourier decomposition demo which James showed in class. Let's run it in our CSCI 1430 virtual environment \emph{preferably on a computer with a webcam}, from within the 'questions' directory.
 
 \begin{verbatim}
 $ python liveFFT2.py
@@ -129,12 +148,12 @@ Extra space
 \pagebreak
 \section*{Questions}
 
-\paragraph{Q1:} Imagine we wished to find points in one image which matched to the same world point in another image---so-called feature point correspondence matching. We are tasked with designing an image feature point algorithm which could match world points in the following three pairs of images. 
+\paragraph{Q1:} Imagine we wished to find points in one image which matched to the same world point in another image---so-called feature point correspondence matching. We are tasked with designing an image feature point algorithm which could match world points in the following three pairs of images.
 \newline
 \newline
 \emph{RISHLibrary:} \href{RISHLibrary1.jpg}{One} \href{RISHLibrary2.jpg}{Two} | \emph{Chase:} \href{Chase1.jpg}{One} \href{Chase2.jpg}{Two} | \emph{LaddObservatory:} \href{LaddObservatory1.jpg}{One} \href{LaddObservatory2.jpg}{Two}
 
-Please use the included python script \texttt{plot\_corners.py} to find corners using Harris corner detection for each image above. 
+Please use the included python script \texttt{plot\_corners.py} to find corners using Harris corner detection for each image above.
 
 For each pair, discuss the differences in the returned corners (if any), and what aspects of the images may have caused these differences. Then discuss what real world challenges exist in matching features between images.
 
@@ -171,7 +190,7 @@ For each pair, discuss the differences in the returned corners (if any), and wha
 \paragraph{Q2:} 
 The Harris Corner Detector is commonly used in computer vision algorithms to find interest points from which to extract stable features for image matching. 
 
-How do the eigenvalues of the `M' second moment matrix vary with local image brightness, and how might we interpret the eigenvalues geometrically?
+How do the eigenvalues of the `M' second moment matrix vary with local image brightness, and how might we interpret the eigenvalues geometrically (think `shape')?
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{A2:} Your answer here.
@@ -181,6 +200,7 @@ How do the eigenvalues of the `M' second moment matrix vary with local image bri
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 % Please leave the pagebreak
 \pagebreak
@@ -213,6 +233,7 @@ Drones are often used by individuals, companies, and governments for photography
 \paragraph{A3 (b):} Your answer here.
 
 
+\paragraph{A4 (c):} Your answer here.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -235,7 +256,10 @@ As such, cameras and image correspondence are foundational technologies for reli
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+Drones could become automatic to operate, and  \href{https://link.springer.com/article/10.1007/s10846-017-0483-z}{drones use increasingly-sophisticated computer vision} to aid control. In Project 2, we learn about feature detection, description, and matching algorithms to provide correspondence between images. When applied to video, this allows drones to estimate their motion relative to the world. Please \href{https://www.youtube.com/watch?v=jIvJuWdmemE}{watch this video} for a demonstration---at one minute in, we see the real-time feature matching in the bottom left.
 
+As such, cameras and image correspondence are foundational technologies for reliable drone localization and navigation. This enables assisted or even autonomous flying in complex environments, such as for \href{https://www.cnn.com/2019/05/01/health/drone-organ-transplant-bn-trnd/index.html}{life-saving organ delivery}. Yet, adding cameras to drones also makes them potentially capable as autonomous surveillance platforms.
 
 % Please leave the pagebreak
 \pagebreak
@@ -244,57 +268,55 @@ As such, cameras and image correspondence are foundational technologies for reli
 \emph{Notes:} Do this for just one interest point at one scale; ignore the overall interest point orientation; ignore the Gaussian weighting; ignore all normalization post-processing; ignore image boundaries; ignore sub-pixel interpolation and just pick an arbitrary center within the 16$\times$16 for your feature descriptor. Please just explain in pseudocode how to go from the 16$\times$16 patch to the 128$\times$1 vector. You are free to simplify the gradient computation.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\paragraph{A4:} Your answer here.
+\paragraph{A4 (e):} Your answer here.
 
-\begin{python}
-# You can assume access to the image, x and y gradients, and their magnitudes/orientations.
-image = imread('rara.jpg')
-grad_x = filter(image, 'sobelX')
-grad_y = filter(image, 'sobelY')
-grad_mag = sqrt( grad_x .^2 + grad_y.^2 )
-grad_ori = atan2( grad_y, grad_x )
 
 # Takes in a interest point x,y location and returns a feature descriptor
 def SIFTdescriptor(x, y)
     descriptor = zeros(128,1)
 
 
-    return descriptor
-\end{python}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+%
+% NOT REQUIRED
+%
 
-% Please leave the pagebreak
-\pagebreak
-\paragraph{Q5:} Distance metrics for feature matching.
+% % Please leave the pagebreak
+% \pagebreak
+% \paragraph{Q5:} Distance metrics for feature matching.
 
-\begin{enumerate}[(a)]
-    \item Explain the differences between the geometric interpretations of the Euclidean distance and the cosine similarity metrics. What does this tell us about when each should be used?
-\end{enumerate}
+% \begin{enumerate}[(a)]
+%     \item Explain the differences between the geometric interpretations of the Euclidean distance and the cosine similarity metrics. What does this tell us about when each should be used?
+% \end{enumerate}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \paragraph{A5 (a):} Your answer here.
+
+
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \pagebreak
+% \begin{enumerate}[resume*]
+%     \item Given a distance metric, what is a good method for feature descriptor matching and why?
+% \end{enumerate}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \paragraph{A5 (b):} Your answer here.
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\paragraph{A5 (a):} Your answer here.
 
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\pagebreak
-\begin{enumerate}[resume*]
-    \item Given a distance metric, what is a good method for feature descriptor matching and why?
-\end{enumerate}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\paragraph{A5 (b):} Your answer here.
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% NOT REQUIRED
+%
 
 % \pagebreak
 % \paragraph{Secret `something to think about' (ungraded):} 
@@ -303,6 +325,7 @@ def SIFTdescriptor(x, y)
 % We are faced with a fundamental trade-off between feature point invariance (how much variation in appearance I allow and still say that two points are the same) and discriminative power (our ability to say that two points are different or the same at all). 
 
 % How should we design for this trade-off?
+
 
 \pagebreak
 \section*{Feedback? (Optional)}
