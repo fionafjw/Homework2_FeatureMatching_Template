@@ -3,6 +3,22 @@ import matplotlib.pyplot as plt
 from skimage import filters, feature, img_as_int
 from skimage.measure import regionprops
 
+def plot_interest_points(image, x, y):
+    '''
+    Plot interest points for the input image. 
+    
+    Show the interest points given on the input image. Be sure to add the images you make to your writeup. 
+
+    Useful functions: Some helpful (not necessarily required) functions may include
+        - matplotlib.pyplot.imshow, matplotlib.pyplot.scatter, matplotlib.pyplot.show, matplotlib.pyplot.savefig
+    
+    :params:
+    :image: a grayscale or color image (your choice depending on your implementation)
+    :x: np array of x coordinates of interest points
+    :y: np array of y coordinates of interest points
+    '''
+
+    # TODO: Your implementation here! See block comments and the project webpage for instructions
 
 def get_interest_points(image, feature_width):
     '''
@@ -28,11 +44,13 @@ def get_interest_points(image, feature_width):
 
         - skimage.feature.peak_local_max (experiment with different min_distance values to get good results)
         - skimage.measure.regionprops
-
+          
+    Note: You may decide it is unnecessary to use feature_width in get_interest_points, or you may also decide to 
+    use this parameter to exclude the points near image edges.
 
     :params:
     :image: a grayscale or color image (your choice depending on your implementation)
-    :feature_width:
+    :feature_width: the width and height of each local feature in pixels
 
     :returns:
     :xs: an np array of the x coordinates of the interest points in the image
@@ -48,34 +66,36 @@ def get_interest_points(image, feature_width):
     # TODO: Your implementation here! See block comments and the project webpage for instructions
 
     # These are placeholders - replace with the coordinates of your interest points!
-    
+
+    xs = np.zeros(1)
+    ys = np.zeros(1)
+    # Note that xs and ys represent the coordinates of the image. Thus, xs actually denote the columns
+    # of the respective points and ys denote the rows of the respective points.
+
     # STEP 1: Calculate the gradient (partial derivatives on two directions).
     # STEP 2: Apply Gaussian filter with appropriate sigma.
     # STEP 3: Calculate Harris cornerness score for all pixels.
     # STEP 4: Peak local max to eliminate clusters. (Try different parameters.)
     
     # BONUS: There are some ways to improve:
-    # 1. Making feature detection multi-scaled.
+    # 1. Making interest point detection multi-scaled.
     # 2. Use adaptive non-maximum suppression.
-    
-    xs = np.zeros(1)
-    ys = np.zeros(1)
 
     return xs, ys
 
 
 def get_features(image, x, y, feature_width):
     '''
-    Returns feature descriptors for a given set of interest points.
+    Returns features for a given set of interest points.
 
     To start with, you might want to simply use normalized patches as your
-    local feature. This is very simple to code and works OK. However, to get
-    full credit you will need to implement the more effective SIFT-like descriptor
+    local feature descriptor. This is very simple to code and works OK. However, to get
+    full credit you will need to implement the more effective SIFT-like feature descriptor
     (See Szeliski 4.1.2 or the original publications at
     http://www.cs.ubc.ca/~lowe/keypoints/)
 
     Your implementation does not need to exactly match the SIFT reference.
-    Here are the key properties your (baseline) descriptor should have:
+    Here are the key properties your (baseline) feature descriptor should have:
     (1) a 4x4 grid of cells, each feature_width / 4 pixels square.
     (2) each cell should have a histogram of the local distribution of
         gradients in 8 orientations. Appending these histograms together will
@@ -92,7 +112,7 @@ def get_features(image, x, y, feature_width):
     You do not have to explicitly compute the gradient orientation at each
     pixel (although you are free to do so). You can instead filter with
     oriented filters (e.g. a filter that responds to edges with a specific
-    orientation). All of your SIFT-like feature can be constructed entirely
+    orientation). All of your SIFT-like features can be constructed entirely
     from filtering fairly quickly in this way.
 
     You do not need to do the normalize -> threshold -> normalize again
@@ -117,7 +137,8 @@ def get_features(image, x, y, feature_width):
                     that feature_width will be a multiple of 4 (i.e. every cell of your
                     local SIFT-like feature will have an integer width and height).
     If you want to detect and describe features at multiple scales or
-    particular orientations you can add input arguments.
+    particular orientations you can add input arguments. Make sure input arguments 
+    are optional or the autograder will break.
 
     :returns:
     :features: np array of computed features. It should be of size
@@ -129,21 +150,21 @@ def get_features(image, x, y, feature_width):
     # TODO: Your implementation here! See block comments and the project webpage for instructions
     
     # STEP 1: Calculate the gradient (partial derivatives on two directions) on all pixels.
-    # STEP 2: Decompose the graident vectors to magnitude and direction.
-    # STEP 3: For each feature point, calculate the local histogram based on related 4x4 grid cells.
+    # STEP 2: Decompose the gradient vectors to magnitude and direction.
+    # STEP 3: For each interest point, calculate the local histogram based on related 4x4 grid cells.
     #         Each cell is a square with feature_width / 4 pixels length of side.
     #         For each cell, we assign these gradient vectors corresponding to these pixels to 8 bins
     #         based on the direction (angle) of the gradient vectors. 
     # STEP 4: Now for each cell, we have a 8-dimensional vector. Appending the vectors in the 4x4 cells,
-    #         we have a 128-dimensional descriptor.
-    # STEP 5: Don't forget to normalize your descriptor.
+    #         we have a 128-dimensional feature.
+    # STEP 5: Don't forget to normalize your feature.
     
     # BONUS: There are some ways to improve:
-    # 1. Use multi-scaled descriptor.
-    # 2. Borrow ideas from GLOH or other type of descriptors.
+    # 1. Use a multi-scaled feature descriptor.
+    # 2. Borrow ideas from GLOH or other type of feature descriptors.
 
     # This is a placeholder - replace this with your features!
-    features = np.zeros((2,128))
+    features = np.zeros((len(x),128))
 
     return features
 
@@ -184,7 +205,7 @@ def match_features(im1_features, im2_features):
     # These are placeholders - replace with your matches and confidences!
     
     # STEP 1: Calculate the distances between each pairs of features between im1_features and im2_features.
-    #         HINT: https://docs.google.com/document/d/1SlzMaiS4rq6M8ySDXZTgUH_tyVV2rBQQzb_c1PQZfKI/edit
+    #         HINT: https://browncsci1430.github.io/webpage/hw2_featurematching/efficient_sift/
     # STEP 2: Sort and find closest features for each feature, then performs NNDR test.
     
     # BONUS: Using PCA might help the speed (but maybe not the accuracy).

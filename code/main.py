@@ -26,10 +26,11 @@ from helpers import cheat_interest_points, evaluate_correspondence
 # This script
 # (1) Loads and resizes images
 # (2) Finds interest points in those images                 (you code this)
-# (3) Describes each interest point with a local feature    (you code this)
-# (4) Finds matching features                               (you code this)
-# (5) Visualizes the matches
-# (6) Evaluates the matches based on ground truth correspondences
+# (3) Visualizes interest points on these images            (you code this)
+# (4) Describes each interest point with a local feature    (you code this)
+# (5) Finds matching features                               (you code this)
+# (6) Visualizes the matches
+# (7) Evaluates the matches based on ground truth correspondences
 
 def load_data(file_name):
     """
@@ -45,19 +46,20 @@ def load_data(file_name):
      for this project), but you will need local features at multiple scales to
      handle harder cases.
 
-     If you want to add new images to test, create a new elif of the same format as those
-     for notre_dame, mt_rushmore, etc. You do not need to set the eval_file variable unless
-     you hand create a ground truth annotations. To run with your new images use
-     python main.py -d <your file name>.
+     If you want to add new images to test, replace the two images in the 
+     `custom` folder with your own image pairs. Make sure that the names match 
+     the ones in the elif for the custom folder. To run with your new images 
+     use python main.py -d custom.
 
     :param file_name: string for which image pair to compute correspondence for
 
-        The first three strings can be used as shortcuts to the
+        The first four strings can be used as shortcuts to the
         data files we give you
 
         1. notre_dame
         2. mt_rushmore
         3. e_gaudi
+        4. custom
 
     :return: a tuple of the format (image1, image2, eval file)
     """
@@ -78,6 +80,10 @@ def load_data(file_name):
         image1_file = "../data/EpiscopalGaudi/EGaudi_1.jpg"
         image2_file = "../data/EpiscopalGaudi/EGaudi_2.jpg"
         eval_file = "../data/EpiscopalGaudi/EGaudiEval.mat"
+    elif file_name == "custom":
+        image1_file = "../data/Custom/custom1.jpg"
+        image2_file = "../data/Custom/custom2.jpg"
+        eval_file = None
 
     image1 = img_as_float32(io.imread(image1_file))
     image2 = img_as_float32(io.imread(image2_file))
@@ -98,8 +104,8 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-d", "--data",
                         required=True,
-                        choices=["notre_dame","mt_rushmore","e_gaudi"],
-                        help="Either notre_dame, mt_rushmore, or e_gaudi. Specifies which image pair to match")
+                        choices=["notre_dame","mt_rushmore","e_gaudi", "custom"],
+                        help="Either notre_dame, mt_rushmore, e_gaudi, or custom. Specifies which image pair to match")
     args = parser.parse_args()
 
     # (1) Load in the data
@@ -144,15 +150,11 @@ def main():
 
     # (x1, y1, x2, y2) = cheat_interest_points(eval_file, scale_factor)
 
-    # if you want to view your corners uncomment these next lines!
 
-    # plt.imshow(image1, cmap="gray")
-    # plt.scatter(x1, y1, alpha=0.9, s=3)
-    # plt.show()
-
-    # plt.imshow(image2, cmap="gray")
-    # plt.scatter(x2, y2, alpha=0.9, s=3)
-    # plt.show()
+    # Viewing your interest points on your images.
+    # !!! You will need to implement plot_interest_points. !!!
+    student.plot_interest_points(image1, x1, y1)
+    student.plot_interest_points(image2, x2, y2)
 
     print("Done!")
 
@@ -189,9 +191,14 @@ def main():
     print("Matches: " + str(matches.shape[0]))
 
     num_pts_to_visualize = 50
-
-    evaluate_correspondence(image1_color, image2_color, eval_file, scale_factor,
-        x1, y1, x2, y2, matches, confidences, num_pts_to_visualize, args.data + '_matches.png')
+    
+    if args.data == "custom":
+        print("Visualizing on custom images...")
+        visualize.show_correspondences_custom_image(image1_color, image2_color, x1, y1, x2, 
+            y2, matches, scale_factor, num_pts_to_visualize, args.data + '_matches.png')
+    else:
+        evaluate_correspondence(image1_color, image2_color, eval_file, scale_factor,
+            x1, y1, x2, y2, matches, confidences, num_pts_to_visualize, args.data + '_matches.png')
 
     return
 

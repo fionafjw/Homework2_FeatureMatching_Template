@@ -26,10 +26,10 @@ def cheat_interest_points(eval_file, scale_factor):
 	x2 = x2 * scale_factor
 	y2 = y2 * scale_factor
 
-	x1 = x1.reshape(-1)
-	y1 = y1.reshape(-1)
-	x2 = x2.reshape(-1)
-	y2 = y2.reshape(-1)
+	x1 = int(x1.reshape(-1))
+	y1 = int(y1.reshape(-1))
+	x2 = int(x2.reshape(-1))
+	y2 = int(y2.reshape(-1))
 
 	return x1, y1, x2, y2
 
