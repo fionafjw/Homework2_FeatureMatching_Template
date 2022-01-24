@@ -67,6 +67,9 @@
 \lfoot{\textcolor{red}{Only 
 \ifcase\thepage
 \or instructions
+\or A1
+\or A2
+\or instructions
 \or E1 results
 \or E1 results
 \or A1(a)
@@ -74,9 +77,6 @@
 \or A1(c)
 \or A2
 \or A3
-\or A4(a,b,c)
-\or A4(d)
-\or A4(e)
 \or feedback
 \else
 EXTRA PAGE ADDED
@@ -97,15 +97,38 @@ should be on this page
 
 \section*{Instructions}
 \begin{itemize}
-  \item One exercise graded for completion only.
-  \item Four graded questions.
+  \item 2 ethical implications questions.
+  \item 1 exercise graded for completion only.
+  \item 4 graded technical questions.
   \item Write code where appropriate.
   \item Feel free to include images or equations.
   \item Please make this document anonymous.
   \item This assignment is \textbf{fixed length}, and the pages have been assigned for you in Gradescope. As a result, \textbf{please do NOT add any new pages}. We will provide ample room for you to answer the questions. If you \emph{really} wish for more space, please add a page \emph{at the end of the document}.
   \item \textbf{We do NOT expect you to fill up each page with your answer.} Some answers will only be a few sentences long, and that is okay.
 \end{itemize}
+\pagebreak
+\section*{Ethical Implications}
 
+\paragraph{Q1:} One use of local feature extraction and matching is \href{https://www.youtube.com/watch?v=xD88Qs_DZp4}{fingerprint recognition}. Fingerprint recognition, like face and iris recognition, makes use of biometric data, or measurements of human features. Fingerprint recognition is convenient as a mechanism to unlock devices without needing to remember yet another password, and is more secure than passwords in certain ways. However, the collection of biometric data also raises unique privacy and security concerns.
+
+Please find a news or opinion article discussing pros and cons of using biometric data and link it here. Discuss 3 points in the article that you agree and/or disagree with. What are three groups of people that could be impacted by the use of biometric data and how? [6-7 sentences]
+
+\paragraph{A1:} Your answer here.
+\pagebreak
+
+\paragraph{Q2:} Brown University decides to use biometric data instead of requiring passwords for the login system. For your CS1430 final project, you are put in charge of developing the authentication system by expanding on your local feature matching project. All users will be required to use your biometric authentication system to log into their Brown accounts. 
+
+Please discuss and justify your design choices for: 
+\begin{itemize}
+	\item What information to provide to users about the system
+	\item What kind of biometric data to use (fingerprint, iris, facial, etc.)
+	\item How to store that information 
+\end{itemize}
+Remember to consider accessibility, privacy, and security in your responses. \href{https://ievoreader.com/how-biometric-data-is-stored/}{This article} will be helpful for responding to the final question. Please link to any additional sources you use to inform your decisions.
+[6-7 sentences]
+
+\paragraph{A2:} Your answer here.
+\pagebreak
 
 \section*{Exercise}
 
@@ -146,7 +169,7 @@ Extra space
 
 % Please leave the pagebreak
 \pagebreak
-\section*{Questions}
+\section*{Technical Questions}
 
 \paragraph{Q1:} Imagine we wished to find points in one image which matched to the same world point in another image---so-called feature point correspondence matching. We are tasked with designing an image feature point algorithm which could match world points in the following three pairs of images.
 \newline
@@ -204,71 +227,12 @@ How do the eigenvalues of the `M' second moment matrix vary with local image bri
 
 % Please leave the pagebreak
 \pagebreak
-\paragraph{Q3:} Goal: Understand who can collect and control surveillance data and reflect on the nature of the relationship between the subjects of that data and other stakeholders.
-
-Please read this \href{https://www.browndailyherald.com/2008/01/10/surveillance-cameras-on-campus-triple/}{2008 Brown Daily Herald article} describing the gradual increase in surveillance cameras on Brown’s campus. Then, read this \href{https://www.browndailyherald.com/2020/02/21/cameras-installed-hegeman-hall/}{2020 Brown Daily Herald article}, which mentions that there are now 800 surveillance cameras on campus, about as many cameras as full-time faculty. Note, that since 2015 Axis Communication, Brown’s primary supplier of surveillance cameras has \href{https://www.axis.com/customer-story/3767}{advertised} its cameras’ abilities to perform onboard facial recognition. 
-
-\begin{enumerate}[(a)]
-    \item Were you aware of Brown’s high number of surveillance cameras before reading these articles? Do you have any concerns? Provide an argument both for and against this surveillance system. (4--5 sentences)
-\end{enumerate}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\paragraph{A3 (a):} Your answer here.
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
-
-Drones are often used by individuals, companies, and governments for photography, with some organizations demonstrating delivery applications, too. In the U.S., the federal government has started using drones for domestic surveillance. From the \href{https://www.eff.org/issues/surveillance-drones}{Electronic Frontier Foundation}: 
-    
-``Drones already in use by law enforcement can carry various types of equipment including live-feed video cameras, infrared cameras, heat sensors, and radar. Some military versions can stay in the air for hours or days at a time, and their high-tech cameras can scan entire cities, or alternatively, zoom in and read a milk carton from 60,000 feet. They can also carry WiFi crackers and fake cell phone towers that can determine your location or intercept your texts and phone calls. Drone manufacturers even admit they are made to carry “less lethal” weapons such as tasers or rubber bullets."
-
- Drone surveillance may improve security, but have also been used to perpetrate human rights violations.
-
-\begin{enumerate}[(b)]
-    \item Imagine in 2 years’ time, in response to the growing backlash against the proliferation of surveillance cameras, Brown’s Department of Public Safety (DPS) is considering purchasing a small drone fleet and is phasing out its surveillance cameras, so instead of 800 surveillance cameras there are only a handful of drones that will patrol campus. Who should be involved in making this decision and what factors should they consider? (3--4 sentences)
-\end{enumerate}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\paragraph{A3 (b):} Your answer here.
-
-
-\paragraph{A4 (c):} Your answer here.
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
-Drones do not require cameras if they are remotely controlled within line of sight. However, \href{https://link.springer.com/article/10.1007/s10846-017-0483-z}{drones use increasingly-sophisticated computer vision} to aid control. In Homework 2, we learn about feature detection, description,and matching algorithms to provide correspondence between images. When applied to video, this allows drones to estimate their motion relative to the world. Please watch \href{https://www.youtube.com/watch?v=jIvJuWdmemE}{this video} for a demonstration—at one minute in, we see the real-time feature matching in the bottom left. 
-
-As such, cameras and image correspondence are foundational technologies for reliable drone localization and navigation. Yet, adding cameras to drones also makes them potentially capable as surveillance platforms.
-
-
-
-\begin{enumerate}[(c)]
-    \item With respect to cameras, find and cite a source for a solution we might consider to reconcile a desire for useful drones with a desire for privacy (3--4 sentences) \\
-    \emph{These might be technological, sociological, legal, etc.---wide scope.}
-\end{enumerate}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\paragraph{A3 (c):} Your answer here.
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
-Drones could become automatic to operate, and  \href{https://link.springer.com/article/10.1007/s10846-017-0483-z}{drones use increasingly-sophisticated computer vision} to aid control. In Project 2, we learn about feature detection, description, and matching algorithms to provide correspondence between images. When applied to video, this allows drones to estimate their motion relative to the world. Please \href{https://www.youtube.com/watch?v=jIvJuWdmemE}{watch this video} for a demonstration---at one minute in, we see the real-time feature matching in the bottom left.
-
-As such, cameras and image correspondence are foundational technologies for reliable drone localization and navigation. This enables assisted or even autonomous flying in complex environments, such as for \href{https://www.cnn.com/2019/05/01/health/drone-organ-transplant-bn-trnd/index.html}{life-saving organ delivery}. Yet, adding cameras to drones also makes them potentially capable as autonomous surveillance platforms.
-
-% Please leave the pagebreak
-\pagebreak
-\paragraph{Q4:} Given a interest point location, the SIFT algorithm converts a 16$\times$16 patch around the interest point into a 128$\times$1 feature descriptor of the gradient magnitudes and orientations therein. Write pseudocode \emph{with matrix/array indices} for these steps.
+\paragraph{Q3:} Given a interest point location, the SIFT algorithm converts a 16$\times$16 patch around the interest point into a 128$\times$1 feature descriptor of the gradient magnitudes and orientations therein. Write pseudocode \emph{with matrix/array indices} for these steps.
 
 \emph{Notes:} Do this for just one interest point at one scale; ignore the overall interest point orientation; ignore the Gaussian weighting; ignore all normalization post-processing; ignore image boundaries; ignore sub-pixel interpolation and just pick an arbitrary center within the 16$\times$16 for your feature descriptor. Please just explain in pseudocode how to go from the 16$\times$16 patch to the 128$\times$1 vector. You are free to simplify the gradient computation.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\paragraph{A4 (e):} Your answer here.
+\paragraph{A3:} Your answer here.
 
 
 # Takes in a interest point x,y location and returns a feature descriptor
