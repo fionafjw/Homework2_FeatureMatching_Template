@@ -235,11 +235,20 @@ How do the eigenvalues of the `M' second moment matrix vary with local image bri
 \paragraph{A3:} Your answer here.
 
 
+\begin{python}
+# You can assume access to the image, x and y gradients, and their magnitudes/orientations.
+image = imread('rara.jpg')
+grad_x = filter(image, 'sobelX')
+grad_y = filter(image, 'sobelY')
+grad_mag = sqrt( grad_x .^2 + grad_y.^2 )
+grad_ori = atan2( grad_y, grad_x )
+
 # Takes in a interest point x,y location and returns a feature descriptor
 def SIFTdescriptor(x, y)
     descriptor = zeros(128,1)
 
-
+    return descriptor
+\end{python}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
