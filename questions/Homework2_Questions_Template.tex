@@ -72,11 +72,11 @@
 \or instructions
 \or E1 results
 \or E1 results
-\or A1(a)
-\or A1(b)
-\or A1(c)
-\or A2
-\or A3
+\or A3(a)
+\or A3(b)
+\or A3(c)
+\or A4
+\or A5
 \or feedback
 \else
 EXTRA PAGE ADDED
@@ -170,7 +170,7 @@ Extra space
 \pagebreak
 \section*{Technical Questions}
 
-\paragraph{Q1:} Imagine we wished to find points in one image which matched to the same world point in another image---so-called feature point correspondence matching. We are tasked with designing an image feature point algorithm which could match world points in the following three pairs of images.
+\paragraph{Q3:} Imagine we wished to find points in one image which matched to the same world point in another image---so-called feature point correspondence matching. We are tasked with designing an image feature point algorithm which could match world points in the following three pairs of images.
 \newline
 \newline
 \emph{RISHLibrary:} \href{RISHLibrary1.jpg}{One} \href{RISHLibrary2.jpg}{Two} | \emph{Chase:} \href{Chase1.jpg}{One} \href{Chase2.jpg}{Two} | \emph{LaddObservatory:} \href{LaddObservatory1.jpg}{One} \href{LaddObservatory2.jpg}{Two}
@@ -181,7 +181,7 @@ For each pair, discuss the differences in the returned corners (if any), and wha
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\paragraph{A1 (a):} Answer for RISHLibrary pair
+\paragraph{A3 (a):} Answer for RISHLibrary pair
 
 
 
@@ -189,7 +189,7 @@ For each pair, discuss the differences in the returned corners (if any), and wha
 
 
 \pagebreak
-\paragraph{A1 (b):} Answer for Chase pair
+\paragraph{A3 (b):} Answer for Chase pair
 
 
 
@@ -197,7 +197,7 @@ For each pair, discuss the differences in the returned corners (if any), and wha
 
 
 \pagebreak
-\paragraph{A1 (c):} Answer for LaddObservatory pair
+\paragraph{A3 (c):} Answer for LaddObservatory pair
 
 
 
@@ -209,13 +209,13 @@ For each pair, discuss the differences in the returned corners (if any), and wha
 % Please leave the pagebreak
 
 \pagebreak
-\paragraph{Q2:} 
+\paragraph{Q4:} 
 The Harris Corner Detector is commonly used in computer vision algorithms to find interest points from which to extract stable features for image matching. 
 
 How do the eigenvalues of the `M' second moment matrix vary with local image brightness, and how might we interpret the eigenvalues geometrically (think `shape')?
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\paragraph{A2:} Your answer here.
+\paragraph{A4:} Your answer here.
 
 
 
@@ -226,12 +226,12 @@ How do the eigenvalues of the `M' second moment matrix vary with local image bri
 
 % Please leave the pagebreak
 \pagebreak
-\paragraph{Q3:} Given a interest point location, the SIFT algorithm converts a 16$\times$16 patch around the interest point into a 128$\times$1 feature descriptor of the gradient magnitudes and orientations therein. Write pseudocode \emph{with matrix/array indices} for these steps.
+\paragraph{Q5:} Given a interest point location, the SIFT algorithm converts a 16$\times$16 patch around the interest point into a 128$\times$1 feature descriptor of the gradient magnitudes and orientations therein. Write pseudocode \emph{with matrix/array indices} for these steps.
 
 \emph{Notes:} Do this for just one interest point at one scale; ignore the overall interest point orientation; ignore the Gaussian weighting; ignore all normalization post-processing; ignore image boundaries; ignore sub-pixel interpolation and just pick an arbitrary center within the 16$\times$16 for your feature descriptor. Please just explain in pseudocode how to go from the 16$\times$16 patch to the 128$\times$1 vector. You are free to simplify the gradient computation.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\paragraph{A3:} Your answer here.
+\paragraph{A5:} Your answer here.
 
 
 \begin{python}
