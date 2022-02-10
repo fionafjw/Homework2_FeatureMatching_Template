@@ -97,7 +97,7 @@ should be on this page
 
 \section*{Instructions}
 \begin{itemize}
-  \item 2 ethical implications questions, which will be expanded on in discussion sections.
+  \item 2 socially-responsible computing questions, which will be expanded on in discussion sections.
   \item 1 exercise graded for completion only.
   \item 3 graded technical questions.
   \item Write code where appropriate.
@@ -107,27 +107,35 @@ should be on this page
   \item \textbf{We do NOT expect you to fill up each page with your answer.} Some answers will only be a few sentences long, and that is okay.
 \end{itemize}
 \pagebreak
-\section*{Ethical Implications}
 
-\paragraph{Q1:} One use of local feature extraction and matching is \href{https://www.youtube.com/watch?v=xD88Qs_DZp4}{fingerprint recognition}. Fingerprint recognition, like face and iris recognition, makes use of biometric data, or measurements of human features. Fingerprint recognition is convenient as a mechanism to unlock devices without needing to remember yet another password, and is more secure than passwords in certain ways. However, the collection of biometric data also raises unique privacy and security concerns.
+\paragraph{Q1:} One use of local feature extraction and matching is \href{https://www.youtube.com/watch?v=xD88Qs_DZp4}{fingerprint recognition}. Fingerprint recognition uses biometric data---measurements of human biological features that are unique to an individual---to make it convenient to unlock devices quickly and without needing to remember a password. However, given its uniqueness, biometric data may be seen as a greater privacy encroachment upon a person because it cannot be changed. Further, given the trust that is derived from its uniqueness, biometric data may also pose a greater risk of misuse if the data is not secure.
 
-Please find a news or opinion article discussing pros and cons of using biometric data and link it here. Discuss 3 points in the article that you agree and/or disagree with. What are three groups of people that could be impacted by the use of biometric data and how? 
+- true uniqueness of biometric data
+- error of a computer vision system wrt. uniqueness
+- national or global-scale mismatches
+
+Please find a news or opinion article that demonstrates or discusses the use of biometric data, and provide its URL below. 
+Discuss three points in the article that you agree and/or disagree with. 
+What are three groups of people that could be impacted by the use of biometric data and how? 
 
 \paragraph{A1:} Your answer here.
 \pagebreak
 
-\paragraph{Q2:} Brown University decides to use biometric data instead of requiring passwords for the login system. For your CS1430 final project, you are put in charge of developing the authentication system by expanding on your local feature matching project. All users will be required to use your biometric authentication system to log into their Brown accounts. 
 
+\paragraph{Q2:} Brown University decides to entirely replace passwords with biometric data to authenticate student identity on its computer systems. Given how accurate your feature matching homework 2 code is, Brown asks you to develop the authentication system as your CSCI 1430 final project.
+
+How would you design this biometric authentication system?
 Please discuss and justify your design choices for: 
 \begin{itemize}
 	\item What information to provide to users about the system
 	\item What kind of biometric data to use (fingerprint, iris, facial, etc.)
-	\item How to store that information 
+	\item How to store that information
 \end{itemize}
 Remember to consider accessibility, privacy, and security in your responses. \href{https://ievoreader.com/how-biometric-data-is-stored/}{This article} will be helpful for responding to the final question. Please link to any additional sources you use to inform your decisions.
 
 \paragraph{A2:} Your answer here.
 \pagebreak
+
 
 \section*{Exercise}
 
@@ -168,7 +176,6 @@ Extra space
 
 % Please leave the pagebreak
 \pagebreak
-\section*{Technical Questions}
 
 \paragraph{Q3:} Imagine we wished to find points in one image which matched to the same world point in another image---so-called feature point correspondence matching. We are tasked with designing an image feature point algorithm which could match world points in the following three pairs of images.
 \newline
