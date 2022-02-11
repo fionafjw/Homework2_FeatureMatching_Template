@@ -67,16 +67,17 @@
 \lfoot{\textcolor{red}{Only 
 \ifcase\thepage
 \or instructions
-\or A1
-\or A2
 \or instructions
 \or E1 results
 \or E1 results
-\or A3(a)
-\or A3(b)
-\or A3(c)
+\or A2 (a)
+\or A2 (b)
+\or A2 (c)
+\or A3
+\or A3
 \or A4
 \or A5
+\or A6
 \or feedback
 \else
 EXTRA PAGE ADDED
@@ -97,8 +98,8 @@ should be on this page
 
 \section*{Instructions}
 \begin{itemize}
-  \item 2 socially-responsible computing questions, which will be expanded on in discussion sections.
   \item 1 exercise graded for completion only.
+  \item 2 socially-responsible computing questions, which will be expanded on in discussion sections.
   \item 3 graded technical questions.
   \item Write code where appropriate.
   \item Feel free to include images or equations.
@@ -106,34 +107,6 @@ should be on this page
   \item This assignment is \textbf{fixed length}, and the pages have been assigned for you in Gradescope. As a result, \textbf{please do NOT add any new pages}. We will provide ample room for you to answer the questions. If you \emph{really} wish for more space, please add a page \emph{at the end of the document}.
   \item \textbf{We do NOT expect you to fill up each page with your answer.} Some answers will only be a few sentences long, and that is okay.
 \end{itemize}
-\pagebreak
-
-\paragraph{Q1:} One use of local feature extraction and matching is \href{https://www.youtube.com/watch?v=xD88Qs_DZp4}{fingerprint recognition}---please watch the video and note the similarity to our task in this homework. Fingerprint recognition uses biometric data---measurements of human biological features that are unique to an individual---to make it convenient to unlock doors or devices quickly and without needing to remember a password. However, given its uniqueness, biometric data may be seen as a greater privacy encroachment upon a person. Further, given the trust that is derived from its uniqueness, biometric data may also pose a greater risk of misuse if the data is not secure because the data cannot be changed.
-
-a) Do you use biometric recognition systems? List them. [If not, suppose that you do.]
-For each, where is the reference data stored (such as your stored fingerprint) and where does the authentication process happen?
-
-b) How might someone use computer vision to steal or spoof your biometric data to gain access?
-
-c) Biometric recognition systems may not affect all people equally. For a biometric authentication system, define and describe how a specific group of people might be affected disproportionately.
-
-\paragraph{A1:} Your answer here.
-\pagebreak
-
-
-- national or global-scale mismatches
-
-\paragraph{Q2:} Brown University decides to entirely replace passwords with biometric data to authenticate student identity on its computer systems. Given how accurate your feature matching homework 2 code is, Brown asks you to develop the authentication system as your CSCI 1430 final project.
-
-As preparation, you read a previous case about a \href{https://www.vpnmentor.com/blog/report-biostar2-leak/}{biometric data breach}.
-
-1) How were BioStar 2 storing their fingerprint data? Knowing the algorithms involved in feature matching, what could you do instead from a computer vision perspective to decrease the risk of storing biometric data?
-
-2) Even though fingerprints are thought to be unique, we are bound by the accuracy of computer vision systems to detect and recognize that uniqueness.
-Brown has approximately 10,000 students.
-
-
-\paragraph{A2:} Your answer here.
 \pagebreak
 
 
@@ -165,11 +138,11 @@ Please include images of your results from the exercise here, e.g., two-to-three
 
 
 
-
 \pagebreak
 Extra space
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -177,36 +150,72 @@ Extra space
 % Please leave the pagebreak
 \pagebreak
 
-\paragraph{Q3:} Imagine we wished to find points in one image which matched to the same world point in another image---so-called feature point correspondence matching. We are tasked with designing an image feature point algorithm which could match world points in the following three pairs of images.
+\paragraph{Q2:} Imagine we wished to find points in one image which matched to the same world point in another image---so-called feature point correspondence matching. We are tasked with designing an image feature point algorithm which could match world points in the following three pairs of images.
 \newline
 \newline
 \emph{RISHLibrary:} \href{RISHLibrary1.jpg}{One} \href{RISHLibrary2.jpg}{Two} | \emph{Chase:} \href{Chase1.jpg}{One} \href{Chase2.jpg}{Two} | \emph{LaddObservatory:} \href{LaddObservatory1.jpg}{One} \href{LaddObservatory2.jpg}{Two}
 
 Please use the included python script \texttt{plot\_corners.py} to find corners using Harris corner detection for each image above.
 
-For each pair, discuss the differences in the returned corners (if any), and what aspects of the images may have caused these differences. Then discuss what real world challenges exist in matching features between images.
+For each pair, discuss the differences in the returned corners (if any), the aspects of the images that create these differences, and any underlying real world phenomena that may have been the primary cause of these differences.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\paragraph{A3 (a):} Answer for RISHLibrary pair
-
-
-
-
-
-
-\pagebreak
-\paragraph{A3 (b):} Answer for Chase pair
-
-
-
+\paragraph{A2 (a):} Answer for RISHLibrary pair
 
 
 
 \pagebreak
-\paragraph{A3 (c):} Answer for LaddObservatory pair
+\paragraph{A2 (b):} Answer for Chase pair
 
 
+
+\pagebreak
+\paragraph{A2 (c):} Answer for LaddObservatory pair
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagebreak
+\paragraph{Q3:} One use of local feature extraction and matching is \href{https://www.youtube.com/watch?v=xD88Qs_DZp4}{fingerprint recognition}---please watch the video and note the similarity to our task in this homework. Fingerprint recognition uses biometric data---measurements of human biological features that are unique to an individual---to make it convenient to unlock doors or devices quickly and without needing to remember a password. However, given its uniqueness, biometric data may be seen as a greater privacy encroachment upon a person than a password. Further, given the trust that is derived from the uniqueness of biometric data, it may also pose a greater risk of misuse if the data is not secure because the data cannot be changed.
+
+a) Do you use biometric recognition systems? List them. [If not, suppose some that you do.]
+For each, where is the reference data stored (such as your stored fingerprint) and where does the authentication process happen? \href{https://ievoreader.com/how-biometric-data-is-stored/}{This article} may help.
+
+b) How might someone use computer vision to steal or spoof your biometric data to gain access?
+
+c) Biometric recognition systems may not affect all people equally. For a biometric authentication system, define a group of people and describe how they might be affected disproportionately.
+
+\paragraph{A3 (a):} Your answer here.
+
+\paragraph{A3 (b):} Your answer here.
+
+\paragraph{A3 (c):} Your answer here.
+\pagebreak
+
+
+EXTRA SPACE
+\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\paragraph{Q4:} Brown University decides to entirely replace passwords with biometric data to authenticate student identity on its computer systems. Given how accurate your feature matching homework 2 code is, Brown asks you to develop the authentication system as your CSCI 1430 final project. Lucky you.
+
+As preparation, you read a previous case about a \href{https://www.vpnmentor.com/blog/report-biostar2-leak/}{biometric data breach}.
+
+a) How were BioStar 2 storing their fingerprint data? Knowing the algorithms involved in feature matching, what might you consider instead from a computer vision perspective to decrease the risk of storing biometric data?
+
+Even though fingerprints are thought to be unique, we are bound by the accuracy of computer vision systems to detect and recognize that uniqueness.
+This may be a challenge for Brown's 10,000 students, let alone a national-scale database.
+
+b) Compare the causes that affect matching performance in natural images in Q3 to those that you might expect within the scenario of fingerprint recognition for door or device unlocking. Is fingerprint recognition an easier problem than natural image matching?
+
+
+\paragraph{A4 (a):} Your answer here.
+
+\paragraph{A4 (b):} Your answer here.
+\pagebreak
 
 
 
@@ -216,13 +225,13 @@ For each pair, discuss the differences in the returned corners (if any), and wha
 % Please leave the pagebreak
 
 \pagebreak
-\paragraph{Q4:} 
+\paragraph{Q5:} 
 The Harris Corner Detector is commonly used in computer vision algorithms to find interest points from which to extract stable features for image matching. 
 
 How do the eigenvalues of the `M' second moment matrix vary with local image brightness, and how might we interpret the eigenvalues geometrically (think `shape')?
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\paragraph{A4:} Your answer here.
+\paragraph{A5:} Your answer here.
 
 
 
@@ -233,12 +242,12 @@ How do the eigenvalues of the `M' second moment matrix vary with local image bri
 
 % Please leave the pagebreak
 \pagebreak
-\paragraph{Q5:} Given a interest point location, the SIFT algorithm converts a 16$\times$16 patch around the interest point into a 128$\times$1 feature descriptor of the gradient magnitudes and orientations therein. Write pseudocode \emph{with matrix/array indices} for these steps.
+\paragraph{Q6:} Given a interest point location, the SIFT algorithm converts a 16$\times$16 patch around the interest point into a 128$\times$1 feature descriptor of the gradient magnitudes and orientations therein. Write pseudocode \emph{with matrix/array indices} for these steps.
 
 \emph{Notes:} Do this for just one interest point at one scale; ignore the overall interest point orientation; ignore the Gaussian weighting; ignore all normalization post-processing; ignore image boundaries; ignore sub-pixel interpolation and just pick an arbitrary center within the 16$\times$16 for your feature descriptor. Please just explain in pseudocode how to go from the 16$\times$16 patch to the 128$\times$1 vector. You are free to simplify the gradient computation.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\paragraph{A5:} Your answer here.
+\paragraph{A6:} Your answer here.
 
 
 \begin{python}
