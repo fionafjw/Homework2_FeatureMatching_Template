@@ -44,7 +44,7 @@ import math
 import numpy as np
 from scipy import ndimage
 from skimage import io
-from skimage import img_as_float, img_as_ubyte
+from skimage import img_as_float32, img_as_ubyte
 from skimage.color import rgb2gray
 
 
@@ -79,7 +79,7 @@ class live_FFT2():
 
         if self.use_camera == False:
             # No camera!
-            self.im = rgb2gray(img_as_float(io.imread('YuanningHuCrop.png'))) # One of our intrepid TAs (Yuanning was one of our HTAs for Spring 2019)
+            self.im = rgb2gray(img_as_float32(io.imread('YuanningHuCrop.png'))) # One of our intrepid TAs (Yuanning was one of our HTAs for Spring 2019)
         else:
             # We found a camera!
             # Requested camera size. This will be cropped square later on, e.g., 240 x 240
@@ -90,7 +90,7 @@ class live_FFT2():
         cv2.namedWindow(self.wn, 0)
 
         # Load the Jack image for comparison
-        self.imJack = rgb2gray(img_as_float(io.imread('JacksonGibbonsCrop.png'))) # Another one of our intrepid TAs (Jack was one of our TAs for Spring 2017)
+        self.imJack = rgb2gray(img_as_float32(io.imread('JacksonGibbonsCrop.png'))) # Another one of our intrepid TAs (Jack was one of our TAs for Spring 2017)
 
         # Main loop
         while True:
@@ -107,11 +107,16 @@ class live_FFT2():
     def camimage_ft(self):
         
         if self.use_camera:
-            # Read image
-            rval, im = self.vc.read()
+            # Read image. 
+            # Some cameras will return 'None' on read until they are initialized, 
+            # so sit and wait for a valid image.
+            im = None
+            while im is None:
+                rval, im = self.vc.read()
+
             # Convert to grayscale and crop to square
             # (not necessary as rectangular is fine; just easier for didactic reasons)
-            im = img_as_float(rgb2gray(im))
+            im = img_as_float32(rgb2gray(im))
             # Note: some cameras across the class are returning different image sizes
             # on first read and later on. So, let's just recompute the crop constantly.
             
