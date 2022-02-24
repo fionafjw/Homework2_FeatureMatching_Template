@@ -141,9 +141,10 @@ def get_features(image, x, y, feature_width):
     are optional or the autograder will break.
 
     :returns:
-    :features: np array of computed features. It should be of size
-            [len(x) * feature dimensionality] (for standard SIFT feature
-            dimensionality is 128)
+    :features: numpy array of computed features. It should be of size
+            [num points * feature dimensionality]. For standard SIFT, feature
+            dimensionality is 128. `Num points` may be less than len(x) if
+            some points are rejected, e.g., if out of bounds.
 
     '''
 
