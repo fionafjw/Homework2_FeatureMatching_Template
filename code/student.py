@@ -142,8 +142,8 @@ def get_features(image, x, y, feature_width):
 
     :returns:
     :features: numpy array of computed features. It should be of size
-            [num points * feature dimensionality]. For standard SIFT, feature
-            dimensionality is 128. `Num points` may be less than len(x) if
+            [num points * feature dimensionality]. For standard SIFT, `feature
+            dimensionality` is 128. `num points` may be less than len(x) if
             some points are rejected, e.g., if out of bounds.
 
     '''
