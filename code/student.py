@@ -18,7 +18,7 @@ def plot_interest_points(image, x, y):
     :y: np array of y coordinates of interest points
     '''
 
-    # TODO: Your implementation here! See block comments and the project webpage for instructions
+    # TODO: Your implementation here! See block comments and the homework webpage for instructions
 
 def get_interest_points(image, feature_width):
     '''
@@ -63,7 +63,7 @@ def get_interest_points(image, feature_width):
 
     '''
 
-    # TODO: Your implementation here! See block comments and the project webpage for instructions
+    # TODO: Your implementation here! See block comments and the homework webpage for instructions
 
     # These are placeholders - replace with the coordinates of your interest points!
 
@@ -148,7 +148,7 @@ def get_features(image, x, y, feature_width):
 
     '''
 
-    # TODO: Your implementation here! See block comments and the project webpage for instructions
+    # TODO: Your implementation here! See block comments and the homework webpage for instructions
     
     # STEP 1: Calculate the gradient (partial derivatives on two directions) on all pixels.
     # STEP 2: Decompose the gradient vectors to magnitude and direction.
@@ -201,7 +201,7 @@ def match_features(im1_features, im2_features):
     :confidences: an np array with a real valued confidence for each match
     '''
 
-    # TODO: Your implementation here! See block comments and the project webpage for instructions
+    # TODO: Your implementation here! See block comments and the homework webpage for instructions
 
     # These are placeholders - replace with your matches and confidences!
     

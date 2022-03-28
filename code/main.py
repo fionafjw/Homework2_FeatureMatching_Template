@@ -36,14 +36,14 @@ def load_data(file_name):
     """
      1) Load stuff
      There are numerous other image sets in the supplementary data on the
-     project web page. You can simply download images off the Internet, as
+     homework web page. You can simply download images off the Internet, as
      well. However, the evaluation function at the bottom of this script will
      only work for three particular image pairs (unless you add ground truth
      annotations for other image pairs). It is suggested that you only work
      with the two Notre Dame images until you are satisfied with your
      implementation and ready to test on additional images. A single scale
      pipeline works fine for these two images (and will give you full credit
-     for this project), but you will need local features at multiple scales to
+     for this homework), but you will need local features at multiple scales to
      handle harder cases.
 
      If you want to add new images to test, replace the two images in the 
