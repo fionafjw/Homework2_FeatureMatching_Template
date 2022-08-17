@@ -79,7 +79,7 @@ class live_FFT2():
 
         if self.use_camera == False:
             # No camera!
-            self.im = rgb2gray(img_as_float32(io.imread('YuanningHuCrop.png'))) # One of our intrepid TAs (Yuanning was one of our HTAs for Spring 2019)
+            self.im = rgb2gray(img_as_float32(io.imread('images/YuanningHuCrop.png'))) # One of our intrepid TAs (Yuanning was one of our HTAs for Spring 2019)
         else:
             # We found a camera!
             # Requested camera size. This will be cropped square later on, e.g., 240 x 240
@@ -90,7 +90,7 @@ class live_FFT2():
         cv2.namedWindow(self.wn, 0)
 
         # Load the Jack image for comparison
-        self.imJack = rgb2gray(img_as_float32(io.imread('JacksonGibbonsCrop.png'))) # Another one of our intrepid TAs (Jack was one of our TAs for Spring 2017)
+        self.imJack = rgb2gray(img_as_float32(io.imread('images/JacksonGibbonsCrop.png'))) # Another one of our intrepid TAs (Jack was one of our TAs for Spring 2017)
 
         # Main loop
         while True:
@@ -117,7 +117,7 @@ class live_FFT2():
             # Convert to grayscale and crop to square
             # (not necessary as rectangular is fine; just easier for didactic reasons)
             im = img_as_float32(rgb2gray(im))
-            # Note: some cameras across the class are returning different image sizes
+            # NOTE: some cameras across the class are returning different image sizes
             # on first read and later on. So, let's just recompute the crop constantly.
             
             if im.shape[1] > im.shape[0]:
@@ -154,9 +154,7 @@ class live_FFT2():
         amplitude = np.sqrt(np.power(imFFT.real, 2) + np.power(imFFT.imag, 2))
         phase = np.arctan2(imFFT.imag, imFFT.real)
         
-        # We will reconstruct the image from this decomposition later on (far below at line 260); have a look now.
-
-        ##########################################################
+        # NOTE: We will reconstruct the image from this decomposition later on (See Part 5)
         
         # Just the central dot
         amplitude = np.zeros(self.im.shape)
@@ -277,8 +275,8 @@ class live_FFT2():
         # What other manipulations might we perform?
         '''
 
-        # Reconstruct the original image
-        # ==============================
+        # Part 5: Reconstruct the original image
+        # ======================================
         
         # I need to build a new real+imaginary number from the amplitude / phase
         # This is going from polar coordinates to Cartesian coordinates in the complex number space
