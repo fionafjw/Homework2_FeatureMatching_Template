@@ -64,27 +64,27 @@
 \fancyhf{}
 \lhead{Homework 2 Questions}
 \rhead{CSCI 1430}
-\lfoot{\textcolor{red}{Only 
-\ifcase\thepage
-\or instructions
-\or instructions
-\or E1 results
-\or E1 results
-\or A2 (a)
-\or A2 (b)
-\or A2 (c)
-\or A3
-\or A3
-\or A4
-\or A4
-\or A5
-\or A6
-\or feedback
-\else
-EXTRA PAGE ADDED
-\fi
-should be on this page
-}}
+% \lfoot{\textcolor{red}{Only 
+% \ifcase\thepage
+% \or instructions
+% \or instructions
+% \or E1 results
+% \or E1 results
+% \or A2 (a)
+% \or A2 (b)
+% \or A2 (c)
+% \or A3
+% \or A3
+% \or A4
+% \or A4
+% \or A5
+% \or A6
+% \or feedback
+% \else
+% EXTRA PAGE ADDED
+% \fi
+% should be on this page
+% }}
 \rfoot{\thepage~/ 14}
 
 \date{}
@@ -97,27 +97,32 @@ should be on this page
 \vspace{-3cm}
 \thispagestyle{fancy}
 
-\section*{Instructions}
+\section*{ Document Instructions}
 \begin{itemize}
   \item 1 exercise graded for completion only.
   \item 2 socially-responsible computing questions, which will be expanded on in discussion sections.
   \item 3 graded technical questions.
-  \item Write code where appropriate.
-  \item Feel free to include images or equations.
+  \item Fill all your answers within the answer boxes, and \textbf{please do NOT remove the answer box outlines}.
+  \item Include code, images, and equations where appropriate.
   \item Please make this document anonymous.
-  \item This assignment is \textbf{fixed length}, and the pages have been assigned for you in Gradescope. As a result, \textbf{please do NOT add any new pages}. We will provide ample room for you to answer the questions. If you \emph{really} wish for more space, please add a page \emph{at the end of the document}.
-  \item \textbf{We do NOT expect you to fill up each page with your answer.} Some answers will only be a few sentences long, and that is okay.
+\end{itemize}
+
+\section*{ Gradescope Instructions}
+\begin{itemize}
+  \item When you are finished, compile this document to a PDF and submit it directly to Gradescope. 
+  \item You will be required to assign the appropriate answers to the right pages on Gradescope. \textbf{Failure to assign pages correctly will lead to a deduction of between 2 and 5 points depending on the severity of the mismatch.}
 \end{itemize}
 \pagebreak
 
 
-\section*{Exercise}
+\paragraph{Q1:} Let's look again at the webcam Fourier decomposition demo which Srinath showed in class. 
 
-\paragraph{E1:} Let's look again at the webcam Fourier decomposition demo which James showed in class. Let's run it in our CSCI 1430 virtual environment \emph{preferably on a computer with a webcam}, from within the 'questions' directory.
-
+Navigate to the \texttt{questions} folder. Then, within your cs1430 virtual environment, run the following command:
 \begin{verbatim}
 $ python liveFFT2.py
 \end{verbatim}
+
+\textit{Warning: If you're running the code from within WSL, this will likely not work since you need access to your laptop's camera / webcam.}
 
 This file contains five parts for you to explore and see the amplitude image, the phase image, and the effect of the reconstructed image.
 \begin{itemize}
@@ -128,7 +133,15 @@ This file contains five parts for you to explore and see the amplitude image, th
     \item Part 4: Manipulating the amplitude and phase images.
 \end{itemize}
 
-Uncomment the different parts and explore the camera feed decomposition! Please include the results of your experimentation, e.g., two-to-three screenshots of what you discover. We'll be grading for completion, not correctness. \emph{Note:} For anonymous grading, try not to put yourself in the camera frame. Show your favourite vector calculus book, wear a mask, use your cat, etc. Extra credit for creative effort.
+Uncomment the different parts and explore the camera feed decomposition! Please include three results of your experimentation. We'll be grading for completion, not correctness.
+
+\emph{Note:} For anonymous grading, try not to put yourself in the camera frame. Show your favourite vector calculus book, wear a mask, use your cat, etc. Extra credit for creative effort.
+
+\includegraphics[width=\textwidth * 7/10]{your-answer-to-1-here.png}
+
+\includegraphics[width=\textwidth * 7/10]{your-answer-to-1-here.png}
+
+\includegraphics[width=\textwidth * 7/10]{your-answer-to-1-here.png}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
