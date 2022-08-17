@@ -32,7 +32,7 @@ with:
     - numpy, matplotlib, scipy, argparse
 """
 
-__author__ = "Brian R. Pauw, David Mannicke; modified for Brown CSCI1430 by James Tompkin"
+__author__ = "Brian R. Pauw, David Mannicke; modified for Brown CSCI 1430 by James Tompkin"
 __contact__ = "brian@stack.nl; james_tompkin@brown.edu"
 __license__ = "GPLv3+"
 __date__ = "2014/01/25; modifications 2017--2019"
@@ -71,7 +71,7 @@ class live_FFT2():
     def __init__(self, **kwargs):
 
         # Camera device
-        # If you have more than one camera, you can access them by cv2.VideoCapture(1), etc.
+        # the argument is the device id. If you have more than one camera, you can access them by passing a different id, e.g., cv2.VideoCapture(1)
         self.vc = cv2.VideoCapture(0)
         if not self.vc.isOpened():
             print( "No camera found or error opening camera; using a static image instead." )
@@ -134,69 +134,72 @@ class live_FFT2():
         height = self.im.shape[0]
         cv2.resizeWindow(self.wn, width*2, height*2)
 
-
-        #                
-        # Students: Concentrate here.
-        # This code reads an image from your webcam. If you have no webcam, e.g.,
-        # a department machine, then it will use a picture of an intrepid TA.
-        #
-        # Output image visualization:
-        # Top left: input image
-        # Bottom left: amplitude image of Fourier decomposition
-        # Bottom right: phase image of Fourier decomposition
-        # Top right: reconstruction of image from Fourier domain
-        #
+        '''
+        Students: Concentrate here.
+        
+        This code reads an image from your webcam. If you have no webcam, e.g.,
+        a department machine, then it will use a picture of an intrepid TA.
+        
+        Output image visualization:
+        Top left: input image
+        Bottom left: amplitude image of Fourier decomposition
+        Bottom right: phase image of Fourier decomposition
+        Top right: reconstruction of image from Fourier domain
+        '''
+        
         # Let's start by peforming the 2D fast Fourier decomposition operation
-        imFFT = np.fft.fft2( self.im )
+        imFFT = np.fft.fft2(self.im)
         
         # Then creating our amplitude and phase images
-        amplitude = np.sqrt( np.power( imFFT.real, 2 ) + np.power( imFFT.imag, 2 ) )
-        phase = np.arctan2( imFFT.imag, imFFT.real )
+        amplitude = np.sqrt(np.power(imFFT.real, 2) + np.power(imFFT.imag, 2))
+        phase = np.arctan2(imFFT.imag, imFFT.real)
         
         # We will reconstruct the image from this decomposition later on (far below at line 260); have a look now.
 
-        ###########################################################
-        # # Just the central dot
-        #amplitude = np.zeros( self.im.shape )
-        # # a = np.fft.fftshift(amplitude)
+        ##########################################################
         
-        # # NOTE: [0,0] here is the 0-th frequency component around which all other frequencies oscillate
-        #amplitude[0,0] = 40000
-        
-        # # amplitude = np.fft.fftshift(a)
-
-
-        # # #########################################################
-        # # Part 0: Scanning the basis and looking at the reconstructed image for each frequency independently
-        # # To see the effect, uncomment this block, read throug the comments and code, and then execute the program.
-        
-        # # Let's begin by zeroing out the amplitude and phase.
-        # amplitude = np.zeros( self.im.shape )
-        # phase = np.zeros( self.im.shape )
-
-        # # Next, let's only set one basis sine wave to have any amplitude - just like the 'white dot on black background' images in lecture
-        # # Let's animate how it looks as we move radially through the frequency space
-        # self.orientation += math.pi / 30.0
-        # if self.orientation > math.pi * 2:
-        #     self.orientation = 0
-        #     self.magnitude += 2
-        # if self.magnitude >= 50: # could go to width/2 for v. high frequencies
-        #     self.magnitude = 2
-
-        # cx = math.floor(width/2)
-        # cy = math.floor(height/2)
-        # xd = self.magnitude*math.cos(self.orientation)
-        # yd = self.magnitude*math.sin(self.orientation)
+        # Just the central dot
+        amplitude = np.zeros(self.im.shape)
         # a = np.fft.fftshift(amplitude)
-        # # This is where we set the pixel corresponding to the basis frequency to be 'lit'
-        # a[int(cy+yd), int(cx+xd)] = self.im.shape[0]*self.im.shape[1] / 2.0
+        
+        # NOTE: [0,0] here is the 0-th frequency component around which all other frequencies oscillate
+        amplitude[0,0] = 40000
+        
         # amplitude = np.fft.fftshift(a)
 
-        # # Note the reconstructed image (top right) as we light up different basis frequencies.
-
-        ########################################################
-        # Part 1: Reconstructing from different numbers of basis frequencies
+        # Part 0: Scanning the basis and looking at the reconstructed image for each frequency independently
+        # ==================================================================================================
+        '''
+        # To see the effect, uncomment this block, read throug the comments and code, and then execute the program.
         
+        # Let's begin by zeroing out the amplitude and phase.
+        amplitude = np.zeros( self.im.shape )
+        phase = np.zeros( self.im.shape )
+
+        # Next, let's only set one basis sine wave to have any amplitude - just like the 'white dot on black background' images in lecture
+        # Let's animate how it looks as we move radially through the frequency space
+        self.orientation += math.pi / 30.0
+        if self.orientation > math.pi * 2:
+            self.orientation = 0
+            self.magnitude += 2
+        if self.magnitude >= 50: # could go to width/2 for v. high frequencies
+            self.magnitude = 2
+
+        cx = math.floor(width/2)
+        cy = math.floor(height/2)
+        xd = self.magnitude*math.cos(self.orientation)
+        yd = self.magnitude*math.sin(self.orientation)
+        a = np.fft.fftshift(amplitude)
+        # This is where we set the pixel corresponding to the basis frequency to be 'lit'
+        a[int(cy+yd), int(cx+xd)] = self.im.shape[0]*self.im.shape[1] / 2.0
+        amplitude = np.fft.fftshift(a)
+
+        # Note the reconstructed image (top right) as we light up different basis frequencies.
+        '''
+        
+        # Part 1: Reconstructing from different numbers of basis frequencies
+        # ==================================================================
+        '''
         # What if we set some frequency amplitudes to zero, but vary
         # over time which ones we set?
 
@@ -218,79 +221,82 @@ class live_FFT2():
             self.amplitudeCutoffDirection *= -1
         
         self.amplitudeCutoffRadius += self.amplitudeCutoffDirection
+        '''
 
-
-        # ########################################################
-        # # Part 2: Replacing amplitude / phase with that of another image
+        # Part 2: Replacing amplitude / phase with that of another image
+        # ==============================================================
+        '''
+        imJack = cv2.resize( self.imJack, self.im.shape )
+        imJackFFT = np.fft.fft2( imJack )
+        amplitudeJack = np.sqrt( np.power( imJackFFT.real, 2 ) + np.power( imJackFFT.imag, 2 ) )
+        phaseJack = np.arctan2( imJackFFT.imag, imJackFFT.real )
         
-        # imJack = cv2.resize( self.imJack, self.im.shape )
-        # imJackFFT = np.fft.fft2( imJack )
-        # amplitudeJack = np.sqrt( np.power( imJackFFT.real, 2 ) + np.power( imJackFFT.imag, 2 ) )
-        # phaseJack = np.arctan2( imJackFFT.imag, imJackFFT.real )
+        # Comment in either or both of these
+        #amplitude = amplitudeJack
+        #phase = phaseJack
+        '''
+
+        # Part 3: Replacing amplitude / phase with that of a noisy image
+        # ==============================================================
+        '''
+        # Generate some noise
+        self.uniform_noise = np.random.uniform( 0, 1, self.im.shape )
+        imNoiseFFT = np.fft.fft2( self.uniform_noise )
+        amplitudeNoise = np.sqrt( np.power( imNoiseFFT.real, 2 ) + np.power( imNoiseFFT.imag, 2 ) )
+        phaseNoise = np.arctan2( imNoiseFFT.imag, imNoiseFFT.real )
         
-        # # Comment in either or both of these
-        # #amplitude = amplitudeJack
-        # #phase = phaseJack
+        # Comment in either or both of these
+        #amplitude = amplitudeNoise
+        #phase = phaseNoise
+        '''
 
-
-        #########################################################
-        ## Part 3: Replacing amplitude / phase with that of a noisy image
-        
-        # # Generate some noise
-        # self.uniform_noise = np.random.uniform( 0, 1, self.im.shape )
-        # imNoiseFFT = np.fft.fft2( self.uniform_noise )
-        # amplitudeNoise = np.sqrt( np.power( imNoiseFFT.real, 2 ) + np.power( imNoiseFFT.imag, 2 ) )
-        # phaseNoise = np.arctan2( imNoiseFFT.imag, imNoiseFFT.real )
-        
-        # # Comment in either or both of these
-        # #amplitude = amplitudeNoise
-        # #phase = phaseNoise
-
-
-        #########################################################
-        ## Part 4: Understanding amplitude and phase
-        #
+        # Part 4: Understanding amplitude and phase
+        # =========================================
+        '''
         # Play with the images. What can you discover?
         
         # Zero out phase?
-        # phase = np.zeros( self.im.shape ) # + 0.5 * phase
+        phase = np.zeros( self.im.shape ) # + 0.5 * phase
 
         # Flip direction?
-        # phase = -phase
+        phase = -phase
 
-        # # Rotate phase values?
-        # self.phaseOffset += 0.05
-        # phase = np.arctan2( imFFT.imag, imFFT.real ) + self.phaseOffset
-        # # Always place within -pi to pi
-        # phase += np.pi
-        # phase %= 2*np.pi
-        # phase -= np.pi
+        # Rotate phase values?
+        self.phaseOffset += 0.05
+        phase = np.arctan2(imFFT.imag, imFFT.real) + self.phaseOffset
+        # Always place within -pi to pi
+        phase += np.pi
+        phase %= 2*np.pi
+        phase -= np.pi
 
         # Rotate whole image? Together? Individually?
-        #phase = np.rot90( phase )
-        #amplitude = np.rot90( amplitude )
+        phase = np.rot90(phase)
+        amplitude = np.rot90(amplitude)
         
         # Are these manipulations meaningful?
         # What other manipulations might we perform?
+        '''
 
-
-        #########################################################
-        ## Reconstruct the original image
+        # Reconstruct the original image
+        # ==============================
+        
         # I need to build a new real+imaginary number from the amplitude / phase
         # This is going from polar coordinates to Cartesian coordinates in the complex number space
         recReal = np.cos( phase ) * amplitude
         recImag = np.sin( phase ) * amplitude
         rec = recReal + 1j*recImag
+        
         # Now inverse Fourier transform
         newImage = np.fft.ifft2( rec ).real
         
         # Image output
         amplitude[amplitude == 0] = np.finfo(float).eps # prevent any log(0) errors
-        outputTop = np.concatenate((self.im,newImage),axis = 1)
-        outputBottom = np.concatenate((np.log(np.fft.fftshift(amplitude)) / 10, np.fft.fftshift(phase)),axis = 1)
-        output = np.clip(np.concatenate((outputTop,outputBottom),axis = 0),0,1)
+        outputTop = np.concatenate((self.im,newImage), axis = 1)
+        outputBottom = np.concatenate((np.log(np.fft.fftshift(amplitude)) / 10, np.fft.fftshift(phase)), axis = 1)
+        output = np.clip(np.concatenate((outputTop,outputBottom), axis = 0),0,1)
+        
         # NOTE: One student's software crashed at this line without casting to uint8,
-        # but this operation via img_as_ubyte is _slow_. Add this back in if you code crashes.
+        # but this operation via img_as_ubyte is _slow_. Add this back in if your code crashes.
         #cv2.imshow(self.wn, output)
         #cv2.imshow(self.wn, img_as_ubyte(output))
         cv2.imshow(self.wn, (output*255).astype(np.uint8)) # faster alternative
