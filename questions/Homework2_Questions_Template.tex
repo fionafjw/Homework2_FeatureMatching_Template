@@ -306,29 +306,42 @@ How do the eigenvalues of the `M' second moment matrix vary with local image bri
 
 % Please leave the pagebreak
 \pagebreak
-\paragraph{Q6:} Given a interest point location, the SIFT algorithm converts a 16$\times$16 patch around the interest point into a 128$\times$1 feature descriptor of the gradient magnitudes and orientations therein. Write pseudocode \emph{with matrix/array indices} for these steps.
+\paragraph{Q6:} 
 
-\emph{Notes:} Do this for just one interest point at one scale; ignore the overall interest point orientation; ignore the Gaussian weighting; ignore all normalization post-processing; ignore image boundaries; ignore sub-pixel interpolation and just pick an arbitrary center within the 16$\times$16 for your feature descriptor. Please just explain in pseudocode how to go from the 16$\times$16 patch to the 128$\times$1 vector.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\paragraph{A6:} Your answer here.
+% \begin{enumerate}[(a)]
+% \item
+
+Once you've detected the feature points, the next step is to extract their descriptions, i.e., their general properties. These generated feature descriptors will be used in the final step when matching feature points via their feature descriptors.
+
+The algorithm to use here to extract the feature descriptors of feature points is SIFT. Given a interest point location, the SIFT algorithm converts a 16$\times$16 patch around the interest point into a 128$\times$1 feature descriptor of the gradient magnitudes and orientations therein. 
+
+Write pseudocode \emph{with matrix/array indices} for these steps.
+
+\emph{Notes:} Do this for just one interest point at one scale; ignore the overall interest point orientation; ignore the Gaussian weighting; ignore all normalization post-processing; ignore image boundaries; ignore sub-pixel interpolation and just pick an arbitrary center within the 16$\times$16 for your feature descriptor.
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \paragraph{A6:} Your answer here.
 
 
 \begin{python}
 # You can assume access to the image, x and y gradients, and their magnitudes/orientations.
-image = imread('rara.jpg')
-grad_x = filter(image, 'sobelX')
-grad_y = filter(image, 'sobelY')
-grad_mag = sqrt( grad_x .^2 + grad_y.^2 )
-grad_ori = atan2( grad_y, grad_x )
+image = imread("rara.jpg")
+grad_x = filter(image, "sobelX")
+grad_y = filter(image, "sobelY")
+grad_mag = sqrt(grad_x .^2 + grad_y.^2)
+grad_ori = atan2(grad_y, grad_x)
 
 # Takes in a interest point x,y location and returns a feature descriptor
 def SIFTdescriptor(x, y)
     descriptor = zeros(128,1)
+    
+    # TODO: Populate descriptor with the right gradient magnitudes dependent on the gradient orientations
 
     return descriptor
 \end{python}
 
+% \end{enumerate}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
