@@ -278,18 +278,30 @@ EXTRA SPACE
 
 \pagebreak
 \paragraph{Q5:} 
-The Harris Corner Detector is commonly used in computer vision algorithms to find interest points from which to extract stable features for image matching. 
+The Harris Corner Detector is commonly used in computer vision algorithms to find interest points from which to extract stable features for image matching.
+
+To detect these features, we attempt to determine the strength of any change in the Energy (intensity) function $E(u, v)$ on the image. Since we can approximate corner points to be represented by quadratic-esque energy level surfaces, we can use the Taylor expansion and quantify the change in $E(u, v)$ within a certain radius in the image.
+
+You might remember from your Calculus class that the second partial derivative test helps us determine if a point is a local min, local max or saddle point. Similarly, we focus on the second derivative term in the Taylor expansion to determine the shape of $E(u, v)$ and determine if that particular point is a corner or not.
+
+Now, we can represent the Taylor expansion using matrices, and so the second derivative can be expressed as a matrix. Specifically, this matrix, $M$, is called the second moment matrix.
+
+\textit{Note:} For a more comprehensive background, review the lecture slides.
 
 How do the eigenvalues of the `M' second moment matrix vary with local image brightness, and how might we interpret the eigenvalues geometrically (think `shape')?
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\paragraph{A5:} Your answer here.
+\fbox{\parbox{\linewidth}{
+    TODO: Your answer for 5 here
+}}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \paragraph{A5:} Your answer here.
 
 
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 % Please leave the pagebreak
