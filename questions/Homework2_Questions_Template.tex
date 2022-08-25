@@ -52,6 +52,7 @@
 \usepackage{times}
 \usepackage[shortlabels]{enumitem}
 \setlist[enumerate]{topsep=0pt}
+\usepackage{mdframed}
 
 % a great python code format: https://github.com/olivierverdier/python-latex-highlighting
 \usepackage{pythonhighlight}
@@ -84,7 +85,7 @@
 % EXTRA PAGE ADDED
 % \fi
 % should be on this page
-% }}
+% \end{mdframed}
 \rfoot{\thepage~/ 14}
 
 \date{}
@@ -97,25 +98,25 @@
 \vspace{-3cm}
 \thispagestyle{fancy}
 
+
 \section*{ Document Instructions}
 \begin{itemize}
-  \item 1 exercise graded for completion only.
-  \item 2 socially-responsible computing questions, which will be expanded on in discussion sections.
-  \item 3 graded technical questions.
+  \item 7 questions \textbf{[3 + 9 + 7 + 6 + 3 + 3 = 31 points]}.
   \item Fill all your answers within the answer boxes, and \textbf{please do NOT remove the answer box outlines}.
   \item Include code, images, and equations where appropriate.
+  \item To identify all places where your responses are expected, search for `TODO'.
   \item Please make this document anonymous.
 \end{itemize}
 
 \section*{ Gradescope Instructions}
 \begin{itemize}
   \item When you are finished, compile this document to a PDF and submit it directly to Gradescope. 
-  \item You will be required to assign the appropriate answers to the right pages on Gradescope. \textbf{Failure to assign pages correctly will lead to a deduction of between 2 and 5 points depending on the severity of the mismatch.}
+  \item You will be required to assign the appropriate answers to the right pages on Gradescope. \textbf{Failure to assign pages correctly will lead to a deduction of 2 points per misaligned page (capped at a maxmimum 6 point deduction).}
 \end{itemize}
 \pagebreak
 
 
-\paragraph{Q1:} Let's look again at the webcam Fourier decomposition demo which Srinath showed in class. 
+\paragraph{Q1:} \textbf{[3 points]} Let's look again at the webcam Fourier decomposition demo which Srinath showed in class. 
 
 Navigate to the \texttt{questions} folder. Then, within your cs1430 virtual environment, run the following command:
 \begin{verbatim}
@@ -137,11 +138,9 @@ Uncomment the different parts and explore the camera feed decomposition! Please 
 
 \emph{Note:} For anonymous grading, try not to put yourself in the camera frame. Show your favourite vector calculus book, wear a mask, use your cat, etc. Extra credit for creative effort.
 
-\includegraphics[width=\textwidth * 7/10]{TODO: experimentation-result-1.png}
-
-\includegraphics[width=\textwidth * 7/10]{TODO: experimentation-result-2.png}
-
-\includegraphics[width=\textwidth * 7/10]{TODO: experimentation-result-3.png}
+\includegraphics[width=\textwidth * 5/10]{TODO: result-1.png}
+\includegraphics[width=\textwidth * 5/10]{TODO: result-2.png}
+\includegraphics[width=\textwidth * 5/10]{TODO: result-3.png}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -164,45 +163,45 @@ Uncomment the different parts and explore the camera feed decomposition! Please 
 % Please leave the pagebreak
 \pagebreak
 
-\paragraph{Q2:} Imagine you wished to find points in one image which matched to the same world point in another image. This is called feature point correspondence matching.
+\paragraph{Q2:} \textbf{[9 points]} Imagine you wished to find points in one image which matched to the same world point in another image. This is called feature point correspondence matching.
 
 Please use the included python script \texttt{plot\_corners.py} to find corners using Harris corner detection for each pair of images below. 
 
 For each pair, discuss the differences in the returned corners (if any), the aspects of the images that create these differences, and any underlying real world phenomena that may have been the primary cause of these differences.
 
 \begin{enumerate}[(a)]
-    \item 
+    \item \textbf{[1 + 2 points]}
 RISHLibrary: 
 \href{images/RISHLibrary1.jpg}{RISHLibrary1.jpg} and \href{images/RISHLibrary2.jpg}{RISHLibrary2.jpg} 
 
 \includegraphics[width=\textwidth * 5/10]{TODO: harris-RISHLibrary1.jpg}
 \includegraphics[width=\textwidth * 5/10]{TODO: harris-RISHLibrary2.jpg}
 
-\fbox{\parbox{\linewidth}{
+\begin{mdframed}
     TODO: Your answer for (a) here
-}}
+\end{mdframed}
 
-    \item 
+    \item \textbf{[1 + 2 points]}
 Chase:
 \href{images/Chase1.jpg}{Chase1.jpg} and \href{images/Chase2.jpg}{Chase2.jpg}
 
 \includegraphics[width=\textwidth * 5/10]{TODO: harris-Chase1.jpg}
 \includegraphics[width=\textwidth * 5/10]{TODO: harris-Chase2.jpg}
 
-\fbox{\parbox{\linewidth}{
+\begin{mdframed}
     TODO: Your answer for (b) here
-}}
+\end{mdframed}
 
-    \item 
+    \item \textbf{[1 + 2 points]} 
 LaddObservatory: 
 \href{images/LaddObservatory1.jpg}{LaddObservatory1.jpg} and \href{images/LaddObservatory2.jpg}{LaddObservatory2.jpg}
 
 \includegraphics[width=\textwidth * 5/10]{TODO: harris-LaddObservatory1.jpg}
 \includegraphics[width=\textwidth * 5/10]{TODO: harris-LaddObservatory2.jpg}
 
-\fbox{\parbox{\linewidth}{
+\begin{mdframed}
     TODO: Your answer for (c) here
-}}
+\end{mdframed}
 
 \end{enumerate}
 
@@ -226,49 +225,49 @@ LaddObservatory:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \pagebreak
-\paragraph{Q3:} One use of local feature extraction and matching is \href{https://www.youtube.com/watch?v=xD88Qs_DZp4}{fingerprint recognition}---please watch the video and note the similarity to our task in this homework. Fingerprint recognition uses biometric data---measurements of human biological features that are unique to an individual---to make it convenient to unlock doors or devices quickly and without needing to remember a password. However, given its uniqueness, biometric data may be seen as a greater privacy encroachment upon a person than a password. Further, given the trust that is derived from the uniqueness of biometric data, it may also pose a greater risk of misuse if the data is not secure because the data cannot be changed.
+\paragraph{Q3:} \textbf{[7 points]} One use of local feature extraction and matching is \href{https://www.youtube.com/watch?v=xD88Qs_DZp4}{fingerprint recognition}---please watch the video and note the similarity to our task in this homework. Fingerprint recognition uses biometric data---measurements of human biological features that are unique to an individual---to make it convenient to unlock doors or devices quickly and without needing to remember a password. However, given its uniqueness, biometric data may be seen as a greater privacy encroachment upon a person than a password. Further, given the trust that is derived from the uniqueness of biometric data, it may also pose a greater risk of misuse if the data is not secure because the data cannot be changed.
 
-a) Do you use biometric recognition systems? List them. [If not, list some that people around you use.]
+\begin{enumerate}[(a)]
+    \item \textbf{[2 + 1 points]}
+Do you use biometric recognition systems? List them. [If not, list some that people around you use.]
 For one of the systems you use, where is the reference data stored (such as your stored fingerprint), and where and how does the authentication process happen (at a high level)? 
 Try to find the answer online; \href{https://ievoreader.com/how-biometric-data-is-stored/}{this article} may also help.
 
-b) How might someone use computer vision to steal or spoof your biometric data to gain access? \emph{This could be across reconstruction, recognition, or (re)organization.}
+\item
+\textbf{[2 points]}
+How might someone use computer vision to steal or spoof your biometric data to gain access? \emph{This could be across reconstruction, recognition, or (re)organization.}
 
-c) Biometric recognition systems may not affect all people equally. For a biometric authentication system, define a group of people and describe how they might be affected disproportionately.
+\item
+\textbf{[2 points]}
+Biometric recognition systems may not affect all people equally. For a biometric authentication system, define a group of people and describe how they might be affected disproportionately.
+\end{enumerate}
 
-\paragraph{A3 (a):} Your answer here.
-
-\paragraph{A3 (b):} Your answer here.
-
-\paragraph{A3 (c):} Your answer here.
 \pagebreak
 
-
-EXTRA SPACE
-\pagebreak
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\paragraph{Q4:} Brown University decides to entirely replace passwords with biometric data to authenticate student identity on its computer systems. Given how accurate your feature matching homework 2 code is, Brown asks you to develop the authentication system as your CSCI 1430 final project. Lucky you.
+\paragraph{Q4:} \textbf{[6 points]} Brown University decides to entirely replace passwords with biometric data to authenticate student identity on its computer systems. Given how accurate your feature matching homework 2 code is, Brown asks you to develop the authentication system as your CSCI 1430 final project. Lucky you.
 
 As preparation, you read a previous case about a \href{https://www.vpnmentor.com/blog/report-biostar2-leak/}{biometric data breach}.
 
-a) How were BioStar 2 storing their fingerprint data? Knowing the computer vision algorithms involved in feature matching, what different processing, features, or storage might you consider instead to decrease the risk of a biometric data breach?
+\begin{enumerate}[(a)]
+    \item 
+    \textbf{[1 + 2 points]}
+How were BioStar 2 storing their fingerprint data? Knowing the computer vision algorithms involved in feature matching, what different processing, features, or storage might you consider instead to decrease the risk of a biometric data breach?
 
+    \item 
+    \textbf{[2 + 1 points]}
 Even though fingerprints are thought to be unique, we are bound by the accuracy of computer vision systems to detect and recognize that uniqueness.
 This may be a challenge for Brown's 10,000 students, let alone a national-scale database such as the FBI's \href{https://www.fbi.gov/services/cjis/fingerprints-and-other-biometrics/ngi}{Next Generation Identification System} that houses over 100 million fingerprints; its Advanced Fingerprint Identification Technology is claimed to be 99.6\% accurate.
 
-b) Even seemingly high accuracies can create many inaccurate matches with large databases, potentially causing inaccurage judgements in criminal cases. Compare the causes that affect matching performance in natural images in Q2 to those that you might expect within the scenario of fingerprint recognition for door or device unlocking. Is accurate fingerprint recognition an easier problem than natural image matching? Why or why not?
+Even seemingly high accuracies can create many inaccurate matches with large databases, potentially causing inaccurage judgements in criminal cases. 
+
+Compare the causes that affect matching performance in natural images in Q2 to those that you might expect within the scenario of fingerprint recognition for door or device unlocking. Based on this, is accurate fingerprint recognition an easier problem than natural image matching?
 
 \emph{Refer to the video at the beginning of Q3 and \href{http://biometrics.cse.msu.edu/Presentations/AnilJain_UniquenessOfFingerprints_NAS05.pdf}{this slide deck} for example images and additional information.}
+\end{enumerate}
 
-\paragraph{A4 (a):} Your answer here.
-
-\paragraph{A4 (b):} Your answer here.
-\pagebreak
-
-
-EXTRA SPACE
 \pagebreak
 
 
@@ -277,7 +276,7 @@ EXTRA SPACE
 % Please leave the pagebreak
 
 \pagebreak
-\paragraph{Q5:} 
+\paragraph{Q5:} \textbf{[3 points]}
 The Harris Corner Detector is commonly used in computer vision algorithms to find interest points from which to extract stable features for image matching.
 
 To detect these features, we attempt to determine the strength of any change in the Energy (intensity) function $E(u, v)$ on the image. Since we can approximate corner points to be represented by quadratic-esque energy level surfaces, we can use the Taylor expansion and quantify the change in $E(u, v)$ within a certain radius in the image.
@@ -290,9 +289,9 @@ Now, we can represent the Taylor expansion using matrices, and so the second der
 
 How do the eigenvalues of the `M' second moment matrix vary with local image brightness, and how might we interpret the eigenvalues geometrically (think `shape')?
 
-\fbox{\parbox{\linewidth}{
+\begin{mdframed}
     TODO: Your answer for 5 here
-}}
+\end{mdframed}
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \paragraph{A5:} Your answer here.
@@ -306,12 +305,7 @@ How do the eigenvalues of the `M' second moment matrix vary with local image bri
 
 % Please leave the pagebreak
 \pagebreak
-\paragraph{Q6:} 
-
-
-% \begin{enumerate}[(a)]
-% \item
-
+\paragraph{Q6:} \textbf{[3 points]}
 Once you've detected the feature points, the next step is to extract their descriptions, i.e., their general properties. These generated feature descriptors will be used in the final step when matching feature points via their feature descriptors.
 
 The algorithm to use here to extract the feature descriptors of feature points is SIFT. Given a interest point location, the SIFT algorithm converts a 16$\times$16 patch around the interest point into a 128$\times$1 feature descriptor of the gradient magnitudes and orientations therein. 
