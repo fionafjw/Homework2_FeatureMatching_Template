@@ -20,12 +20,12 @@ def plot_interest_points(image, x, y):
 
     # TODO: Your implementation here! See block comments and the homework webpage for instructions
 
-def get_interest_points(image, feature_width):
+def get_feature_points(image, feature_width):
     '''
     Returns interest points for the input image
 
     (Please note that we recommend implementing this function last and using cheat_interest_points()
-    to test your implementation of get_features() and match_features())
+    to test your implementation of get_feature_descriptors() and match_features())
 
     Implement the Harris corner detector (See Szeliski 4.1.1) to start with.
     You do not need to worry about scale invariance or keypoint orientation estimation
@@ -45,7 +45,7 @@ def get_interest_points(image, feature_width):
         - skimage.feature.peak_local_max (experiment with different min_distance values to get good results)
         - skimage.measure.regionprops
           
-    Note: You may decide it is unnecessary to use feature_width in get_interest_points, or you may also decide to 
+    Note: You may decide it is unnecessary to use feature_width in get_feature_points, or you may also decide to 
     use this parameter to exclude the points near image edges.
 
     :params:
@@ -84,7 +84,7 @@ def get_interest_points(image, feature_width):
     return xs, ys
 
 
-def get_features(image, x, y, feature_width):
+def get_feature_descriptors(image, x_array, y_array, feature_width):
     '''
     Returns features for a given set of interest points.
 
@@ -165,7 +165,7 @@ def get_features(image, x, y, feature_width):
     # 2. Borrow ideas from GLOH or other type of feature descriptors.
 
     # This is a placeholder - replace this with your features!
-    features = np.zeros((len(x),128))
+    features = np.zeros((len(x_array),128))
 
     return features
 
@@ -192,8 +192,8 @@ def match_features(im1_features, im2_features):
     of the feature in im2_features
 
     :params:
-    :im1_features: an np array of features returned from get_features() for interest points in image1
-    :im2_features: an np array of features returned from get_features() for interest points in image2
+    :im1_features: an np array of features returned from get_feature_descriptors() for interest points in image1
+    :im2_features: an np array of features returned from get_feature_descriptors() for interest points in image2
 
     :returns:
     :matches: an np array of dimension k x 2 where k is the number of matches. The first

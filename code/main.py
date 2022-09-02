@@ -135,14 +135,14 @@ def main():
     feature_width = 16
 
     # (2) Find distinctive points in each image. See Szeliski 4.1.1
-    # !!! You will need to implement get_interest_points. !!!
+    # !!! You will need to implement get_feature_points. !!!
 
     print("Getting interest points...")
 
-    (x1, y1) = student.get_interest_points(image1,feature_width)
-    (x2, y2) = student.get_interest_points(image2,feature_width)
+    (x1, y1) = student.get_feature_points(image1,feature_width)
+    (x2, y2) = student.get_feature_points(image2,feature_width)
 
-    # For development and debugging get_features and match_features, you will likely
+    # For development and debugging get_feature_descriptors and match_features, you will likely
     # want to use the ta ground truth points, you can comment out the precedeing two
     # lines and uncomment the following line to do this. Note that the ground truth
     # points for mt. rushmore will not produce good results, so you'll have to use
@@ -159,12 +159,12 @@ def main():
     print("Done!")
 
     # 3) Create feature vectors at each interest point. Szeliski 4.1.2
-    # !!! You will need to implement get_features. !!!
+    # !!! You will need to implement get_feature_descriptors. !!!
 
     print("Getting features...")
 
-    image1_features = student.get_features(image1, x1, y1, feature_width)
-    image2_features = student.get_features(image2, x2, y2, feature_width)
+    image1_features = student.get_feature_descriptors(image1, x1, y1, feature_width)
+    image2_features = student.get_feature_descriptors(image2, x2, y2, feature_width)
 
     print("Done!")
 
