@@ -1,46 +1,33 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 % CSCI 1430 Written Question Template
 %
-% This is a LaTeX document. LaTeX is a markup language for producing documents.
-% Your task is to answer the questions by filling out this document, then to 
-% compile this into a PDF document. 
-% You will then upload this PDF to `Gradescope' - the grading system that we will use. 
-% Instructions for upload will follow soon.
+% This is a LaTeX document. LaTeX is a markup language for producing documents. 
+% You will fill out this document, compile it into a PDF document, then upload the PDF to Gradescope. 
 %
-% 
-% TO COMPILE:
+% To compile into a PDF on department machines:
 % > pdflatex thisfile.tex
 %
-% If you do not have LaTeX and need a LaTeX distribution:
-% - Departmental machines have one installed.
-% - Personal laptops (all common OS): http://www.latex-project.org/get/
+% If you do not have LaTeX, your options are:
+% - VSCode extension: https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop
+% - Online Tool: https://www.overleaf.com/ - most LaTeX packages are pre-installed here (e.g., \usepackage{}).
+% - Personal laptops (all common OS): http://www.latex-project.org/get/ 
 %
-% If you need help with LaTeX, come to office hours. Or, there is plenty of help online:
+% If you need help with LaTeX, please come to office hours.
+% Or, there is plenty of help online:
 % https://en.wikibooks.org/wiki/LaTeX
 %
 % Good luck!
 % Srinath and the 1430 staff
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-% How to include two graphics on the same line:
-% 
-% \includegraphics[width=0.49\linewidth]{yourgraphic1.png}
-% \includegraphics[width=0.49\linewidth]{yourgraphic2.png}
-%
-% How to include equations:
-%
-% \begin{equation}
-% y = mx+c
-% \end{equation}
-% 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \documentclass[11pt]{article}
 
 \usepackage[english]{babel}
 \usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{xcolor}
 \usepackage[colorlinks = true,
             linkcolor = blue,
             urlcolor  = blue]{hyperref}
@@ -52,10 +39,16 @@
 \usepackage{times}
 \usepackage[shortlabels]{enumitem}
 \setlist[enumerate]{topsep=0pt}
+\usepackage{amsmath}
+\usepackage{framed}
 \usepackage{mdframed}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
 
 % a great python code format: https://github.com/olivierverdier/python-latex-highlighting
 \usepackage{pythonhighlight}
+
+\usepackage{trimclip,lipsum}
 
 \frenchspacing
 \setlength{\parindent}{0cm} % Default is 15pt.
@@ -63,34 +56,37 @@
 
 \pagestyle{fancy}
 \fancyhf{}
-\lhead{Homework 2 Questions}
+\lhead{Homework 2 Written Questions}
 \rhead{CSCI 1430}
-% \lfoot{\textcolor{red}{Only 
-% \ifcase\thepage
-% \or instructions
-% \or instructions
-% \or E1 results
-% \or E1 results
-% \or A2 (a)
-% \or A2 (b)
-% \or A2 (c)
-% \or A3
-% \or A3
-% \or A4
-% \or A4
-% \or A5
-% \or A6
-% \or feedback
-% \else
-% EXTRA PAGE ADDED
-% \fi
-% should be on this page
-% \end{mdframed}
-\rfoot{\thepage~/ 14}
+\lfoot{\textcolor{red}{\textbf{Only}
+\ifcase\thepage
+\or \textbf{instructions}
+\or \textbf{Q1}
+\or \textbf{A1}
+\or \textbf{A2 (a)}
+\or \textbf{A2 (b) - (c)}
+\or \textbf{A2 (d)}
+\or \textbf{A3 (a) - (b)}
+\or \textbf{A3 (c)}
+\or \textbf{A4 (a)}
+\or \textbf{A4 (b)}
+\or \textbf{Q5}
+\or \textbf{A5}
+\or \textbf{A6}
+\or \textbf{A6}
+\or \textbf{discussion attendance}
+\or \textbf{feedback}
+\else
+[ERROR: PAGE MISALIGNMENT]
+\fi
+\textbf{should be on this page}
+}}
+\rfoot{\thepage~/ 16}
+
 
 \date{}
 
-\title{\vspace{-1cm}Homework 2 Questions}
+\title{\vspace{-1cm}Homework 2 Written Questions}
 
 
 \begin{document}
@@ -101,23 +97,33 @@
 
 \section*{ Document Instructions}
 \begin{itemize}
-  \item 7 questions \textbf{[3 + 9 + 7 + 6 + 3 + 3 = 31 points]}.
+  \item 6 questions \textbf{[3 + 11 + 9 + 6 + 3 + 3 = 35 points]}.
   \item Fill all your answers within the answer boxes, and \textbf{please do NOT remove the answer box outlines}.
+  \item Questions are highlighted in the \textbf{orange boxes}, bonus questions are highlighted in \textbf{blue boxes}, answers should be recorded in the \textbf{green boxes}.
   \item Include code, images, and equations where appropriate.
   \item To identify all places where your responses are expected, search for `TODO'.
+  \item The answer box sizes have been set by the staff beforehand and will truncate your text if it goes beyond the limit. Please make sure your responses fit in the appropriate spaces. \textbf{Extra pages are not permitted unless otherwise specified.}
+  \item Make sure your submission has the right number of pages to validate page alignment sanity (check the footer).
   \item Please make this document anonymous.
 \end{itemize}
 
 \section*{ Gradescope Instructions}
 \begin{itemize}
   \item When you are finished, compile this document to a PDF and submit it directly to Gradescope. 
-  \item You will be required to assign the appropriate answers to the right pages on Gradescope. \textbf{Failure to assign pages correctly will lead to a deduction of 2 points per misaligned page (capped at a maxmimum 6 point deduction).}
+  \item The pages will be automatically assigned to the right questions on Gradescope \textit{assuming you do not add any unnecessary pages}. \textbf{Inconsistently assigned pages will lead to a deduction of 2 points per misaligned page (capped at a maximum 6 point deduction).}
 \end{itemize}
 \pagebreak
 
 
 \paragraph{Q1:} \textbf{[3 points]} Let's look again at the webcam Fourier decomposition demo which Srinath showed in class. 
 
+The Fourier transform (or fast Fourier transform more specifically) is often regarded as one of the most important algorithms ever developed. The internet, your WiFi, smartphone, phone, computer, router, satellites, almost everything that has a computer inside uses these algorithms in one way or another to function. Below is a depiction of FFT being used for aircraft vibration analysis.
+
+\begin{center}
+\includegraphics[width=300px,height=95px]{images/aircraft-vibration-analysis-plots.png} 
+\end{center}
+
+\begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
 Navigate to the \texttt{questions} folder. Then, within your cs1430 virtual environment, run the following command:
 \begin{verbatim}
 $ python liveFFT2.py
@@ -137,10 +143,13 @@ This file contains five parts for you to explore and see the amplitude image, th
 Uncomment the different parts and explore the camera feed decomposition! Please include three results of your experimentation. We'll be grading for completion, not correctness.
 
 \emph{Note:} For anonymous grading, try not to put yourself in the camera frame. Show your favourite vector calculus book, wear a mask, use your cat, etc. Extra credit for creative effort.
+\end{tcolorbox}
 
+\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
 \includegraphics[width=\textwidth * 5/10]{TODO: result-1.png}
 \includegraphics[width=\textwidth * 5/10]{TODO: result-2.png}
 \includegraphics[width=\textwidth * 5/10]{TODO: result-3.png}
+\end{tcolorbox}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -163,83 +172,143 @@ Uncomment the different parts and explore the camera feed decomposition! Please 
 % Please leave the pagebreak
 \pagebreak
 
-\paragraph{Q2:} \textbf{[9 points]} Imagine you wished to find points in one image which matched to the same world point in another image. This is called feature point correspondence matching.
+\paragraph{Q2:} \textbf{[11 points]} Imagine you wished to find points in one image which matched to the same world point in another image. This is called feature point correspondence matching.
 
+In direct feature matching, correspondences are established with simple and fast nearest neighbor searches between multidimensional embeddings. Closest points reveal in fact the best compromise between intensity and spatial location.
+
+\begin{center}
+\includegraphics[width=300px,height=125px]{images/Direct-Feature-Matching-Correspondences-are-established-with-simple-and-fast-nearest.png} 
+\end{center}
+
+\begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
 Please use the included python script \texttt{plot\_corners.py} to find corners using Harris corner detection for each pair of images below. 
 
-For each pair, discuss the differences in the returned corners (if any), the aspects of the images that create these differences, and any underlying real world phenomena that may have been the primary cause of these differences.
+For each pair, discuss the differences in the returned corners (if any), the aspects of the images that create these differences, and any underlying real world phenomena that may have been the primary cause of these differences. \textbf{[3-5 sentences]}
+\end{tcolorbox}
 
 \begin{enumerate}[(a)]
     \item \textbf{[1 + 2 points]}
 RISHLibrary: 
 \href{images/RISHLibrary1.jpg}{RISHLibrary1.jpg} and \href{images/RISHLibrary2.jpg}{RISHLibrary2.jpg} 
+\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black,breakable]
+\includegraphics[width=\textwidth]{images/TODO wall-e.jpg}
+\includegraphics[width=\textwidth]{images/TODO wall-e.jpg}
 
-\includegraphics[width=\textwidth * 5/10]{TODO: harris-RISHLibrary1.jpg}
-\includegraphics[width=\textwidth * 5/10]{TODO: harris-RISHLibrary2.jpg}
+\setbox0=\hbox{\parbox[t]{\textwidth}{
+%%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{mdframed}
-    TODO: Your answer for (a) here
-\end{mdframed}
+TODO: Your answer for (a) here
+
+%%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+}}
+\clipbox{0pt \dimexpr\dp0-7\baselineskip\relax{} 0in 0pt}{\copy0}
+\end{tcolorbox}
 
     \item \textbf{[1 + 2 points]}
 Chase:
 \href{images/Chase1.jpg}{Chase1.jpg} and \href{images/Chase2.jpg}{Chase2.jpg}
-
+\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
 \includegraphics[width=\textwidth * 5/10]{TODO: harris-Chase1.jpg}
 \includegraphics[width=\textwidth * 5/10]{TODO: harris-Chase2.jpg}
 
-\begin{mdframed}
-    TODO: Your answer for (b) here
-\end{mdframed}
+\setbox0=\hbox{\parbox[t]{\textwidth}{
+%%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+TODO: Your answer for (b) here
+
+%%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+}}
+\clipbox{0pt \dimexpr\dp0-7\baselineskip\relax{} 0in 0pt}{\copy0}
+\end{tcolorbox}
 
     \item \textbf{[1 + 2 points]} 
 LaddObservatory: 
 \href{images/LaddObservatory1.jpg}{LaddObservatory1.jpg} and \href{images/LaddObservatory2.jpg}{LaddObservatory2.jpg}
-
+\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
 \includegraphics[width=\textwidth * 5/10]{TODO: harris-LaddObservatory1.jpg}
 \includegraphics[width=\textwidth * 5/10]{TODO: harris-LaddObservatory2.jpg}
 
-\begin{mdframed}
-    TODO: Your answer for (c) here
-\end{mdframed}
+\setbox0=\hbox{\parbox[t]{\textwidth}{
+%%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+TODO: Your answer for (c) here
+
+%%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+}}
+\clipbox{0pt \dimexpr\dp0-6\baselineskip\relax{} 0in 0pt}{\copy0}
+\end{tcolorbox}
+
+\item \textbf{[2 points]} In the coding portion of the homework, you'll investigate strategies to filter only the matches you are most confident in. What problems could be caused if someone took feature matching algorithm results to be 100\% accurate? \textbf{[3-4 sentences]}
+
+\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
+\setbox0=\hbox{\parbox[t]{\textwidth}{
+    %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        
+    TODO: Your answer for (d) here
+        
+    %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    }}
+\clipbox{0pt \dimexpr\dp0-6\baselineskip\relax{} 0in 0pt}{\copy0}
+\end{tcolorbox}
 \end{enumerate}
 
-
-
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \paragraph{A2 (a):} Answer for RISHLibrary pair
-
-
-
-% \pagebreak
-% \paragraph{A2 (b):} Answer for Chase pair
-
-
-
-% \pagebreak
-% \paragraph{A2 (c):} Answer for LaddObservatory pair
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \pagebreak
-\paragraph{Q3:} \textbf{[7 points]} One use of local feature extraction and matching is \href{https://www.youtube.com/watch?v=xD88Qs_DZp4}{fingerprint recognition}---please watch the video and note the similarity to our task in this homework. Fingerprint recognition uses biometric data---measurements of human biological features that are unique to an individual---to make it convenient to unlock doors or devices quickly and without needing to remember a password. However, given its uniqueness, biometric data may be seen as a greater privacy encroachment upon a person than a password. Further, given the trust that is derived from the uniqueness of biometric data, it may also pose a greater risk of misuse if the data is not secure because the data cannot be changed.
+\paragraph{Q3:} \textbf{[9 points]} One use of local feature extraction and matching is \href{https://www.youtube.com/watch?v=xD88Qs_DZp4}{fingerprint recognition}---please watch the video and note the similarity to our task in this homework. Fingerprint recognition uses biometric data---measurements of human biological features that are unique to an individual---to make it convenient to unlock doors or devices quickly and without needing to remember a password. However, given its uniqueness, biometric data may be seen as a greater privacy encroachment upon a person than a password. Further, given the trust that is derived from the uniqueness of biometric data, it may also pose a greater risk of misuse if the data is not secure because the data cannot be changed.
 
 \begin{enumerate}[(a)]
     \item \textbf{[2 + 1 points]}
-Do you use biometric recognition systems? List them. [If not, list some that people around you use.]
-For one of the systems you use, where is the reference data stored (such as your stored fingerprint), and where and how does the authentication process happen (at a high level)? 
-Try to find the answer online; \href{https://ievoreader.com/how-biometric-data-is-stored/}{this article} may also help.
+    \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
+    Do you use biometric recognition systems? List them. [If not, list some that people around you use.]
+    For one of the systems you use, where is the reference data stored (such as your stored fingerprint), and where and how does the authentication process happen (at a high level)? 
+    Try to find the answer online; \href{https://ievoreader.com/how-biometric-data-is-stored/}{this article} may also help. \textbf{[4-6 sentences]}
+    \end{tcolorbox}
+    
+    \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
+    \setbox0=\hbox{\parbox[t]{\textwidth}{
+        %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            
+        TODO: Your answer for (a) here
+            
+        %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        }}
+    \clipbox{0pt \dimexpr\dp0-9\baselineskip\relax{} 0in 0pt}{\copy0}
+    \end{tcolorbox}
 
-\item
-\textbf{[2 points]}
-How might someone use computer vision to steal or spoof your biometric data to gain access? \emph{This could be across reconstruction, recognition, or (re)organization.}
+    \item
+    \textbf{[3 points]}
+    \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
+    How might someone use computer vision to steal or spoof your biometric data to gain access? \emph{This could be across reconstruction, recognition, or (re)organization.} \textbf{[3-5 sentences]}
+    \end{tcolorbox}
 
-\item
-\textbf{[2 points]}
-Biometric recognition systems may not affect all people equally. For a biometric authentication system, define a group of people and describe how they might be affected disproportionately.
+    \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
+    \setbox0=\hbox{\parbox[t]{\textwidth}{
+        %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            
+        TODO: Your answer for (b) here
+            
+        %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        }}
+    \clipbox{0pt \dimexpr\dp0-8\baselineskip\relax{} 0in 0pt}{\copy0}
+    \end{tcolorbox}
+
+
+    \pagebreak
+    \item
+    \textbf{[3 points]}
+    \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
+    Biometric recognition systems may not affect all people equally. For a biometric authentication system, define a group of people and describe how they might be affected disproportionately. \textbf{[3-5 sentences]}
+    \end{tcolorbox}
+    
+    \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
+    \setbox0=\hbox{\parbox[t]{\textwidth}{
+        %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            
+        TODO: Your answer for (c) here
+            
+        %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        }}
+    \clipbox{0pt \dimexpr\dp0-8\baselineskip\relax{} 0in 0pt}{\copy0}
+    \end{tcolorbox}
 \end{enumerate}
 
 \pagebreak
@@ -252,10 +321,23 @@ Biometric recognition systems may not affect all people equally. For a biometric
 As preparation, you read a previous case about a \href{https://www.vpnmentor.com/blog/report-biostar2-leak/}{biometric data breach}.
 
 \begin{enumerate}[(a)]
-    \item 
-    \textbf{[1 + 2 points]}
-How were BioStar 2 storing their fingerprint data? Knowing the computer vision algorithms involved in feature matching, what different processing, features, or storage might you consider instead to decrease the risk of a biometric data breach?
+    \item \textbf{[1 + 2 points]}
+    \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
+    How were BioStar 2 storing their fingerprint data? Knowing the computer vision algorithms involved in feature matching, what different processing, features, or storage might you consider instead to decrease the risk of a biometric data breach? \textbf{[4-6 sentences]}
+    \end{tcolorbox}
 
+    \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
+    \setbox0=\hbox{\parbox[t]{\textwidth}{
+        %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            
+        TODO: Your answer for (a) here
+            
+        %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        }}
+    \clipbox{0pt \dimexpr\dp0-8\baselineskip\relax{} 0in 0pt}{\copy0}
+    \end{tcolorbox}
+
+    \pagebreak
     \item 
     \textbf{[2 + 1 points]}
 Even though fingerprints are thought to be unique, we are bound by the accuracy of computer vision systems to detect and recognize that uniqueness.
@@ -263,9 +345,23 @@ This may be a challenge for Brown's 10,000 students, let alone a national-scale 
 
 Even seemingly high accuracies can create many inaccurate matches with large databases, potentially causing inaccurage judgements in criminal cases. 
 
-Compare the causes that affect matching performance in natural images in Q2 to those that you might expect within the scenario of fingerprint recognition for door or device unlocking. Based on this, is accurate fingerprint recognition an easier problem than natural image matching?
+    \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
+    Compare the causes that affect matching performance in natural images in Q2 to those that you might expect within the scenario of fingerprint recognition for door or device unlocking. Based on this, is accurate fingerprint recognition an easier problem than natural image matching? \textbf{[5-7 sentences]}
 
-\emph{Refer to the video at the beginning of Q3 and \href{http://biometrics.cse.msu.edu/Presentations/AnilJain_UniquenessOfFingerprints_NAS05.pdf}{this slide deck} for example images and additional information.}
+    \emph{Refer to the video at the beginning of Q3 and \href{http://biometrics.cse.msu.edu/Presentations/AnilJain_UniquenessOfFingerprints_NAS05.pdf}{this slide deck} for example images and additional information.}
+    \end{tcolorbox}
+
+    \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
+    \setbox0=\hbox{\parbox[t]{\textwidth}{
+        %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            
+        TODO: Your answer for (b) here
+            
+        %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        }}
+    \clipbox{0pt \dimexpr\dp0-10\baselineskip\relax{} 0in 0pt}{\copy0}
+    \end{tcolorbox}
+
 \end{enumerate}
 
 \pagebreak
@@ -277,6 +373,14 @@ Compare the causes that affect matching performance in natural images in Q2 to t
 
 \pagebreak
 \paragraph{Q5:} \textbf{[3 points]}
+Consider the pictures below of the same mountain.
+
+\begin{center}
+\includegraphics[width=300px,height=125px]{images/harris_mountains.png} 
+\end{center}
+
+If you were tasked with the problem of stitching them together to form a panoramic view, what would be the first thing you would think of doing?  You would probably find points in one image which appear in the other.
+
 The Harris Corner Detector is commonly used in computer vision algorithms to find interest points from which to extract stable features for image matching.
 
 To detect these features, we attempt to determine the strength of any change in the Energy (intensity) function $E(u, v)$ on the image. Since we can approximate corner points to be represented by quadratic-esque energy level surfaces, we can use the Taylor expansion and quantify the change in $E(u, v)$ within a certain radius in the image.
@@ -287,54 +391,78 @@ Now, we can represent the Taylor expansion using matrices, and so the second der
 
 \textit{Note:} For a more comprehensive background, review the lecture slides.
 
-How do the eigenvalues of the `M' second moment matrix vary with local image brightness, and how might we interpret the eigenvalues geometrically (think `shape')?
+\begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
+How do the eigenvalues of the `M' second moment matrix vary with local image brightness, and how might we interpret the eigenvalues geometrically (think `shape')? \textbf{6-8 sentences}
+\end{tcolorbox}
 
-\begin{mdframed}
-    TODO: Your answer for 5 here
-\end{mdframed}
-
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \paragraph{A5:} Your answer here.
-
-
-
-
-
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
+\setbox0=\hbox{\parbox[t]{\textwidth}{
+    %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        
+    TODO: Your answer for Q5 here
+        
+    %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    }}
+\clipbox{0pt \dimexpr\dp0-14\baselineskip\relax{} 0in 0pt}{\copy0}
+\end{tcolorbox}
 
 % Please leave the pagebreak
 \pagebreak
 \paragraph{Q6:} \textbf{[3 points]}
 Once you've detected the feature points, the next step is to extract their descriptions, i.e., their general properties. These generated feature descriptors will be used in the final step when matching feature points via their feature descriptors.
 
-The algorithm to use here to extract the feature descriptors of feature points is SIFT. Given a interest point location, the SIFT algorithm converts a 16$\times$16 patch around the interest point into a 128$\times$1 feature descriptor of the gradient magnitudes and orientations therein. 
+The algorithm to use here to extract the feature descriptors of feature points is SIFT. Given a interest point location, the SIFT algorithm converts a 16$\times$16 patch around the interest point into a 128$\times$1 feature descriptor of the gradient magnitudes and orientations therein.
 
+\begin{center}
+\includegraphics[width=300px,height=125px]{images/sift.png} 
+\end{center}
+
+\begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
 Write pseudocode \emph{with matrix/array indices} for these steps.
 
 \emph{Notes:} Do this for just one interest point at one scale; ignore the overall interest point orientation; ignore the Gaussian weighting; ignore all normalization post-processing; ignore image boundaries; ignore sub-pixel interpolation and just pick an arbitrary center within the 16$\times$16 for your feature descriptor.
+\end{tcolorbox}
 
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \paragraph{A6:} Your answer here.
-
-
+\begin{tcolorbox}[enhanced jigsaw,breakable,pad at break*=1mm,colback=white!5!white,colframe=green!75!black,height fixed for=all]
 \begin{python}
-# You can assume access to the image, x and y gradients, and their magnitudes/orientations.
+# You can assume access to the image, x and y gradients, 
+# and their magnitudes/orientations.
 image = imread("rara.jpg")
 grad_x = filter(image, "sobelX")
 grad_y = filter(image, "sobelY")
 grad_mag = sqrt(grad_x .^2 + grad_y.^2)
 grad_ori = atan2(grad_y, grad_x)
 
-# Takes in a interest point x,y location and returns a feature descriptor
+# Takes in a interest point x,y location and returns 
+# a feature descriptor
 def SIFTdescriptor(x, y)
     descriptor = zeros(128,1)
     
-    # TODO: Populate descriptor with the right gradient magnitudes dependent on the gradient orientations
+    # TODO: Populate descriptor with the right gradient 
+    # magnitudes dependent on the gradient orientations
+
+
+
+    
+    
+    
+    
+    
+    
+    ################################################
+    # YOU MAY USE THIS ADDITIONAL PAGE
+
+    # WARNING: IF YOU DON'T END UP USING THIS PAGE
+    # KEEP THESE COMMENTS TO MAINTAIN PAGE ALIGNMENT
+    ################################################
 
     return descriptor
 \end{python}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% DO NOT REMOVE THIS LINE. IT'S TO MAKE SURE PAGE ALIGNMENT IS CORRECT 
+\phantom{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\end{tcolorbox}
 % \end{enumerate}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -385,6 +513,16 @@ def SIFTdescriptor(x, y)
 
 % How should we design for this trade-off?
 
+
+\pagebreak
+\section*{Discussion Attendance:}
+\paragraph{Extra Credit:} \textbf{[2 points]}
+
+Please mark this box only if you've attended the discussion session in person.
+
+\begin{tabular}[h]{ll}
+$\square$ & I attended the discussion session on DATE \\
+\end{tabular}
 
 \pagebreak
 \section*{Feedback? (Optional)}
