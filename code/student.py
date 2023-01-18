@@ -53,8 +53,8 @@ def get_feature_points(image, feature_width):
     :feature_width: the width and height of each local feature in pixels
 
     :returns:
-    :xs: an np array of the x coordinates of the interest points in the image
-    :ys: an np array of the y coordinates of the interest points in the image
+    :xs: an np array of the x coordinates (column indices) of the interest points in the image
+    :ys: an np array of the y coordinates (row indices) of the interest points in the image
 
     :optional returns (may be useful for extra credit portions):
     :confidences: an np array indicating the confidence (strength) of each interest point
@@ -131,8 +131,8 @@ def get_feature_descriptors(image, x_array, y_array, feature_width):
 
     :params:
     :image: a grayscale or color image (your choice depending on your implementation)
-    :x: np array of x coordinates of interest points
-    :y: np array of y coordinates of interest points
+    :x: np array of x coordinates (column indices) of interest points
+    :y: np array of y coordinates (row indices) of interest points
     :feature_width: in pixels, is the local feature width. You can assume
                     that feature_width will be a multiple of 4 (i.e. every cell of your
                     local SIFT-like feature will have an integer width and height).
@@ -141,10 +141,11 @@ def get_feature_descriptors(image, x_array, y_array, feature_width):
     are optional or the autograder will break.
 
     :returns:
-    :features: numpy array of computed features. It should be of size
-            [num points * feature dimensionality]. For standard SIFT, `feature
-            dimensionality` is 128. `num points` may be less than len(x) if
-            some points are rejected, e.g., if out of bounds.
+    :features: np array of computed features. features[i] is the descriptor for 
+               point (x[i], y[i]), so the shape of features should be 
+               (len(x), feature dimensionality). For standard SIFT, `feature
+               dimensionality` is 128. `num points` may be less than len(x) if
+               some points are rejected, e.g., if out of bounds.
 
     '''
 
@@ -172,8 +173,9 @@ def get_feature_descriptors(image, x_array, y_array, feature_width):
 
 def match_features(im1_features, im2_features):
     '''
-    Implements the Nearest Neighbor Distance Ratio Test to assign matches between interest points
-    in two images.
+    Matches feature descriptors of one image with their nearest neighbor in the other. 
+    Implements the Nearest Neighbor Distance Ratio (NNDR) Test to determine the 
+    confidence of each match.
 
     Please implement the "Nearest Neighbor Distance Ratio (NNDR) Test" ,
     Equation 4.18 in Section 4.1.3 of Szeliski.
@@ -191,6 +193,13 @@ def match_features(im1_features, im2_features):
     represent this match as a the index of the feature in im1_features and the index
     of the feature in im2_features
 
+    Useful functions: A working solution does not require the use of all of these
+    functions, but depending on your implementation, you may find some useful. Please
+    reference the documentation for each function/library and feel free to come to hours
+    or post on EdStem with any questions
+
+        - np.argsort()
+
     :params:
     :im1_features: an np array of features returned from get_feature_descriptors() for interest points in image1
     :im2_features: an np array of features returned from get_feature_descriptors() for interest points in image2
@@ -207,7 +216,8 @@ def match_features(im1_features, im2_features):
     
     # STEP 1: Calculate the distances between each pairs of features between im1_features and im2_features.
     #         HINT: https://browncsci1430.github.io/webpage/hw2_featurematching/efficient_sift/
-    # STEP 2: Sort and find closest features for each feature, then performs NNDR test.
+    # STEP 2: Sort and find closest features for each feature
+    # STEP 3: compute confidence using NNDR
     
     # BONUS: Using PCA might help the speed (but maybe not the accuracy).
 
