@@ -81,7 +81,7 @@ def get_feature_points(image, feature_width):
     return xs, ys
 
 
-def get_feature_descriptors(image, x_array, y_array, feature_width, use_SIFT=False):
+def get_feature_descriptors(image, x_array, y_array, feature_width, use_SIFT):
     '''
     Returns features for a given set of interest points.
 
