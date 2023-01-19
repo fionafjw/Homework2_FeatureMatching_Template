@@ -94,9 +94,12 @@ def main():
     """
     Reads in the data,
 
-    Command line usage: python main.py -d | --data <image pair name>
+    Command line usage: 
+    
+    python main.py -d | --data <image pair name> -p | --points <cheat or student points>
 
     -d | --data - flag - required. specifies which image pair to match
+    -p | --points - flag - required. specifies whether to use cheat points or student's feature points
 
     """
 
@@ -106,6 +109,11 @@ def main():
                         required=True,
                         choices=["notre_dame","mt_rushmore","e_gaudi", "custom"],
                         help="Either notre_dame, mt_rushmore, e_gaudi, or custom. Specifies which image pair to match")
+    parser.add_argument("-p","--points", 
+                        required=True,
+                        choices=["cheat_points", "student_points"],
+                        help="Either cheat_points or student_points. Returns interest points for the image. Use \
+                              cheat_points until get_feature_points() is implemented in student.py")
     args = parser.parse_args()
 
     # (1) Load in the data
@@ -138,18 +146,18 @@ def main():
     # !!! You will need to implement get_feature_points. !!!
 
     print("Getting interest points...")
-
-    (x1, y1) = student.get_feature_points(image1,feature_width)
-    (x2, y2) = student.get_feature_points(image2,feature_width)
+    
+    if args.points == "student_points":
+        (x1, y1) = student.get_feature_points(image1,feature_width)
+        (x2, y2) = student.get_feature_points(image2,feature_width)
 
     # For development and debugging get_feature_descriptors and match_features, you will likely
-    # want to use the ta ground truth points, you can comment out the precedeing two
-    # lines and uncomment the following line to do this. Note that the ground truth
-    # points for mt. rushmore will not produce good results, so you'll have to use
-    # your own function for that image pair.
-
-    # (x1, y1, x2, y2) = cheat_interest_points(eval_file, scale_factor)
-
+    # want to use the ta ground truth points, you can pass "-p cheat_points" to 
+    # the main function to do this. Note that the ground truth points for mt. rushmore 
+    # will not produce good results, so you'll have to use your own function for 
+    # that image pair.
+    elif args.points == "cheat_points":
+        (x1, y1, x2, y2) = cheat_interest_points(eval_file, scale_factor)
 
     # Viewing your interest points on your images.
     # !!! You will need to implement plot_interest_points. !!!
