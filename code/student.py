@@ -40,7 +40,7 @@ def get_feature_points(image, feature_width):
     Useful functions: A working solution does not require the use of all of these
     functions, but depending on your implementation, you may find some useful. Please
     reference the documentation for each function/library and feel free to come to hours
-    or post on Piazza with any questions
+    or post on EdStem with any questions
 
         - skimage.feature.peak_local_max (experiment with different min_distance values to get good results)
         - skimage.measure.regionprops
@@ -85,9 +85,8 @@ def get_feature_descriptors(image, x_array, y_array, feature_width, use_SIFT):
     '''
     Returns features for a given set of interest points.
 
-    To start with, you might want to simply use normalized patches as your
-    local feature descriptor. This is very simple to code and works OK. However, to get
-    full credit you will need to implement the more effective SIFT-like feature descriptor
+    To start with, normalize patches as your local feature descriptor. You will 
+    then need to implement the more effective SIFT-like feature descriptor.
     (See Szeliski 4.1.2 or the original publications at
     http://www.cs.ubc.ca/~lowe/keypoints/)
 
@@ -133,6 +132,8 @@ def get_feature_descriptors(image, x_array, y_array, feature_width, use_SIFT):
     :feature_width: in pixels, is the local feature width. You can assume
                     that feature_width will be a multiple of 4 (i.e. every cell of your
                     local SIFT-like feature will have an integer width and height).
+    :use_SIFT: boolean variable to call the SIFT implementation of this function. 
+
     If you want to detect and describe features at multiple scales or
     particular orientations you can add input arguments. Make sure input arguments 
     are optional or the autograder will break.
@@ -143,7 +144,6 @@ def get_feature_descriptors(image, x_array, y_array, feature_width, use_SIFT):
                (len(x), feature dimensionality). For standard SIFT, `feature
                dimensionality` is 128. `num points` may be less than len(x) if
                some points are rejected, e.g., if out of bounds.
-
     '''
 
     # TODO: Your implementation here! See block comments and the homework webpage for instructions
