@@ -66,11 +66,8 @@ def get_feature_points(image, feature_width):
     # TODO: Your implementation here! See block comments and the homework webpage for instructions
 
     # These are placeholders - replace with the coordinates of your interest points!
-
-    xs = np.zeros(1)
-    ys = np.zeros(1)
-    # Note that xs and ys represent the coordinates of the image. Thus, xs actually denote the columns
-    # of the respective points and ys denote the rows of the respective points.
+    xs = np.random.uniform(feature_width // 2, image.shape[1] - feature_width // 2, size=100)
+    ys = np.random.uniform(feature_width // 2, image.shape[0] - feature_width // 2, size=100)
 
     # STEP 1: Calculate the gradient (partial derivatives on two directions).
     # STEP 2: Apply Gaussian filter with appropriate sigma.
@@ -213,16 +210,15 @@ def match_features(im1_features, im2_features):
     # TODO: Your implementation here! See block comments and the homework webpage for instructions
 
     # These are placeholders - replace with your matches and confidences!
+    matches = np.zeros((1,2))
+    confidences = np.zeros(1)
     
     # STEP 1: Calculate the distances between each pairs of features between im1_features and im2_features.
     #         HINT: https://browncsci1430.github.io/webpage/hw2_featurematching/efficient_sift/
     # STEP 2: Sort and find closest features for each feature
-    # STEP 3: compute confidence using NNDR
+    # STEP 3: Compute confidences using NNDR
+    # STEP 4: Remove the least confident matches by thresholding
     
     # BONUS: Using PCA might help the speed (but maybe not the accuracy).
 
-    matches = np.zeros((1,2))
-    confidences = np.zeros(1)
-
-
-    return matches, confidences
+    return matches

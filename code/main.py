@@ -146,7 +146,7 @@ def main():
     # !!! You will need to implement get_feature_points. !!!
 
     print("Getting interest points...")
-    
+
     if args.points == "student_points":
         (x1, y1) = student.get_feature_points(image1,feature_width)
         (x2, y2) = student.get_feature_points(image2,feature_width)
@@ -181,7 +181,7 @@ def main():
 
     print("Matching features...")
 
-    matches, confidences = student.match_features(image1_features, image2_features)
+    matches = student.match_features(image1_features, image2_features)
 
     print("Done!")
 
@@ -198,15 +198,13 @@ def main():
 
     print("Matches: " + str(matches.shape[0]))
 
-    num_pts_to_visualize = 50
-    
     if args.data == "custom":
         print("Visualizing on custom images...")
         visualize.show_correspondences_custom_image(image1_color, image2_color, x1, y1, x2, 
-            y2, matches, scale_factor, num_pts_to_visualize, args.data + '_matches.png')
+            y2, matches, scale_factor, args.data + '_matches.png')
     else:
         evaluate_correspondence(image1_color, image2_color, eval_file, scale_factor,
-            x1, y1, x2, y2, matches, confidences, num_pts_to_visualize, args.data + '_matches.png')
+            x1, y1, x2, y2, matches, args.data + '_matches.png')
 
     return
 

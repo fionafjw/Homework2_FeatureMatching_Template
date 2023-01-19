@@ -38,17 +38,13 @@ def estimate_fundamental_matrix(ground_truth_correspondence_file):
     return np.load(F_path)
 
 def evaluate_correspondence(img_A, img_B, ground_truth_correspondence_file,
-	scale_factor, x1_est, y1_est, x2_est, y2_est, matches, confidences, vis, filename="notre_dame_matches.jpg"):
+	scale_factor, x1_est, y1_est, x2_est, y2_est, matches, filename="notre_dame_matches.jpg"):
 
 	# 'unscale' interest points to compare with ground truth points
 	x1_est_scaled = x1_est / scale_factor
 	y1_est_scaled = y1_est / scale_factor
 	x2_est_scaled = x2_est / scale_factor
 	y2_est_scaled = y2_est / scale_factor
-
-	conf_indices = np.argsort(-confidences, kind='mergesort')
-	matches = matches[conf_indices,:]
-	confidences = confidences[conf_indices]
 
 	# we want to see how good our matches are, extract the coordinates of each matched
 	# point
@@ -88,8 +84,6 @@ def evaluate_correspondence(img_A, img_B, ground_truth_correspondence_file,
 	correct_matches = 0
 
 	F = estimate_fundamental_matrix(ground_truth_correspondence_file)
-	top50 = 0
-	top100 = 0
 
 	for i in range(x1_matches.shape[0]):
 		pointA = np.ones((1, 3))
@@ -117,17 +111,11 @@ def evaluate_correspondence(img_A, img_B, ground_truth_correspondence_file,
 			if offset_dist < 70:
 				correct_matches += 1
 				good_matches[i] = True
-		if i == 49:
-			print(f'Accuracy on 50 most confident: {int(100 * correct_matches / 50)}%')
-			top50 = correct_matches
-		if i == 99:
-			print(f'Accuracy on 100 most confident: {int(100 * correct_matches / 100)}%')
-			top100 = correct_matches
 
-	print(f'Accuracy on all matches: {int(100 * correct_matches / len(matches))}%')
+	accuracy = int(100 * correct_matches / len(matches)) if len(matches) else 0
+	print(f'Accuracy on all matches: {accuracy}%')
 
-	if vis > 0:
-		print("Vizualizing...")
-		visualize.show_correspondences(img_A, img_B, x1_est / scale_factor, y1_est / scale_factor, x2_est / scale_factor, y2_est / scale_factor, matches, good_matches, vis, filename)
+	print("Vizualizing...")
+	visualize.show_correspondences(img_A, img_B, x1_est / scale_factor, y1_est / scale_factor, x2_est / scale_factor, y2_est / scale_factor, matches, good_matches, filename)
 
-	return top50, top100, correct_matches
+	return correct_matches

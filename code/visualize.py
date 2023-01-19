@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 
-def show_correspondences(imgA, imgB, X1, Y1, X2, Y2, matches, good_matches, number_to_display, filename=None):
+def show_correspondences(imgA, imgB, X1, Y1, X2, Y2, matches, good_matches, filename=None):
 	'''
 		Visualizes corresponding points between two images, either as
 		arrows or dots
@@ -20,10 +20,6 @@ def show_correspondences(imgA, imgB, X1, Y1, X2, Y2, matches, good_matches, numb
 	# generates unique figures so students can
 	# look at all three at once
 	fig, ax = plt.subplots(nrows=1, ncols=1)
-
-	matches = matches[0:number_to_display, :]
-	good_matches = good_matches[0:number_to_display]
-
 
 	kp1 = zip_x_y(Y1, X1)
 	kp2 = zip_x_y(Y2, X2)
@@ -41,7 +37,7 @@ def show_correspondences(imgA, imgB, X1, Y1, X2, Y2, matches, good_matches, numb
 
 	return
 
-def show_correspondences_custom_image(imgA, imgB, X1, Y1, X2, Y2, matches, scale_factor, number_to_display, filename=None):
+def show_correspondences_custom_image(imgA, imgB, X1, Y1, X2, Y2, matches, scale_factor, filename=None):
 	'''
 		Visualizes corresponding points between two images, either as
 		arrows or dots. Unlike show_correspondences, does not take correct_matches argument
@@ -55,8 +51,6 @@ def show_correspondences_custom_image(imgA, imgB, X1, Y1, X2, Y2, matches, scale
 	# generates unique figures so students can
 	# look at all three at once
 	fig, ax = plt.subplots(nrows=1, ncols=1)
-
-	matches = matches[0:number_to_display, :]
 
 	x1_scaled = X1 / scale_factor
 	y1_scaled = Y1 / scale_factor
