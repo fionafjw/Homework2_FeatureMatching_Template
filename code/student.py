@@ -27,7 +27,7 @@ def get_feature_points(image, feature_width):
     (Please note that we recommend implementing this function last and using cheat_interest_points()
     to test your implementation of get_feature_descriptors() and match_features())
 
-    Implement the Harris corner detector (See Szeliski 4.1.1) to start with.
+    Implement the Harris corner detector (See Szeliski 7.1.1) to start with.
     You do not need to worry about scale invariance or keypoint orientation estimation
     for your Harris corner detector.
     You can create additional interest point detector functions (e.g. MSER)
@@ -87,7 +87,7 @@ def get_feature_descriptors(image, x_array, y_array, feature_width, use_SIFT):
 
     To start with, normalize patches as your local feature descriptor. You will 
     then need to implement the more effective SIFT-like feature descriptor.
-    (See Szeliski 4.1.2 or the original publications at
+    (See Szeliski 7.1.2 or the original publications at
     http://www.cs.ubc.ca/~lowe/keypoints/)
 
     Your implementation does not need to exactly match the SIFT reference.
@@ -120,7 +120,7 @@ def get_feature_descriptors(image, x_array, y_array, feature_width, use_SIFT):
     Useful functions: A working solution does not require the use of all of these
     functions, but depending on your implementation, you may find some useful. Please
     reference the documentation for each function/library and feel free to come to hours
-    or post on Piazza with any questions
+    or post on EdStem with any questions
 
         - skimage.filters (library)
 
@@ -186,7 +186,7 @@ def match_features(im1_features, im2_features):
     and remove false matches.
 
     Please implement the "Nearest Neighbor Distance Ratio (NNDR) Test" ,
-    Equation 4.18 in Section 4.1.3 of Szeliski.
+    Equation 7.18 in Section 7.1.3 of Szeliski.
 
     For extra credit you can implement spatial verification of matches.
 
