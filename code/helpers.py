@@ -118,4 +118,4 @@ def evaluate_correspondence(img_A, img_B, ground_truth_correspondence_file,
 	print("Vizualizing...")
 	visualize.show_correspondences(img_A, img_B, x1_est / scale_factor, y1_est / scale_factor, x2_est / scale_factor, y2_est / scale_factor, matches, good_matches, filename)
 
-	return correct_matches
+	return accuracy
