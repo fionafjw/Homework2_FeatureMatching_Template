@@ -192,7 +192,7 @@ def match_features(im1_features, im2_features):
 
     Remember that the NNDR will return a number close to 1 for feature 
     points with similar distances. Think about how you might want to threshold
-    this ratio (hint: see lecture slides)
+    this ratio (hint: see lecture slides for NNDR)
 
     This function does not need to be symmetric (e.g., it can produce
     different numbers of matches depending on the order of the arguments).
@@ -227,7 +227,7 @@ def match_features(im1_features, im2_features):
     #         HINT: https://browncsci1430.github.io/webpage/hw2_featurematching/efficient_sift/
     # STEP 2: Sort and find closest features for each feature
     # STEP 3: Compute NNDR for each match
-    # STEP 4: Remove matches whose ratios do not meet a threshold
+    # STEP 4: Remove matches whose ratios do not meet a certain threshold
     
     # BONUS: Using PCA might help the speed (but maybe not the accuracy).
 
