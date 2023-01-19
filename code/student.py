@@ -182,17 +182,17 @@ def get_feature_descriptors(image, x_array, y_array, feature_width, use_SIFT=Fal
 def match_features(im1_features, im2_features):
     '''
     Matches feature descriptors of one image with their nearest neighbor in the other. 
-    Implements the Nearest Neighbor Distance Ratio (NNDR) Test to determine the 
-    confidence of each match.
+    Implements the Nearest Neighbor Distance Ratio (NNDR) Test to help threshold
+    and remove false matches.
 
     Please implement the "Nearest Neighbor Distance Ratio (NNDR) Test" ,
     Equation 4.18 in Section 4.1.3 of Szeliski.
 
     For extra credit you can implement spatial verification of matches.
 
-    Please assign a confidence, else the evaluation function will not work. Remember that
-    the NNDR test will return a number close to 1 for feature points with similar distances.
-    Think about how confidence relates to NNDR.
+    Remember that the NNDR will return a number close to 1 for feature 
+    points with similar distances. Think about how you might want to threshold
+    this ratio (hint: see lecture slides)
 
     This function does not need to be symmetric (e.g., it can produce
     different numbers of matches depending on the order of the arguments).
@@ -215,20 +215,19 @@ def match_features(im1_features, im2_features):
     :returns:
     :matches: an np array of dimension k x 2 where k is the number of matches. The first
             column is an index into im1_features and the second column is an index into im2_features
-    :confidences: an np array with a real valued confidence for each match
     '''
 
     # TODO: Your implementation here! See block comments and the homework webpage for instructions
 
     # These are placeholders - replace with your matches and confidences!
     matches = np.zeros((1,2))
-    confidences = np.zeros(1)
+    ratios = np.zeros(1)
     
     # STEP 1: Calculate the distances between each pairs of features between im1_features and im2_features.
     #         HINT: https://browncsci1430.github.io/webpage/hw2_featurematching/efficient_sift/
     # STEP 2: Sort and find closest features for each feature
-    # STEP 3: Compute confidences using NNDR
-    # STEP 4: Remove the least confident matches by thresholding
+    # STEP 3: Compute NNDR for each match
+    # STEP 4: Remove matches whose ratios do not meet a threshold
     
     # BONUS: Using PCA might help the speed (but maybe not the accuracy).
 
