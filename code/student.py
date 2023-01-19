@@ -81,7 +81,7 @@ def get_feature_points(image, feature_width):
     return xs, ys
 
 
-def get_feature_descriptors(image, x_array, y_array, feature_width):
+def get_feature_descriptors(image, x_array, y_array, feature_width, use_SIFT=False):
     '''
     Returns features for a given set of interest points.
 
@@ -147,23 +147,34 @@ def get_feature_descriptors(image, x_array, y_array, feature_width):
     '''
 
     # TODO: Your implementation here! See block comments and the homework webpage for instructions
-    
-    # STEP 1: Calculate the gradient (partial derivatives on two directions) on all pixels.
-    # STEP 2: Decompose the gradient vectors to magnitude and direction.
-    # STEP 3: For each interest point, calculate the local histogram based on related 4x4 grid cells.
-    #         Each cell is a square with feature_width / 4 pixels length of side.
-    #         For each cell, we assign these gradient vectors corresponding to these pixels to 8 bins
-    #         based on the direction (angle) of the gradient vectors. 
-    # STEP 4: Now for each cell, we have a 8-dimensional vector. Appending the vectors in the 4x4 cells,
-    #         we have a 128-dimensional feature.
-    # STEP 5: Don't forget to normalize your feature.
-    
+
+    if use_SIFT == False:
+        # This is a placeholder - replace this with your features!
+        features = np.zeros((len(x_array), 256))
+
+        # STEP 1: For each interest point, cut out a 16x16 patch of the image (as you will in SIFT)
+        # STEP 2: Flatten this image patch into a 1-dimensional vector (hint: np.flatten())
+        # STEP 3: Normalize the vector
+        pass
+
+    elif use_SIFT == True:
+        # This is a placeholder - replace this with your features!
+        features = np.zeros((len(x_array), 128))
+
+        # STEP 1: Calculate the gradient (partial derivatives on two directions) on all pixels.
+        # STEP 2: Decompose the gradient vectors to magnitude and direction.
+        # STEP 3: For each interest point, calculate the local histogram based on related 4x4 grid cells.
+        #         Each cell is a square with feature_width / 4 pixels length of side.
+        #         For each cell, we assign these gradient vectors corresponding to these pixels to 8 bins
+        #         based on the direction (angle) of the gradient vectors. 
+        # STEP 4: Now for each cell, we have a 8-dimensional vector. Appending the vectors in the 4x4 cells,
+        #         we have a 128-dimensional feature.
+        # STEP 5: Don't forget to normalize your feature.
+        pass
+
     # BONUS: There are some ways to improve:
     # 1. Use a multi-scaled feature descriptor.
     # 2. Borrow ideas from GLOH or other type of feature descriptors.
-
-    # This is a placeholder - replace this with your features!
-    features = np.zeros((len(x_array),128))
 
     return features
 

@@ -96,10 +96,11 @@ def main():
 
     Command line usage: 
     
-    python main.py -d | --data <image pair name> -p | --points <cheat or student points>
+    python main.py -d | --data <image pair name> -p | --points <cheat or student points> [--sift]
 
     -d | --data - flag - required. specifies which image pair to match
     -p | --points - flag - required. specifies whether to use cheat points or student's feature points
+    --sift - flag - optional. specifies whether to use the SIFT implementation in get_feature_descriptors()
 
     """
 
@@ -114,6 +115,11 @@ def main():
                         choices=["cheat_points", "student_points"],
                         help="Either cheat_points or student_points. Returns interest points for the image. Use \
                               cheat_points until get_feature_points() is implemented in student.py")
+    parser.add_argument("--sift", 
+                        required=False,
+                        default=False,
+                        action="store_true",
+                        help="Add this flag to use your SIFT implementation in get_feature_descriptors()")
     args = parser.parse_args()
 
     # (1) Load in the data
@@ -171,8 +177,8 @@ def main():
 
     print("Getting features...")
 
-    image1_features = student.get_feature_descriptors(image1, x1, y1, feature_width)
-    image2_features = student.get_feature_descriptors(image2, x2, y2, feature_width)
+    image1_features = student.get_feature_descriptors(image1, x1, y1, feature_width, args.sift)
+    image2_features = student.get_feature_descriptors(image2, x2, y2, feature_width, args.sift)
 
     print("Done!")
 
