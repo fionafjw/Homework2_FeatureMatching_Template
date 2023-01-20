@@ -66,8 +66,8 @@ def get_feature_points(image, feature_width):
     # TODO: Your implementation here! See block comments and the homework webpage for instructions
 
     # These are placeholders - replace with the coordinates of your interest points!
-    xs = np.random.uniform(feature_width // 2, image.shape[1] - feature_width // 2, size=100)
-    ys = np.random.uniform(feature_width // 2, image.shape[0] - feature_width // 2, size=100)
+    xs = np.random.uniform(0, image.shape[1], size=100)
+    ys = np.random.uniform(0, image.shape[0], size=100)
 
     # STEP 1: Calculate the gradient (partial derivatives on two directions).
     # STEP 2: Apply Gaussian filter with appropriate sigma.
