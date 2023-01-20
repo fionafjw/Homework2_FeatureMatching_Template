@@ -220,8 +220,7 @@ def match_features(im1_features, im2_features):
     # TODO: Your implementation here! See block comments and the homework webpage for instructions
 
     # These are placeholders - replace with your matches and confidences!
-    matches = np.vstack([np.random.randint(0, len(im1_features), size=50),
-                         np.random.randint(0, len(im2_features), size=50)]).T
+    matches = np.random.randint(0, min(len(im1_features), len(im2_features)), size=(50, 2))
     ratios = np.zeros(1)
     
     # STEP 1: Calculate the distances between each pairs of features between im1_features and im2_features.
