@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from skimage import filters, feature, img_as_int
 from skimage.measure import regionprops
 
-def plot_interest_points(image, x, y):
+def plot_feature_points(image, x, y):
     '''
     Plot interest points for the input image. 
     
@@ -17,7 +17,9 @@ def plot_interest_points(image, x, y):
     :x: np array of x coordinates of interest points
     :y: np array of y coordinates of interest points
     '''
-
+    plt.imshow(image, cmap="gray")
+    plt.scatter(x, y, alpha=0.9, s=3)
+    plt.show()
     # TODO: Your implementation here! See block comments and the homework webpage for instructions
 
 def get_feature_points(image, feature_width):
