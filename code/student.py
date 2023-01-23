@@ -218,7 +218,6 @@ def match_features(im1_features, im2_features):
 
     # These are placeholders - replace with your matches and confidences!
     matches = np.random.randint(0, min(len(im1_features), len(im2_features)), size=(50, 2))
-    ratios = np.zeros(1)
     
     # STEP 1: Calculate the distances between each pairs of features between im1_features and im2_features.
     #         HINT: https://browncsci1430.github.io/webpage/hw2_featurematching/efficient_sift/
