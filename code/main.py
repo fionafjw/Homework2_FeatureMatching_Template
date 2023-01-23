@@ -167,7 +167,9 @@ def main():
 
     # Viewing your interest points on your images.
     # !!! You will need to implement plot_feature_points. !!!
+    print("Number of feature points found (image 1):", len(x1))
     student.plot_feature_points(image1, x1, y1)
+    print("Number of feature points found (image 2):", len(x2))
     student.plot_feature_points(image2, x2, y2)
 
     print("Done!")
