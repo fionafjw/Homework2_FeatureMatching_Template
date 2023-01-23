@@ -5,35 +5,35 @@ from skimage.measure import regionprops
 
 def plot_feature_points(image, x, y):
     '''
-    Plot interest points for the input image. 
+    Plot feature points for the input image. 
     
-    Show the interest points given on the input image. Be sure to add the images you make to your writeup. 
+    Show the feature points given on the input image. Be sure to add the images you make to your writeup. 
 
     Useful functions: Some helpful (not necessarily required) functions may include
         - matplotlib.pyplot.imshow, matplotlib.pyplot.scatter, matplotlib.pyplot.show, matplotlib.pyplot.savefig
     
     :params:
     :image: a grayscale or color image (your choice depending on your implementation)
-    :x: np array of x coordinates of interest points
-    :y: np array of y coordinates of interest points
+    :x: np array of x coordinates of feature points
+    :y: np array of y coordinates of feature points
     '''
 
     # TODO: Your implementation here! See block comments and the homework webpage for instructions
 
-def get_feature_points(image, feature_width):
+def get_feature_points(image, window_width):
     '''
-    Returns interest points for the input image
+    Returns feature points for the input image
 
-    (Please note that we recommend implementing this function last and using cheat_interest_points()
+    (Please note that we recommend implementing this function last and using cheat_feature_points()
     to test your implementation of get_feature_descriptors() and match_features())
 
     Implement the Harris corner detector (See Szeliski 7.1.1) to start with.
     You do not need to worry about scale invariance or keypoint orientation estimation
     for your Harris corner detector.
-    You can create additional interest point detector functions (e.g. MSER)
+    You can create additional feature point detector functions (e.g. MSER)
     for extra credit.
 
-    If you're finding spurious (false/fake) interest point detections near the boundaries,
+    If you're finding spurious (false/fake) feature point detections near the boundaries,
     it is safe to simply suppress the gradients / corners near the edges of
     the image.
 
@@ -50,22 +50,22 @@ def get_feature_points(image, feature_width):
 
     :params:
     :image: a grayscale or color image (your choice depending on your implementation)
-    :feature_width: the width and height of each local feature in pixels
+    :window_width: the width and height of each local window in pixels
 
     :returns:
-    :xs: an np array of the x coordinates (column indices) of the interest points in the image
-    :ys: an np array of the y coordinates (row indices) of the interest points in the image
+    :xs: an np array of the x coordinates (column indices) of the feature points in the image
+    :ys: an np array of the y coordinates (row indices) of the feature points in the image
 
     :optional returns (may be useful for extra credit portions):
-    :confidences: an np array indicating the confidence (strength) of each interest point
-    :scale: an np array indicating the scale of each interest point
-    :orientation: an np array indicating the orientation of each interest point
+    :confidences: an np array indicating the confidence (strength) of each feature point
+    :scale: an np array indicating the scale of each feature point
+    :orientation: an np array indicating the orientation of each feature point
 
     '''
 
     # TODO: Your implementation here! See block comments and the homework webpage for instructions
 
-    # These are placeholders - replace with the coordinates of your interest points!
+    # These are placeholders - replace with the coordinates of your feature points!
     xs = np.random.randint(0, image.shape[1], size=100)
     ys = np.random.randint(0, image.shape[0], size=100)
 
@@ -75,15 +75,15 @@ def get_feature_points(image, feature_width):
     # STEP 4: Peak local max to eliminate clusters. (Try different parameters.)
     
     # BONUS: There are some ways to improve:
-    # 1. Making interest point detection multi-scaled.
+    # 1. Making feature point detection multi-scaled.
     # 2. Use adaptive non-maximum suppression.
 
     return xs, ys
 
 
-def get_feature_descriptors(image, x_array, y_array, feature_width, use_SIFT):
+def get_feature_descriptors(image, x_array, y_array, window_width, mode):
     '''
-    Returns features for a given set of interest points.
+    Returns features for a given set of feature points.
 
     To start with, normalize patches as your local feature descriptor. You will 
     then need to implement the more effective SIFT-like feature descriptor.
@@ -127,12 +127,13 @@ def get_feature_descriptors(image, x_array, y_array, feature_width, use_SIFT):
 
     :params:
     :image: a grayscale or color image (your choice depending on your implementation)
-    :x: np array of x coordinates (column indices) of interest points
-    :y: np array of y coordinates (row indices) of interest points
-    :feature_width: in pixels, is the local feature width. You can assume
-                    that feature_width will be a multiple of 4 (i.e. every cell of your
+    :x: np array of x coordinates (column indices) of feature points
+    :y: np array of y coordinates (row indices) of feature points
+    :window_width: in pixels, is the local window width. You can assume
+                    that window_width will be a multiple of 4 (i.e. every cell of your
                     local SIFT-like feature will have an integer width and height).
-    :use_SIFT: boolean variable to call the SIFT implementation of this function. 
+    :mode: either "patch" or "sift". Switches between image patch descriptors
+           and SIFT descriptors
 
     If you want to detect and describe features at multiple scales or
     particular orientations you can add input arguments. Make sure input arguments 
@@ -148,29 +149,24 @@ def get_feature_descriptors(image, x_array, y_array, feature_width, use_SIFT):
 
     # TODO: Your implementation here! See block comments and the homework webpage for instructions
 
-    if use_SIFT == False:
-        # This is a placeholder - replace this with your features!
-        features = np.zeros((len(x_array), 256))
+    # These are placeholders - replace with the coordinates of your feature points!
+    features = np.random.randint(0, 255, size=(len(x_array), np.random.randint(1, 200)))
 
-        # STEP 1: For each interest point, cut out a 16x16 patch of the image (as you will in SIFT)
-        # STEP 2: Flatten this image patch into a 1-dimensional vector (hint: np.flatten())
-        # STEP 3: Normalize the vector
-        pass
-
-    elif use_SIFT == True:
-        # This is a placeholder - replace this with your features!
-        features = np.zeros((len(x_array), 128))
-
-        # STEP 1: Calculate the gradient (partial derivatives on two directions) on all pixels.
-        # STEP 2: Decompose the gradient vectors to magnitude and direction.
-        # STEP 3: For each interest point, calculate the local histogram based on related 4x4 grid cells.
-        #         Each cell is a square with feature_width / 4 pixels length of side.
-        #         For each cell, we assign these gradient vectors corresponding to these pixels to 8 bins
-        #         based on the direction (angle) of the gradient vectors. 
-        # STEP 4: Now for each cell, we have a 8-dimensional vector. Appending the vectors in the 4x4 cells,
-        #         we have a 128-dimensional feature.
-        # STEP 5: Don't forget to normalize your feature.
-        pass
+    # IMAGE PATCH STEPS
+    # STEP 1: For each feature point, cut out a window_width x window_width patch 
+    #         of the image (as you will in SIFT)
+    # STEP 2: Flatten this image patch into a 1-dimensional vector (hint: np.flatten())
+    
+    # SIFT STEPS
+    # STEP 1: Calculate the gradient (partial derivatives on two directions) on all pixels.
+    # STEP 2: Decompose the gradient vectors to magnitude and direction.
+    # STEP 3: For each feature point, calculate the local histogram based on related 4x4 grid cells.
+    #         Each cell is a square with feature_width / 4 pixels length of side.
+    #         For each cell, we assign these gradient vectors corresponding to these pixels to 8 bins
+    #         based on the direction (angle) of the gradient vectors. 
+    # STEP 4: Now for each cell, we have a 8-dimensional vector. Appending the vectors in the 4x4 cells,
+    #         we have a 128-dimensional feature.
+    # STEP 5: Don't forget to normalize your feature.
 
     # BONUS: There are some ways to improve:
     # 1. Use a multi-scaled feature descriptor.
@@ -209,8 +205,8 @@ def match_features(im1_features, im2_features):
         - np.argsort()
 
     :params:
-    :im1_features: an np array of features returned from get_feature_descriptors() for interest points in image1
-    :im2_features: an np array of features returned from get_feature_descriptors() for interest points in image2
+    :im1_features: an np array of features returned from get_feature_descriptors() for feature points in image1
+    :im2_features: an np array of features returned from get_feature_descriptors() for feature points in image2
 
     :returns:
     :matches: an np array of dimension k x 2 where k is the number of matches. The first

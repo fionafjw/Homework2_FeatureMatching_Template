@@ -10,9 +10,9 @@ import visualize
 import matplotlib.pyplot as plt
 import math
 
-# Gives you the TA solution for the interest points you
+# Gives you the TA solution for the feature points you
 # should find
-def cheat_interest_points(eval_file, scale_factor):
+def cheat_feature_points(eval_file, scale_factor):
 
 	file_contents = scio.loadmat(eval_file)
 
@@ -40,7 +40,7 @@ def estimate_fundamental_matrix(ground_truth_correspondence_file):
 def evaluate_correspondence(img_A, img_B, ground_truth_correspondence_file,
 	scale_factor, x1_est, y1_est, x2_est, y2_est, matches, filename="notre_dame_matches.jpg"):
 
-	# 'unscale' interest points to compare with ground truth points
+	# 'unscale' feature points to compare with ground truth points
 	x1_est_scaled = x1_est / scale_factor
 	y1_est_scaled = y1_est / scale_factor
 	x2_est_scaled = x2_est / scale_factor
@@ -98,7 +98,7 @@ def evaluate_correspondence(img_A, img_B, ground_truth_correspondence_file,
 			x_dists = x1 - x1_matches[i]
 			y_dists = y1 - y1_matches[i]
 
-			# computes distances of each interest point to the ground truth point
+			# computes distances of each feature point to the ground truth point
 			dists = np.sqrt(np.power(x_dists, 2.0) + np.power(y_dists, 2.0))
 			closest_ground_truth = np.argmin(dists, axis=0)
 			offset_x1 = x1_matches[i] - x1[closest_ground_truth]
