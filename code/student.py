@@ -85,8 +85,9 @@ def get_feature_descriptors(image, x_array, y_array, window_width, mode):
     '''
     Returns features for a given set of feature points.
 
-    To start with, normalize patches as your local feature descriptor. You will 
-    then need to implement the more effective SIFT-like feature descriptor.
+    To start with, use image patches as your local feature descriptor. You will 
+    then need to implement the more effective SIFT-like feature descriptor. Use 
+    the `mode` argument to toggle between the two.
     (See Szeliski 7.1.2 or the original publications at
     http://www.cs.ubc.ca/~lowe/keypoints/)
 
