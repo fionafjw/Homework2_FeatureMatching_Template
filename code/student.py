@@ -132,7 +132,7 @@ def get_feature_descriptors(image, x_array, y_array, window_width, mode):
     :y: np array of y coordinates (row indices) of feature points
     :window_width: in pixels, is the local window width. You can assume
                     that window_width will be a multiple of 4 (i.e. every cell of your
-                    local SIFT-like feature will have an integer width and height).
+                    local SIFT-like window will have an integer width and height).
     :mode: a string, either "patch" or "sift". Switches between image patch descriptors
            and SIFT descriptors
 
