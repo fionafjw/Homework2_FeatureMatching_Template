@@ -2,7 +2,7 @@ import os, memory_profiler
 from skimage import io, filters, feature, img_as_float32
 from skimage.transform import rescale
 from skimage.color import rgb2gray
-from helpers import cheat_interest_points, evaluate_correspondence
+from helpers import cheat_feature_points, evaluate_correspondence
 import student
 
 

@@ -19,15 +19,15 @@ from skimage.color import rgb2gray
 
 import student as student
 import visualize
-from helpers import cheat_interest_points, evaluate_correspondence
+from helpers import cheat_feature_points, evaluate_correspondence
 
 
 
 # This script
 # (1) Loads and resizes images
-# (2) Finds interest points in those images                 (you code this)
-# (3) Visualizes interest points on these images            (you code this)
-# (4) Describes each interest point with a local feature    (you code this)
+# (2) Finds feature points in those images                 (you code this)
+# (3) Visualizes feature points on these images            (you code this)
+# (4) Describes each feature point with a local feature    (you code this)
 # (5) Finds matching features                               (you code this)
 # (6) Visualizes the matches
 # (7) Evaluates the matches based on ground truth correspondences
@@ -94,9 +94,13 @@ def main():
     """
     Reads in the data,
 
-    Command line usage: python main.py -d | --data <image pair name>
+    Command line usage: 
+    
+    python main.py -d | --data <image pair name> -p | --points <cheat or student points> [--sift]
 
     -d | --data - flag - required. specifies which image pair to match
+    -p | --points - flag - required. specifies whether to use cheat points or student's feature points
+    --sift - flag - optional. specifies whether to use the SIFT implementation in get_feature_descriptors()
 
     """
 
@@ -106,6 +110,16 @@ def main():
                         required=True,
                         choices=["notre_dame","mt_rushmore","e_gaudi", "custom"],
                         help="Either notre_dame, mt_rushmore, e_gaudi, or custom. Specifies which image pair to match")
+    parser.add_argument("-p","--points", 
+                        required=True,
+                        choices=["cheat_points", "student_points"],
+                        help="Either cheat_points or student_points. Returns feature points for the image. Use \
+                              cheat_points until get_feature_points() is implemented in student.py")
+    parser.add_argument("--sift", 
+                        required=False,
+                        default=False,
+                        action="store_true",
+                        help="Add this flag to use your SIFT implementation in get_feature_descriptors()")
     args = parser.parse_args()
 
     # (1) Load in the data
@@ -137,34 +151,37 @@ def main():
     # (2) Find distinctive points in each image. See Szeliski 4.1.1
     # !!! You will need to implement get_feature_points. !!!
 
-    print("Getting interest points...")
+    print("Getting feature points...")
 
-    (x1, y1) = student.get_feature_points(image1,feature_width)
-    (x2, y2) = student.get_feature_points(image2,feature_width)
+    if args.points == "student_points":
+        (x1, y1) = student.get_feature_points(image1,feature_width)
+        (x2, y2) = student.get_feature_points(image2,feature_width)
 
     # For development and debugging get_feature_descriptors and match_features, you will likely
-    # want to use the ta ground truth points, you can comment out the precedeing two
-    # lines and uncomment the following line to do this. Note that the ground truth
-    # points for mt. rushmore will not produce good results, so you'll have to use
-    # your own function for that image pair.
+    # want to use the ta ground truth points, you can pass "-p cheat_points" to 
+    # the main function to do this. Note that the ground truth points for mt. rushmore 
+    # will not produce good results, so you'll have to use your own function for 
+    # that image pair.
+    elif args.points == "cheat_points":
+        (x1, y1, x2, y2) = cheat_feature_points(eval_file, scale_factor)
 
-    # (x1, y1, x2, y2) = cheat_interest_points(eval_file, scale_factor)
-
-
-    # Viewing your interest points on your images.
-    # !!! You will need to implement plot_interest_points. !!!
-    student.plot_interest_points(image1, x1, y1)
-    student.plot_interest_points(image2, x2, y2)
+    # Viewing your feature points on your images.
+    # !!! You will need to implement plot_feature_points. !!!
+    print("Number of feature points found (image 1):", len(x1))
+    student.plot_feature_points(image1, x1, y1)
+    print("Number of feature points found (image 2):", len(x2))
+    student.plot_feature_points(image2, x2, y2)
 
     print("Done!")
 
-    # 3) Create feature vectors at each interest point. Szeliski 4.1.2
+    # 3) Create feature vectors at each feature point. Szeliski 4.1.2
     # !!! You will need to implement get_feature_descriptors. !!!
 
     print("Getting features...")
 
-    image1_features = student.get_feature_descriptors(image1, x1, y1, feature_width)
-    image2_features = student.get_feature_descriptors(image2, x2, y2, feature_width)
+    mode = "sift" if args.sift else "patch"
+    image1_features = student.get_feature_descriptors(image1, x1, y1, feature_width, mode)
+    image2_features = student.get_feature_descriptors(image2, x2, y2, feature_width, mode)
 
     print("Done!")
 
@@ -173,7 +190,7 @@ def main():
 
     print("Matching features...")
 
-    matches, confidences = student.match_features(image1_features, image2_features)
+    matches = student.match_features(image1_features, image2_features)
 
     print("Done!")
 
@@ -190,15 +207,13 @@ def main():
 
     print("Matches: " + str(matches.shape[0]))
 
-    num_pts_to_visualize = 50
-    
     if args.data == "custom":
         print("Visualizing on custom images...")
         visualize.show_correspondences_custom_image(image1_color, image2_color, x1, y1, x2, 
-            y2, matches, scale_factor, num_pts_to_visualize, args.data + '_matches.png')
+            y2, matches, scale_factor, args.data + '_matches.png')
     else:
         evaluate_correspondence(image1_color, image2_color, eval_file, scale_factor,
-            x1, y1, x2, y2, matches, confidences, num_pts_to_visualize, args.data + '_matches.png')
+            x1, y1, x2, y2, matches, args.data + '_matches.png')
 
     return
 
