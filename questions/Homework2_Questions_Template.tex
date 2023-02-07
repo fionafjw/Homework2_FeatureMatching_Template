@@ -18,7 +18,7 @@
 % https://en.wikibooks.org/wiki/LaTeX
 %
 % Good luck!
-% Srinath and the 1430 staff
+% The 1430 staff
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -75,7 +75,6 @@
 \or \textbf{A5}
 \or \textbf{A6}
 \or \textbf{A6}
-\or \textbf{discussion attendance}
 \or \textbf{feedback}
 \else
 [ERROR: PAGE MISALIGNMENT]
@@ -116,9 +115,9 @@
 \pagebreak
 
 
-\paragraph{Q1:} \textbf{[3 points]} Let's look again at the webcam Fourier decomposition demo which Srinath showed in class. 
+\paragraph{Q1:} \textbf{[3 points]} Let's look again at the webcam Fourier decomposition demo which we showed in class. 
 
-The Fourier transform (or fast Fourier transform more specifically) is often regarded as one of the most important algorithms ever developed. The internet, your WiFi, smartphone, phone, computer, router, satellites, almost everything that has a computer inside uses these algorithms in one way or another to function. Below is a depiction of FFT being used for aircraft vibration analysis.
+The Fourier transform (or fast Fourier transform more specifically) is often regarded as one of the most important algorithms ever developed. The internet, WiFi, phones, computers, routers, satellites, and almost everything that has a computer inside uses these algorithms in one way or another. Below is a depiction of FFT being used for aircraft vibration analysis.
 
 \begin{center}
 \includegraphics[width=300px,height=95px]{images/aircraft-vibration-analysis-plots.png} 
@@ -141,7 +140,7 @@ This file contains five parts for you to explore and see the amplitude image, th
     \item Part 4: Manipulating the amplitude and phase images.
 \end{itemize}
 
-Uncomment the different parts and explore the camera feed decomposition! Please include three results of your experimentation. We'll be grading for completion, not correctness.
+Uncomment the different parts and explore the camera feed decomposition! Please include five screenshots documenting your experimentation with each of the five sections. We'll be grading for completion, not correctness.
 
 \emph{Note:} For anonymous grading, try not to put yourself in the camera frame. Show your favourite vector calculus book, wear a mask, use your cat, etc. Extra credit for creative effort.
 \end{tcolorbox}
@@ -159,9 +158,7 @@ Uncomment the different parts and explore the camera feed decomposition! Please 
 % Please leave the pagebreak
 \pagebreak
 
-\paragraph{Q2:} \textbf{[11 points]} Imagine you wished to find points in one image which matched to the same world point in another image. This is called feature point correspondence matching.
-
-In direct feature matching, correspondences are established with simple and fast nearest neighbor searches between multidimensional embeddings. Closest points reveal in fact the best compromise between intensity and spatial location.
+\paragraph{Q2:} \textbf{[11 points]} Imagine we wished to find points in one image which matched to the same world point in another image - so-called feature point correspondence matching. We are tasked with designing an image feature point algorithm which could match world points in the following three pairs of images.
 
 \begin{center}
 \includegraphics[width=300px,height=125px]{images/Direct-Feature-Matching-Correspondences-are-established-with-simple-and-fast-nearest.png} 
@@ -317,7 +314,7 @@ In direct feature matching, correspondences are established with simple and fast
 
 \paragraph{Q4:} \textbf{[6 points]} Brown University decides to entirely replace passwords with biometric data to authenticate student identity on its computer systems. Given how accurate your feature matching homework 2 code is, Brown asks you to develop the authentication system as your CSCI 1430 final project. Lucky you.
 
-As preparation, you read a previous case about a \href{https://www.vpnmentor.com/blog/report-biostar2-leak/}{biometric data breach}.
+In preparation, you read a previous case about a \href{https://www.vpnmentor.com/blog/report-biostar2-leak/}{biometric data breach}.
 
 \begin{enumerate}[(a)]
     \item \textbf{[1 + 2 points]}
@@ -345,7 +342,7 @@ This may be a challenge for Brown's 10,000 students, let alone a national-scale 
 Even seemingly high accuracies can create many inaccurate matches with large databases, potentially causing inaccurage judgements in criminal cases. 
 
     \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-    Compare the causes that affect matching performance in natural images in Q2 to those that you might expect within the scenario of fingerprint recognition for door or device unlocking. Based on this, is accurate fingerprint recognition an easier problem than natural image matching? \textbf{[5-7 sentences]}
+    What are the consequences of feature matching for biometric authentication when compared to feature matching across photographs? What responsibilities do the creators of these technologies have, if any, to ensure accuracy or reliability? \textbf{[5-7 sentences]}
 
     \emph{Refer to the video at the beginning of Q3 and \href{http://biometrics.cse.msu.edu/Presentations/AnilJain_UniquenessOfFingerprints_NAS05.pdf}{this slide deck} for example images and additional information.}
     \end{tcolorbox}
@@ -410,7 +407,7 @@ How do the eigenvalues of the `M' second moment matrix vary with local image bri
 \paragraph{Q6:} \textbf{[3 points]}
 Once you've detected the feature points, the next step is to extract their descriptions, i.e., their general properties. These generated feature descriptors will be used in the final step when matching feature points via their feature descriptors.
 
-The algorithm to use here to extract the feature descriptors of feature points is SIFT. Given a interest point location, the SIFT algorithm converts a 16$\times$16 patch around the interest point into a 128$\times$1 feature descriptor of the gradient magnitudes and orientations therein.
+We use the SIFT algorithm to extract feature descriptors around feature points. Given a feature point location, the SIFT algorithm converts a 16$\times$16 patch around the feature point into a 128$\times$1 feature descriptor of the gradient magnitudes and orientations therein.
 
 \begin{center}
 \includegraphics[width=300px,height=125px]{images/sift.png} 
@@ -471,16 +468,6 @@ def SIFTdescriptor(x, y)
 
 % How should we design for this trade-off?
 
-
-\pagebreak
-\section*{Discussion Attendance:}
-\paragraph{Extra Credit:} \textbf{[2 points]}
-
-Please mark this box only if you've attended the discussion session in person.
-
-\begin{tabular}[h]{ll}
-$\square$ & I attended the discussion session on DATE \\
-\end{tabular}
 
 \pagebreak
 \section*{Feedback? (Optional)}
