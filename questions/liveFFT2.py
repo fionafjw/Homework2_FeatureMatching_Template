@@ -62,8 +62,8 @@ class live_FFT2():
     phaseOffset = 0
     rollOffset = 0
     # Variable for animating basis reconstruction
-    amplitudeCutoffRadius = 1
-    amplitudeCutoffDirection = 1
+    frequencyCutoffDist = 1
+    frequencyCutoffDirection = 1
     # Variables for animated basis demo
     magnitude = 2
     orientation = 0
@@ -201,24 +201,23 @@ class live_FFT2():
         # What if we set some frequency amplitudes to zero, but vary
         # over time which ones we set?
 
-        # Make a circular mask over the amplitude image
+        # Make a square mask over the amplitude image
         Y, X = np.ogrid[:height, :width]
-        dist_from_center = np.sqrt((X-(width/2))**2 + (Y-(height/2))**2)
-        # Suppress amplitudes less than cutoff radius
-        mask = dist_from_center >= self.amplitudeCutoffRadius
+        # Suppress frequencies less than cutoff distance
+        mask = np.logical_or( np.abs(X-(width/2)) >= self.frequencyCutoffDist, np.abs(Y-(height/2)) >= self.frequencyCutoffDist )
         a = np.fft.fftshift(amplitude)
         a[mask] = 0
         amplitude = np.fft.fftshift(a)
 
         # Slowly undulate the cutoff radius back and forth
         # If radius is small and direction is decreasing, then flip the direction!
-        if self.amplitudeCutoffRadius <= 1 and self.amplitudeCutoffDirection < 0:
-            self.amplitudeCutoffDirection *= -1
+        if self.frequencyCutoffDist <= 1 and self.frequencyCutoffDirection < 0:
+            self.frequencyCutoffDirection *= -1
         # If radius is large and direction is increasing, then flip the direction!
-        if self.amplitudeCutoffRadius > width/3 and self.amplitudeCutoffDirection > 0:
-            self.amplitudeCutoffDirection *= -1
+        if self.frequencyCutoffDist > width/3 and self.frequencyCutoffDirection > 0:
+            self.frequencyCutoffDirection *= -1
         
-        self.amplitudeCutoffRadius += self.amplitudeCutoffDirection
+        self.frequencyCutoffDist += self.frequencyCutoffDirection
         '''
 
         # Part 2: Replacing amplitude / phase with that of another image
