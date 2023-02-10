@@ -352,20 +352,14 @@ Even seemingly high accuracies can create many inaccurate matches with large dat
 
 \pagebreak
 \paragraph{Q5:} \textbf{[3 points]}
-As we used in Q2, the Harris Corner Detector can find feature points from which to extract feature descriptions for image matching.
+As we saw in Q2, the Harris Corner Detector can find feature points for image matching.
 
-To detect these features, the algorithm approximates the strength of any change in the auto-correlation function $E(u, v)$ over shifts $u,v$. TODO JAMES rewrite.
+To detect these features, the algorithm approximates the strength of any change in the auto-correlation function $E(u, v)$ over shifts $u,v$. We look at the second derivative term in the Taylor series expansion of $E$ to consider the local shape of $E(u, v)$ via the \emph{structure tensor} $M$. Then, we analyze $M$ to determine if that pixel is a corner or not.
 
-Since we can approximate corner points to be represented by quadratic-esque energy level surfaces, we can use the Taylor expansion and quantify the change in $E(u, v)$ within a certain radius in the image.
-
-You might remember from your Calculus class that the second partial derivative test helps us determine if a point is a local min, local max or saddle point. Similarly, we focus on the second derivative term in the Taylor expansion to determine the shape of $E(u, v)$ and determine if that particular point is a corner or not.
-
-Now, we can represent the Taylor expansion using matrices, and so the second derivative can be expressed as a matrix. Specifically, this matrix, $M$, is called the second moment matrix.
-
-\textit{Note:} For a more comprehensive background, review the lecture slides.
+\textit{Note:} We expect this conceptual question to require careful study of the lecture slides.
 
 \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-How do the eigenvalues of the `M' second moment matrix vary with local image brightness, and how might we interpret the eigenvalues geometrically (think `shape')? \textbf{6--8 sentences}
+How do the eigenvalues of the $M$ structure tensor vary with local image brightness, and how might we interpret the eigenvalues geometrically (think `shape')? \textbf{6--8 sentences}
 \end{tcolorbox}
 
 \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
