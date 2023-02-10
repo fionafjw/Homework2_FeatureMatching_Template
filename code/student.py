@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from skimage import filters, feature, img_as_int
+from skimage import filters, feature
 from skimage.measure import regionprops
 
 def plot_feature_points(image, x, y):
@@ -22,16 +22,11 @@ def plot_feature_points(image, x, y):
 
 def get_feature_points(image, window_width):
     '''
-    Returns feature points for the input image
+    Returns feature points for the input image.
 
-    (Please note that we recommend implementing this function last and using cheat_feature_points()
-    to test your implementation of get_feature_descriptors() and match_features())
-
-    Implement the Harris corner detector (See Szeliski 7.1.1) to start with.
+    Implement the Harris corner detector.
     You do not need to worry about scale invariance or keypoint orientation estimation
     for your Harris corner detector.
-    You can create additional feature point detector functions (e.g. MSER)
-    for extra credit.
 
     If you're finding spurious (false/fake) feature point detections near the boundaries,
     it is safe to simply suppress the gradients / corners near the edges of
@@ -63,8 +58,6 @@ def get_feature_points(image, window_width):
 
     '''
 
-    # TODO: Your implementation here! See block comments and the homework webpage for instructions
-
     # These are placeholders - replace with the coordinates of your feature points!
     xs = np.random.randint(0, image.shape[1], size=100)
     ys = np.random.randint(0, image.shape[0], size=100)
@@ -73,10 +66,6 @@ def get_feature_points(image, window_width):
     # STEP 2: Apply Gaussian filter with appropriate sigma.
     # STEP 3: Calculate Harris cornerness score for all pixels.
     # STEP 4: Peak local max to eliminate clusters. (Try different parameters.)
-    
-    # BONUS: There are some ways to improve:
-    # 1. Making feature point detection multi-scaled.
-    # 2. Use adaptive non-maximum suppression.
 
     return xs, ys
 
@@ -88,35 +77,32 @@ def get_feature_descriptors(image, x_array, y_array, window_width, mode):
     To start with, use image patches as your local feature descriptor. You will 
     then need to implement the more effective SIFT-like feature descriptor. Use 
     the `mode` argument to toggle between the two.
-    (See Szeliski 7.1.2 or the original publications at
-    http://www.cs.ubc.ca/~lowe/keypoints/)
+    (Original SIFT publications at http://www.cs.ubc.ca/~lowe/keypoints/)
 
     Your implementation does not need to exactly match the SIFT reference.
     Here are the key properties your (baseline) feature descriptor should have:
     (1) a 4x4 grid of cells, each feature_width / 4 pixels square.
     (2) each cell should have a histogram of the local distribution of
         gradients in 8 orientations. Appending these histograms together will
-        give you 4x4 x 8 = 128 dimensions.
+        give you 4 x 4 x 8 = 128 dimensions.
     (3) Each feature should be normalized to unit length
 
-    You do not need to perform the interpolation in which each gradient
+    This is a design task, so many options might help but are not essential.
+    - To perform interpolation such that each gradient
     measurement contributes to multiple orientation bins in multiple cells
-    As described in Szeliski, a single gradient measurement creates a
-    weighted contribution to the 4 nearest cells and the 2 nearest
-    orientation bins within each cell, for 8 total contributions. This type
-    of interpolation probably will help, though.
+    A single gradient measurement creates a weighted contribution to the 4 
+    nearest cells and the 2 nearest orientation bins within each cell, for 
+    8 total contributions.
 
-    You do not have to explicitly compute the gradient orientation at each
-    pixel (although you are free to do so). You can instead filter with
-    oriented filters (e.g. a filter that responds to edges with a specific
-    orientation). All of your SIFT-like features can be constructed entirely
-    from filtering fairly quickly in this way.
+    - To compute the gradient orientation at each pixel, we could use oriented 
+    kernels (e.g. a kernel that responds to edges with a specific orientation). 
+    All of your SIFT-like features could be constructed quickly in this way.
 
-    You do not need to do the normalize -> threshold -> normalize again
-    operation as detailed in Szeliski and the SIFT paper. It can help, though.
+    - You could normalize -> threshold -> normalize again as detailed in the 
+    SIFT paper. This might help for specular or outlier brightnesses.
 
-    Another simple trick which can help is to raise each element of the final
-    feature vector to some power that is less than one.
+    - You could raise each element of the final feature vector to some power 
+    that is less than one.
 
     Useful functions: A working solution does not require the use of all of these
     functions, but depending on your implementation, you may find some useful. Please
@@ -144,11 +130,9 @@ def get_feature_descriptors(image, x_array, y_array, window_width, mode):
     :features: np array of computed features. features[i] is the descriptor for 
                point (x[i], y[i]), so the shape of features should be 
                (len(x), feature dimensionality). For standard SIFT, `feature
-               dimensionality` is 128. `num points` may be less than len(x) if
+               dimensionality` is typically 128. `num points` may be less than len(x) if
                some points are rejected, e.g., if out of bounds.
     '''
-
-    # TODO: Your implementation here! See block comments and the homework webpage for instructions
 
     # These are placeholders - replace with the coordinates of your feature points!
     features = np.random.randint(0, 255, size=(len(x_array), np.random.randint(1, 200)))
@@ -160,18 +144,15 @@ def get_feature_descriptors(image, x_array, y_array, window_width, mode):
     
     # SIFT STEPS
     # STEP 1: Calculate the gradient (partial derivatives on two directions) on all pixels.
-    # STEP 2: Decompose the gradient vectors to magnitude and direction.
+    # STEP 2: Decompose the gradient vectors to magnitude and orientation (angle).
     # STEP 3: For each feature point, calculate the local histogram based on related 4x4 grid cells.
     #         Each cell is a square with feature_width / 4 pixels length of side.
     #         For each cell, we assign these gradient vectors corresponding to these pixels to 8 bins
-    #         based on the direction (angle) of the gradient vectors. 
+    #         based on the orientation (angle) of the gradient vectors. 
     # STEP 4: Now for each cell, we have a 8-dimensional vector. Appending the vectors in the 4x4 cells,
     #         we have a 128-dimensional feature.
     # STEP 5: Don't forget to normalize your feature.
 
-    # BONUS: There are some ways to improve:
-    # 1. Use a multi-scaled feature descriptor.
-    # 2. Borrow ideas from GLOH or other type of feature descriptors.
 
     return features
 
@@ -182,8 +163,7 @@ def match_features(im1_features, im2_features):
     Implements the Nearest Neighbor Distance Ratio (NNDR) Test to help threshold
     and remove false matches.
 
-    Please implement the "Nearest Neighbor Distance Ratio (NNDR) Test" ,
-    Equation 7.18 in Section 7.1.3 of Szeliski.
+    Please implement the "Nearest Neighbor Distance Ratio (NNDR) Test".
 
     For extra credit you can implement spatial verification of matches.
 
@@ -214,8 +194,6 @@ def match_features(im1_features, im2_features):
             column is an index into im1_features and the second column is an index into im2_features
     '''
 
-    # TODO: Your implementation here! See block comments and the homework webpage for instructions
-
     # These are placeholders - replace with your matches and confidences!
     matches = np.random.randint(0, min(len(im1_features), len(im2_features)), size=(50, 2))
     
@@ -225,6 +203,5 @@ def match_features(im1_features, im2_features):
     # STEP 3: Compute NNDR for each match
     # STEP 4: Remove matches whose ratios do not meet a certain threshold
     
-    # BONUS: Using PCA might help the speed (but maybe not the accuracy).
 
     return matches
