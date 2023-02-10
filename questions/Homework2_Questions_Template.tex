@@ -62,18 +62,16 @@
 \ifcase\thepage
 \or \textbf{instructions}
 \or \textbf{Q1}
-\or \textbf{A1}
-\or \textbf{A2 (a)}
-\or \textbf{A2 (b)}
-\or \textbf{A2 (c)}
-\or \textbf{A3 (a)}
-\or \textbf{A3 (b) - (c)}
-\or \textbf{A4 (a)}
-\or \textbf{A4 (b)}
+\or \textbf{Q1}
+\or \textbf{Q2 (a)}
+\or \textbf{Q2 (b)}
+\or \textbf{Q2 (c)}
+\or \textbf{Q3 (a)}
+\or \textbf{Q3 (b) - (c)}
+\or \textbf{Q4 (a)}
+\or \textbf{Q4 (b)}
 \or \textbf{Q5}
-\or \textbf{A5}
-\or \textbf{A6}
-\or \textbf{A6}
+\or \textbf{Q6}
 \or \textbf{feedback}
 \else
 [ERROR: PAGE MISALIGNMENT]
@@ -116,7 +114,7 @@ This document is a template with specific answer regions and a fixed number of p
 
 \section*{This Homework}
 \begin{itemize}
-    \item 6 questions \textbf{[5 + 9 + 9 + 7 + 3 + 3 = 36 points]}.
+    \item 6 questions \textbf{[5 + 9 + 9 + 7 + 3 + 5 = 38 points]}.
     \item Include code, images, and equations where appropriate.
 \end{itemize}
 
@@ -356,7 +354,9 @@ Even seemingly high accuracies can create many inaccurate matches with large dat
 \paragraph{Q5:} \textbf{[3 points]}
 As we used in Q2, the Harris Corner Detector can find feature points from which to extract feature descriptions for image matching.
 
-To detect these features, we attempt to determine the strength of any change in the Energy (intensity) function $E(u, v)$ on the image. Since we can approximate corner points to be represented by quadratic-esque energy level surfaces, we can use the Taylor expansion and quantify the change in $E(u, v)$ within a certain radius in the image.
+To detect these features, the algorithm approximates the strength of any change in the auto-correlation function $E(u, v)$ over shifts $u,v$. TODO JAMES rewrite.
+
+Since we can approximate corner points to be represented by quadratic-esque energy level surfaces, we can use the Taylor expansion and quantify the change in $E(u, v)$ within a certain radius in the image.
 
 You might remember from your Calculus class that the second partial derivative test helps us determine if a point is a local min, local max or saddle point. Similarly, we focus on the second derivative term in the Taylor expansion to determine the shape of $E(u, v)$ and determine if that particular point is a corner or not.
 
@@ -381,7 +381,7 @@ How do the eigenvalues of the `M' second moment matrix vary with local image bri
 
 % Please leave the pagebreak
 \pagebreak
-\paragraph{Q6:} \textbf{[3 points]}
+\paragraph{Q6:} \textbf{[5 points]}
 The SIFT algorithm can extract feature descriptors around feature points. Given a feature point location, the SIFT algorithm converts a 16$\times$16 window around the feature point into a 128$\times$1 feature descriptor via a radial histogram of the gradient magnitudes within the window.
 
 
