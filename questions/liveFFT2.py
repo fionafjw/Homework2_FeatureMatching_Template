@@ -38,7 +38,7 @@ __license__ = "GPLv3+"
 __date__ = "2014/01/25; modifications 2017--2019"
 __status__ = "v2.1"
 
-import cv2 #opencv-based functions
+import cv2 # opencv-based functions
 import time
 import math
 import numpy as np
@@ -46,6 +46,7 @@ from scipy import ndimage
 from skimage import io
 from skimage import img_as_float32, img_as_ubyte
 from skimage.color import rgb2gray
+
 
 
 class live_FFT2():
@@ -277,7 +278,7 @@ class live_FFT2():
         # Part 5: Reconstruct the original image
         # ======================================
         
-        # I need to build a new real+imaginary number from the amplitude / phase
+        # We need to build a new real+imaginary number from the amplitude / phase
         # This is going from polar coordinates to Cartesian coordinates in the complex number space
         recReal = np.cos( phase ) * amplitude
         recImag = np.sin( phase ) * amplitude
