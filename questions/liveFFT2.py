@@ -156,22 +156,14 @@ class live_FFT2():
         phase = np.arctan2(imFFT.imag, imFFT.real)
         
         # NOTE: We will reconstruct the image from this decomposition later on (See Part 5)
-        
-        # Just the central dot
-        amplitude = np.zeros(self.im.shape)
-        # a = np.fft.fftshift(amplitude)
-        
-        # NOTE: [0,0] here is the 0-th frequency component around which all other frequencies oscillate
-        amplitude[0,0] = 40000
-        
-        # amplitude = np.fft.fftshift(a)
+
 
         # Part 0: Scanning the basis and looking at the reconstructed image for each frequency independently
         # ==================================================================================================
         '''
-        # To see the effect, uncomment this block, read throug the comments and code, and then execute the program.
+        # To see the effect, uncomment this block, read through the comments and code, and then execute the program.
         
-        # Let's begin by zeroing out the amplitude and phase.
+        # Let's begin by zeroing out the amplitude and phase. This will result in the lower left and lower right images being blacked out
         amplitude = np.zeros( self.im.shape )
         phase = np.zeros( self.im.shape )
 
@@ -199,8 +191,7 @@ class live_FFT2():
         # Part 1: Reconstructing from different numbers of basis frequencies
         # ==================================================================
         '''
-        # What if we set some frequency amplitudes to zero, but vary
-        # over time which ones we set?
+        # In this part, we change the number of bases shown in the reconstruction of the original image. This is displayed as an animation
 
         # Make a square mask over the amplitude image
         Y, X = np.ogrid[:height, :width]
@@ -229,7 +220,7 @@ class live_FFT2():
         amplitudeJack = np.sqrt( np.power( imJackFFT.real, 2 ) + np.power( imJackFFT.imag, 2 ) )
         phaseJack = np.arctan2( imJackFFT.imag, imJackFFT.real )
         
-        # Comment in either or both of these
+        # Try uncommenting either of the lines below
         #amplitude = amplitudeJack
         #phase = phaseJack
         '''
@@ -243,7 +234,7 @@ class live_FFT2():
         amplitudeNoise = np.sqrt( np.power( imNoiseFFT.real, 2 ) + np.power( imNoiseFFT.imag, 2 ) )
         phaseNoise = np.arctan2( imNoiseFFT.imag, imNoiseFFT.real )
         
-        # Comment in either or both of these
+        # Try uncommenting either of the lines below
         #amplitude = amplitudeNoise
         #phase = phaseNoise
         '''
@@ -251,25 +242,26 @@ class live_FFT2():
         # Part 4: Understanding amplitude and phase
         # =========================================
         '''
-        # Play with the images. What can you discover?
+        # Play with the images. What can you discover? Try uncommenting each modification, one at a time, to see its direct image
+        # Feel free to combine these modifications for different effects
         
         # Zero out phase?
-        phase = np.zeros( self.im.shape ) # + 0.5 * phase
+        # phase = np.zeros( self.im.shape ) # + 0.5 * phase
 
         # Flip direction?
-        phase = -phase
+        # phase = -phase
 
         # Rotate phase values?
-        self.phaseOffset += 0.05
-        phase = np.arctan2(imFFT.imag, imFFT.real) + self.phaseOffset
-        # Always place within -pi to pi
-        phase += np.pi
-        phase %= 2*np.pi
-        phase -= np.pi
+        # self.phaseOffset += 0.05
+        # phase = np.arctan2(imFFT.imag, imFFT.real) + self.phaseOffset
+        # # Always place within -pi to pi
+        # phase += np.pi
+        # phase %= 2*np.pi
+        # phase -= np.pi
 
         # Rotate whole image? Together? Individually?
-        phase = np.rot90(phase)
-        amplitude = np.rot90(amplitude)
+        # phase = np.rot90(phase)
+        # amplitude = np.rot90(amplitude)
         
         # Are these manipulations meaningful?
         # What other manipulations might we perform?
@@ -277,7 +269,8 @@ class live_FFT2():
 
         # Part 5: Reconstruct the original image
         # ======================================
-        
+        # LEAVE THIS UNCOMMENTED WHILE WORKING THROUGH THE OTHER PARTS
+
         # We need to build a new real+imaginary number from the amplitude / phase
         # This is going from polar coordinates to Cartesian coordinates in the complex number space
         recReal = np.cos( phase ) * amplitude
