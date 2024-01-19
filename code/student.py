@@ -198,7 +198,6 @@ def match_features(im1_features, im2_features):
     matches = np.random.randint(0, min(len(im1_features), len(im2_features)), size=(50, 2))
     
     # STEP 1: Calculate the distances between each pairs of features between im1_features and im2_features.
-    #         HINT: https://browncsci1430.github.io/webpage/hw2_featurematching/efficient_sift/
     # STEP 2: Sort and find closest features for each feature
     # STEP 3: Compute NNDR for each match
     # STEP 4: Remove matches whose ratios do not meet a certain threshold
