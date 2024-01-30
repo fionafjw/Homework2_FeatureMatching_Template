@@ -61,8 +61,11 @@
 \lfoot{\textcolor{red}{\textbf{Only}
 \ifcase\thepage
 \or \textbf{instructions}
+\or \textbf{Generative AI}
 \or \textbf{Q1}
-\or \textbf{Q1}
+\or \textbf{Q1 (a) - (b)}
+\or \textbf{Q1 (c) - (d)}
+\or \textbf{Q1 (e)}
 \or \textbf{Q2 (a)}
 \or \textbf{Q2 (b)}
 \or \textbf{Q2 (c)}
@@ -78,7 +81,7 @@
 \fi
 \textbf{should be on this page}
 }}
-\rfoot{\thepage~/ 13}
+\rfoot{\thepage~/ 15}
 
 
 \date{}
@@ -114,17 +117,50 @@ This document is a template with specific answer regions and a fixed number of p
 
 \section*{This Homework}
 \begin{itemize}
-    \item 6 questions \textbf{[5 + 9 + 9 + 7 + 3 + 5 = 38 points]}.
+    \item 6 questions \textbf{[10 + 9 + 9 + 7 + 3 + 5 = 43 points]}.
     \item Include code, images, and equations where appropriate.
 \end{itemize}
 
 % Please leave the pagebreak
 \pagebreak
 
+\section*{Declaration of Generative AI Use}
 
-\paragraph{Q1:} \textbf{[5 points]} Let's look again at the webcam Fourier decomposition demo that we saw in class. 
+\subsection*{Reminder of Course Policy}
 
-The Fourier transform lets us operate on images with respect to their frequency content. For computer vision, a classic application is image compression, such as JPEG, because it lets us ignore hard-to-see high-frequencies.
+\begin{itemize}
+    \item The use of GenAI tools (e.g., ChatGPT, Grammarly, Bard) for completing any part of this course is discouraged.
+    \item Using these tools is not needed to be successful in the class and could be detrimental to your learning experience.
+    \item If you use them, you must cite the tool you used and explain how you used it.
+    \item If you do not cite the tool, it is an academic code violation.
+    \item We will be using special tools to detect cases of unattributed GenAI use.
+\end{itemize}
+
+\subsection*{Student Declaration}
+
+\subsubsection*{Have you used generative AI tools to complete this assignment:}
+
+%%%%%%%%%%%%%% TODO %%%%%%%%%%%%%%%%%%%%
+
+YES $\square$ NO $\blacksquare$ % change answer to \blacksquare
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection*{If you answered YES above, describe what tools you used and what parts of the assignment you used them for below:}
+
+%%%%%%%%%%%%%% TODO %%%%%%%%%%%%%%%%%%%%
+
+\textit{Example: I used ChatGPT to debug my convolution implementation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% ------------------------------------------------ %
+\pagebreak
+
+
+\paragraph{Q1:} \textbf{[10 points]} 
+    \item 
+Let's look again at the webcam Fourier decomposition demo that we saw in class. The Fourier transform lets us operate on images with respect to their frequency content. 
 
 \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
 Navigate to the \texttt{questions} folder. Then, within your virtual environment, run the following command:
@@ -133,7 +169,8 @@ $ python liveFFT2.py
 \end{verbatim}
 
 \emph{Note: Your computer must have a webcam. If it does not, find the \textbf{use\_webcam} variable and set it to false. If you're running an exotic setup, like from within WSL, then your webcam might not be accessible.}
-
+\\
+\\
 The python file contains five parts for you to explore the effect of manipulating the Fourier decomposition representation upon the reconstructed image. In the demo, top left is the input image, bottom left is the basis frequency amplitude image, bottom right is the corresponding phase image, and top right is the reconstruction of the input image via the Fourier representation.
 
 \begin{itemize}
@@ -144,23 +181,108 @@ The python file contains five parts for you to explore the effect of manipulatin
     \item Part 4: Manipulating the amplitude and phase images.
 \end{itemize}
 
-Uncomment the different parts and explore! Please include five screenshots documenting your experimentation with each of the five sections. We'll be grading for completion, not correctness.
-
+Uncomment the different parts and explore!  When uncommenting, only uncomment one part at a time.
+\\
+\\
+You \textbf{will} have to answer short responses and screenshots in the following parts so you might want to answer them as you go!
+\\
+\\
 \emph{Note:} Please keep grading anonymous. Use your cat as a model, show your favourite vector calculus book, etc. Extra credit for creative effort.
 \end{tcolorbox}
+\newpage
+
+\begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
+In the following questions, please include a screenshot for the given part as well as answer a short response. \textbf{[1-2 sentences]}.
+\end{tcolorbox} 
+
+\begin{enumerate}[(a)]
+\item \textbf{[2 points]}
+In \textbf{Part 0}, the reconstructed image (top right) looks like bars of black and white lines rather than the image to the left of it. Why is this? Hint: Look what we do after zero-ing out the amplitude and phase.
 
 \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
-%%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%% Replace TODO_<placeholder.png> with your picture %%%%%
-\includegraphics[width=0.5\textwidth,height=7cm,keepaspectratio]{images/TODO_part0.png}
-\includegraphics[width=0.5\textwidth,height=7cm,keepaspectratio]{images/TODO_part1.png}
-\includegraphics[width=0.5\textwidth,height=7cm,keepaspectratio]{images/TODO_part2.png}
-\includegraphics[width=0.5\textwidth,height=7cm,keepaspectratio]{images/TODO_part3.png}
-\includegraphics[width=0.5\textwidth,height=7cm,keepaspectratio]{images/TODO_part4.png}
+    \setbox0=\hbox{\parbox[t]{\textwidth}{
+        %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %%%%%%% Replace TODO_<placeholder.png> with your picture %%%%%
+        \includegraphics[width=0.5\textwidth,height=7cm,keepaspectratio]{images/TODO_Part0.png}
+        
+        TODO: Your answer for (a) here %%%%%% Remove this line in your answer! %%%%%%
+            
+        %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        }}
+    \clipbox{0pt \dimexpr\dp0-3\baselineskip\relax{} 0in 0pt}{\copy0}
 \end{tcolorbox}
-%%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Please leave the pagebreak
+
+\item \textbf{[2 points]}
+In \textbf{Part 1}, what is the relation between how many bases are applied and the reconstructed image (top right image)?
+
+\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
+    \setbox0=\hbox{\parbox[t]{\textwidth}{
+        %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %%%%%%% Replace TODO_<placeholder.png> with your picture %%%%%
+        \includegraphics[width=0.5\textwidth,height=7cm,keepaspectratio]{images/TODO_Part1.png}
+        
+        TODO: Your answer for (b) here %%%%%% Remove this line in your answer! %%%%%%
+            
+        %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        }}
+    \clipbox{0pt \dimexpr\dp0-4\baselineskip\relax{} 0in 0pt}{\copy0}
+\end{tcolorbox}
+
+\newpage
+
+\item \textbf{[2 points]}
+In \textbf{Part 2} and \textbf{Part 3}, after replacing the phase/amplitude with the phase/amplitude of the image of Jack or the noisy image, which do you think contributes more to the reconstruction?
+
+\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
+    \setbox0=\hbox{\parbox[t]{\textwidth}{
+        %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %%%%%%% Replace TODO_<placeholder.png> with your picture %%%%%
+        \includegraphics[width=0.5\textwidth,height=7cm,keepaspectratio]{images/TODO_Part2.png}
+        \includegraphics[width=0.5\textwidth,height=7cm,keepaspectratio]{images/TODO_Part3.png}
+        
+        TODO: Your answer for (c) here %%%%%% Remove this line in your answer! %%%%%%
+            
+        %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        }}
+    \clipbox{0pt \dimexpr\dp0-4\baselineskip\relax{} 0in 0pt}{\copy0}
+\end{tcolorbox}
+
+\item \textbf{[2 points]}
+After \textbf{Part 4}, describe the effect of one modification you saw in the demo after playing around with the phase or amplitude in relation to the reconstructed image. 
+
+\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
+    \setbox0=\hbox{\parbox[t]{\textwidth}{
+        %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %%%%%%% Replace TODO_<placeholder.png> with your picture %%%%%
+        \includegraphics[width=0.5\textwidth,height=7cm,keepaspectratio]{images/TODO_Part4.png}
+        
+        TODO: Your answer for (d) here %%%%%% Remove this line in your answer! %%%%%%
+            
+        %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        }}
+    \clipbox{0pt \dimexpr\dp0-4\baselineskip\relax{} 0in 0pt}{\copy0}
+\end{tcolorbox}
+
+\newpage
+
+\item \textbf{[2 points]} In the demo you saw how the Fourier Transform deconstructs an image into amplitude and phase, then subsequently transforms it back into a reconstructed image. This process has a fairly nifty use-case in relation to convolution that we went over in lecture. In your own words, what is The Convolution Theorem? More specifically, how does this theorem along with the Inverse Fast Fourier Transform provide a beneficial use case in relation to convolution time complexity? [2-3 sentences]
+
+\begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
+    \setbox0=\hbox{\parbox[t]{\textwidth}{
+        %%%%%%% ANSWER STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        
+        TODO: Your answer for (e) here %%%%%% Remove this line in your answer! %%%%%%
+            
+        %%%%%%% ANSWER ENDS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        }}
+    \clipbox{0pt \dimexpr\dp0-6\baselineskip\relax{} 0in 0pt}{\copy0}
+\end{tcolorbox}
+
+
+\end{enumerate}
+
 \pagebreak
+
 
 \paragraph{Q2:} \textbf{[9 points]} Often in computer vision, we wish to find points in one image that match to the same world point in another image---so-called correspondence finding.
 
@@ -275,7 +397,7 @@ Fingerprint recognition uses biometric data---measurements of human biological f
     \item
     \textbf{[3 points]}
     \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-    Biometric recognition systems may not affect all people equally. For a biometric authentication system, define a group of people and describe how they might be affected disproportionately. \textbf{[3--5 sentences]}
+    Biometric recognition systems may not affect all people equally. For a biometric identification system, define a group of people and describe how they might be affected disproportionately. \textbf{[3--5 sentences]}
     \end{tcolorbox}
     
     \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
@@ -325,7 +447,7 @@ This may be a challenge for Brown's 10,000 students, let alone a national-scale 
 Even seemingly high accuracies can create many inaccurate matches with large databases, potentially causing inaccurate judgements in criminal cases. 
 
     \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-    In Q2, we asked you to describe issues that might affect correspondence finding in images of natural `human-scale' scenes. Is correspondence finding for fingerprint images an easier problem than for natural images? Why or why not? Think about the variation within each domain of images, the accuracy required, the consequences of matching, and the scope of the application. \textbf{[6--8 sentences]}
+    Fingerprint images are quite different from the images of natural ‘human-scale’ scenes we've been using throughout the course. Is correspondence finding for fingerprint images an easier problem than for natural images? Why or why not? Think about the variation within each domain of images, the accuracy required, the consequences of a match (or lack thereof), the accuracy required, and the scope of the application. \textbf{[6--8 sentences]}
 
     \emph{Refer to the video at the beginning of Q3 and \href{http://biometrics.cse.msu.edu/Presentations/AnilJain_UniquenessOfFingerprints_NAS05.pdf}{the first 15 slides of this deck} for example fingerprint images and additional information.}
     \end{tcolorbox}
@@ -359,7 +481,7 @@ To detect these features, the algorithm approximates the strength of any change 
 \textit{Note:} We expect this conceptual question to require careful study of the lecture slides.
 
 \begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black]
-How do the eigenvalues of the $M$ structure tensor vary with local image brightness, and how might we interpret the eigenvalues geometrically (think `shape')? \textbf{6--8 sentences}
+How do the eigenvalues of the $M$ structure tensor vary with local image brightness, and how might we interpret the eigenvalues geometrically as an ellipse)? \textbf{6--8 sentences}
 \end{tcolorbox}
 
 \begin{tcolorbox}[colback=white!5!white,colframe=green!75!black]
