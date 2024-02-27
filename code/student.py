@@ -1,14 +1,18 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from skimage import filters, feature
+from skimage import filters, feature, img_as_int
 from skimage.measure import regionprops
+from scipy.ndimage.filters import gaussian_filter1d, gaussian_filter
+
+from scipy.spatial.distance import cdist
+
+import math
 
 def plot_feature_points(image, x, y):
     '''
     Plot feature points for the input image. 
     
     Show the feature points given on the input image. Be sure to add the images you make to your writeup. 
-
     Useful functions: Some helpful (not necessarily required) functions may include
         - matplotlib.pyplot.imshow, matplotlib.pyplot.scatter, matplotlib.pyplot.show, matplotlib.pyplot.savefig
     
@@ -17,16 +21,22 @@ def plot_feature_points(image, x, y):
     :x: np array of x coordinates of feature points
     :y: np array of y coordinates of feature points
     '''
-
-    # TODO: Your implementation here! See block comments and the homework webpage for instructions
+    plt.imshow(image, cmap="gray")
+    plt.scatter(x, y, alpha=0.9, s=3)
+    plt.show()
 
 def get_feature_points(image, window_width):
     '''
-    Returns feature points for the input image.
+    Returns a set of feature points for the input image
 
-    Implement the Harris corner detector.
+    (Please note that we recommend implementing this function last and using cheat_feature_points()
+    to test your implementation of get_feature_descriptors() and match_features())
+
+    Implement the Harris corner detector (See Szeliski 7.1.1) to start with.
     You do not need to worry about scale invariance or keypoint orientation estimation
     for your Harris corner detector.
+    You can create additional feature point detector functions (e.g. MSER)
+    for extra credit.
 
     If you're finding spurious (false/fake) feature point detections near the boundaries,
     it is safe to simply suppress the gradients / corners near the edges of
@@ -37,15 +47,13 @@ def get_feature_points(image, window_width):
     reference the documentation for each function/library and feel free to come to hours
     or post on EdStem with any questions
 
-        - skimage.feature.peak_local_max (experiment with different min_distance values to get good results)
+        - skimage.feature.peak_local_max
         - skimage.measure.regionprops
-          
-    Note: You may decide it is unnecessary to use feature_width in get_feature_points, or you may also decide to 
-    use this parameter to exclude the points near image edges.
+
 
     :params:
     :image: a grayscale or color image (your choice depending on your implementation)
-    :window_width: the width and height of each local window in pixels
+    :feature_width: the width and height of each local window in pixels
 
     :returns:
     :xs: an np array of the x coordinates (column indices) of the feature points in the image
@@ -58,51 +66,124 @@ def get_feature_points(image, window_width):
 
     '''
 
-    # These are placeholders - replace with the coordinates of your feature points!
-    xs = np.random.randint(0, image.shape[1], size=100)
-    ys = np.random.randint(0, image.shape[0], size=100)
 
-    # STEP 1: Calculate the gradient (partial derivatives on two directions).
-    # STEP 2: Apply Gaussian filter with appropriate sigma.
-    # STEP 3: Calculate Harris cornerness score for all pixels.
-    # STEP 4: Peak local max to eliminate clusters. (Try different parameters.)
+    xgrads = gaussian_filter1d(image, 2, axis=0, order=1)
+    ygrads = gaussian_filter1d(image, 2, axis=1, order=1)
 
+    # constants
+    alpha = 0.05
+    min_distance = 12
+
+    # square and multiply gradients
+    ix2 = xgrads ** 2
+    iy2 = ygrads ** 2
+    ixy = np.multiply(xgrads, ygrads)
+
+    # perform gaussians
+    gix2 = gaussian_filter(ix2, 2)
+    giy2 = gaussian_filter(iy2, 2)
+    gixy = gaussian_filter(ixy, 2)
+
+    # get cornerness score
+    c = np.multiply(gix2, giy2) - gixy ** 2 - alpha * (gix2 + giy2) ** 2
+
+    # dynamic threshold
+    threshold = ((np.sum(c) / c.shape[0] / c.shape[1]) * 99.5 + 0.5 * np.max(c)) / 100
+
+    # threshold the cornerness
+    thresholded = c < threshold
+    c[thresholded] = 0
+
+    # non-maxima suppression
+    coords = feature.peak_local_max(c, min_distance)
+
+    # get individual coordinate arrays
+    xs = coords[:,1]
+    ys = coords[:,0]
     return xs, ys
 
+# Takes in an x,y location and returns gradient at that point in (mag, dir) form
+def gradient(g, x, y):
+    xgd = g[x,y,0]
+    ygd = g[x,y,1]
+    mag = math.sqrt(xgd * xgd + ygd * ygd)
+    dir = math.atan2(ygd, xgd) % (2 * math.pi)
+    return (mag, dir)
+
+# Takes in an x,y location and returns a descriptor
+def sift_descriptor(image, x, y, feature_width, grads):
+    # initialize descriptor array
+    descriptor = np.zeros(128)
+
+    # initialize arrays for magnitude and direction of gradiants
+    grad_array_mag = np.zeros((feature_width, feature_width))
+    grad_array_dir = np.zeros((feature_width, feature_width))
+
+    # store half feature width for readability
+    half = int(feature_width / 2)
+
+    # get magnitudes and directions for all pixels in feature
+    for i in range(-half, half):
+        for j in range(-half, half):
+            g = gradient(grads, i + x, j + y)
+            grad_array_mag[i + half, j + half] = g[0]
+            grad_array_dir[i + half, j + half] = g[1]
+
+    # loops for each sector of the feature
+    for i in range(4):
+        for j in range(4):
+
+            # index of where to start this sector's bins in the descriptor array
+            base_index = 8 * (4 * i + j)
+            # loop over each pixel in the sector
+            for k in range(int(feature_width / 4)):
+                for l in range(int(feature_width / 4)):
+                    # find which bin to put this gradient in
+                    extra_index = int(grad_array_dir[i * 4 + k, j * 4 + l] / (2 * math.pi) * 8)   # floor to integer
+                    # add the magnitude of this gradient to the bin
+                    descriptor[base_index + extra_index] += grad_array_mag[i * 4 + k, j * 4 + l]
+
+    # return normalized descriptor
+    return descriptor / np.linalg.norm(descriptor)
 
 def get_feature_descriptors(image, x_array, y_array, window_width, mode):
     '''
-    Returns features for a given set of feature points.
+    Returns a set of feature descriptors for a given set of feature points.
 
-    To start with, use image patches as your local feature descriptor. You will 
-    then need to implement the more effective SIFT-like feature descriptor. Use 
-    the `mode` argument to toggle between the two.
-    (Original SIFT publications at http://www.cs.ubc.ca/~lowe/keypoints/)
+    (Please note that we reccomend implementing this function after you have implemented
+    match_features)
+
+    To start with, normalize patches as your local feature descriptor. You will 
+    then need to implement the more effective SIFT-like feature descriptor.
+    (See Szeliski 7.1.2 or the original publications at
+    http://www.cs.ubc.ca/~lowe/keypoints/)
 
     Your implementation does not need to exactly match the SIFT reference.
-    Here are the key properties your (baseline) feature descriptor should have:
-    (1) a 4x4 grid of cells, each feature_width / 4 pixels square.
+    Here are the key properties your (baseline) descriptor should have:
+    (1) a 4x4 grid of cells, each descriptor_window_image_width/4.
     (2) each cell should have a histogram of the local distribution of
         gradients in 8 orientations. Appending these histograms together will
-        give you 4 x 4 x 8 = 128 dimensions.
+        give you 4x4 x 8 = 128 dimensions.
     (3) Each feature should be normalized to unit length
 
-    This is a design task, so many options might help but are not essential.
-    - To perform interpolation such that each gradient
+    You do not need to perform the interpolation in which each gradient
     measurement contributes to multiple orientation bins in multiple cells
-    A single gradient measurement creates a weighted contribution to the 4 
-    nearest cells and the 2 nearest orientation bins within each cell, for 
-    8 total contributions.
+    As described in Szeliski, a single gradient measurement creates a
+    weighted contribution to the 4 nearest cells and the 2 nearest
+    orientation bins within each cell, for 8 total contributions. This type
+    of interpolation probably will help, though.
 
-    - To compute the gradient orientation at each pixel, we could use oriented 
-    kernels (e.g. a kernel that responds to edges with a specific orientation). 
-    All of your SIFT-like features could be constructed quickly in this way.
+    You do not have to explicitly compute the gradient orientation at each
+    pixel (although you are free to do so). You can instead filter with
+    oriented filters (e.g. a filter that responds to edges with a specific
+    orientation). All of your SIFT-like feature can be constructed entirely
+    from filtering fairly quickly in this way.
 
-    - You could normalize -> threshold -> normalize again as detailed in the 
-    SIFT paper. This might help for specular or outlier brightnesses.
+    You do not need to do the normalize -> threshold -> normalize again
+    operation as detailed in Szeliski and the SIFT paper. It can help, though.
 
-    - You could raise each element of the final feature vector to some power 
-    that is less than one.
+    Another simple trick which can help is to raise each element of the final
+    feature vector to some power that is less than one.
 
     Useful functions: A working solution does not require the use of all of these
     functions, but depending on your implementation, you may find some useful. Please
@@ -117,45 +198,80 @@ def get_feature_descriptors(image, x_array, y_array, window_width, mode):
     :x: np array of x coordinates (column indices) of feature points
     :y: np array of y coordinates (row indices) of feature points
     :window_width: in pixels, is the local window width. You can assume
-                    that window_width will be a multiple of 4 (i.e. every cell of your
-                    local SIFT-like window will have an integer width and height).
-    :mode: a string, either "patch" or "sift". Switches between image patch descriptors
+                    that feature_width will be a multiple of 4 (i.e. every cell of your
+                    local SIFT-like feature will have an integer width and height).
+    :mode: either "patch" or "sift". Switches between image patch descriptors
            and SIFT descriptors
 
     If you want to detect and describe features at multiple scales or
-    particular orientations you can add input arguments. Make sure input arguments 
-    are optional or the autograder will break.
+    particular orientations you can add input arguments.
 
     :returns:
     :features: np array of computed features. features[i] is the descriptor for 
                point (x[i], y[i]), so the shape of features should be 
-               (len(x), feature dimensionality). For standard SIFT, `feature
-               dimensionality` is typically 128. `num points` may be less than len(x) if
+               (len(x), feature dimensionality). For standard SIFT, feature 
+               dimensionality is 128. `Num points` may be less than len(x) if 
                some points are rejected, e.g., if out of bounds.
+
     '''
+    # get gradients (for SIFT only)
+    xgrads = gaussian_filter1d(image, 2, axis=0, order=1)
+    ygrads = gaussian_filter1d(image, 2, axis=1, order=1)
+    grads = np.stack([xgrads, ygrads], axis=2)
 
-    # These are placeholders - replace with the coordinates of your feature points!
-    features = np.random.randint(0, 255, size=(len(x_array), np.random.randint(1, 200)))
+    features = []
+    for i in range(len(x_array)):
+        # get pixel coordinates of features
+        xc = int(x_array[i])
+        yc = int(y_array[i])
+        # check if feature would be out of bounds
+        half = window_width // 2
+        if (xc < half) or (yc < half) or (yc + half >= image.shape[0]) or (xc + half >= image.shape[1]):
+            continue
+        
+        if mode == "patch":
+            # Cut out image patch
+            patch = image[yc - half : yc + half, xc - half : xc + half]
+            # Flatten
+            vec = patch.flatten()
+            # Normalize
+            vec /= np.linalg.norm(vec)
+            # Append to feature list
+            features.append(vec)
 
-    # IMAGE PATCH STEPS
-    # STEP 1: For each feature point, cut out a window_width x window_width patch 
-    #         of the image (as you will in SIFT)
-    # STEP 2: Flatten this image patch into a 1-dimensional vector (hint: np.flatten())
-    
-    # SIFT STEPS
-    # STEP 1: Calculate the gradient (partial derivatives on two directions) on all pixels.
-    # STEP 2: Decompose the gradient vectors to magnitude and orientation (angle).
-    # STEP 3: For each feature point, calculate the local histogram based on related 4x4 grid cells.
-    #         Each cell is a square with feature_width / 4 pixels length of side.
-    #         For each cell, we assign these gradient vectors corresponding to these pixels to 8 bins
-    #         based on the orientation (angle) of the gradient vectors. 
-    # STEP 4: Now for each cell, we have a 8-dimensional vector. Appending the vectors in the 4x4 cells,
-    #         we have a 128-dimensional feature.
-    # STEP 5: Don't forget to normalize your feature.
+        if mode == 'sift':
+        # grad_x = np.gradient(image, axis=0)
+        # grad_y = np.gradient(image, axis=1)
+            grad_x = gaussian_filter1d(image, 2, axis=0, order=1)
+            grad_y = gaussian_filter1d(image, 2, axis=1, order=1)
+            grad_mg = np.sqrt(np.square(grad_x) + np.square(grad_y))
+            grad_or = np.array(np.arctan2(grad_y, grad_x) % (2 * np.pi))
 
+            cell_width = window_width // 4
+            for (x, y) in zip(x_array, y_array):
+                if x < window_width // 2 or x + window_width // 2 >= image.shape[1] or y < window_width // 2 or y + window_width // 2 >= image.shape[0]:
+                    continue
+                descriptor = np.zeros(128)
+                for i in range(4):
+                    for j in range(4):
+                        histogram = np.zeros(8)
+                        x_s = x - window_width // 2 + i * cell_width
+                        x_e = x_s + cell_width
+                        y_s = y - window_width // 2 + j * cell_width
+                        y_e = y_s + cell_width
+                        cell_mg = np.array(grad_mg[y_s:y_e, x_s:x_e]).flatten()
+                        cell_or = np.array(grad_or[y_s:y_e, x_s:x_e]).flatten()
+                        for k in range(cell_width**2):
+                            histogram[int(((cell_or[k] + np.pi) / (np.pi / 4)) % 8)] += cell_mg[k]
+                        # print('orientation: ', cell_or)
+                        # print('histogram', histogram, '\n')
+                        descriptor[(i+j)*8:(i+j+1)*8] = histogram
+                features.append(descriptor)
+            features = np.array(features) / np.linalg.norm(features)
 
     return features
 
+    return np.asarray(features)
 
 def match_features(im1_features, im2_features):
     '''
@@ -163,13 +279,14 @@ def match_features(im1_features, im2_features):
     Implements the Nearest Neighbor Distance Ratio (NNDR) Test to help threshold
     and remove false matches.
 
-    Please implement the "Nearest Neighbor Distance Ratio (NNDR) Test".
+    Please implement the "Nearest Neighbor Distance Ratio (NNDR) Test" ,
+    Equation 7.18 in Section 7.1.3 of Szeliski.
 
     For extra credit you can implement spatial verification of matches.
 
     Remember that the NNDR will return a number close to 1 for feature 
     points with similar distances. Think about how you might want to threshold
-    this ratio (hint: see lecture slides for NNDR)
+    this ratio (hint: see lecture slides)
 
     This function does not need to be symmetric (e.g., it can produce
     different numbers of matches depending on the order of the arguments).
@@ -183,6 +300,7 @@ def match_features(im1_features, im2_features):
     reference the documentation for each function/library and feel free to come to hours
     or post on EdStem with any questions
 
+        - zip (python built in function)
         - np.argsort()
 
     :params:
@@ -194,13 +312,38 @@ def match_features(im1_features, im2_features):
             column is an index into im1_features and the second column is an index into im2_features
     '''
 
-    # These are placeholders - replace with your matches and confidences!
-    matches = np.random.randint(0, min(len(im1_features), len(im2_features)), size=(50, 2))
-    
-    # STEP 1: Calculate the distances between each pairs of features between im1_features and im2_features.
-    # STEP 2: Sort and find closest features for each feature
-    # STEP 3: Compute NNDR for each match
-    # STEP 4: Remove matches whose ratios do not meet a certain threshold
-    
+    # create empty matches array
+    matches = np.zeros((im1_features.shape[0], 2))
+
+    # use cdist to get distance matrix (euclidian by default)
+    # dists = cdist(im1_features, im2_features)
+    dists = np.sqrt(np.sum(im1_features ** 2, 1).reshape(-1, 1) + np.sum(im2_features ** 2, 1).reshape(1, -1) - 2 * im1_features @ im2_features.T)
+
+    # sort and argsort
+    sorted_dist_indices = np.argsort(dists, axis=1)
+    sorted_dists = np.sort(dists, axis=1)
+
+    # sorted for best matches from image 2 to 1
+    sorted_dist_indices_transpose = np.argsort(dists, axis=0)
+
+    # set matches to be from each feature in image 1 to the most similar feature in image 2
+    matches[:, 0] = np.arange(im1_features.shape[0])
+    matches[:, 1] = sorted_dist_indices[:, 0]
+
+    # get ratio of best match similarity to next best match similarity
+    ratios = sorted_dists[:, 0] / sorted_dists[:, 1]
+
+    # discount matches that only go in one direction
+    for i in range(matches.shape[0]):
+        if sorted_dist_indices_transpose[0, int(matches[i, 1])] != i:
+            ratios[i] *= 1.1
+
+    # Optimal threshold determined from lecture slides
+    optimal_threshold = 0.85
+
+    # Threshold
+    mask = (ratios < optimal_threshold)
+    ratios = ratios[mask]
+    matches = matches[mask]
 
     return matches
