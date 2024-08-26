@@ -14,8 +14,6 @@ def show_correspondences(imgA, imgB, X1, Y1, X2, Y2, matches, good_matches, file
 		Writes out a png of the visualization if 'filename' is not None.
 	'''
 
-	# generates unique figures so students can
-	# look at all three at once
 	fig, ax = plt.subplots(nrows=1, ncols=1)
 
 	kp1 = zip_x_y(Y1, X1)
@@ -44,8 +42,6 @@ def show_correspondences_custom_image(imgA, imgB, X1, Y1, X2, Y2, matches, scale
 		Writes out a png of the visualization if 'filename' is not None.
 	'''
 
-	# generates unique figures so students can
-	# look at all three at once
 	fig, ax = plt.subplots(nrows=1, ncols=1)
 
 	x1_scaled = X1 / scale_factor
