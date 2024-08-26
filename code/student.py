@@ -3,34 +3,35 @@ import matplotlib.pyplot as plt
 from skimage import filters, feature
 from skimage.measure import regionprops
 
-def plot_feature_points(image, x, y):
+def plot_feature_points(image, xs, ys):
     '''
     Plot feature points for the input image. 
     
-    Show the feature points given on the input image. Be sure to add the images you make to your writeup. 
+    Show the feature points (x, y) over the image. Be sure to add the plots you make to your writeup!
 
-    Useful functions: Some helpful (not necessarily required) functions may include
-        - matplotlib.pyplot.imshow, matplotlib.pyplot.scatter, matplotlib.pyplot.show, matplotlib.pyplot.savefig
+    Useful functions: Some helpful (but not necessarily required) functions may include:
+        - plt.imshow
+        - plt.scatter
+        - plt.show
+        - plt.savefig
     
     :params:
-    :image: a grayscale or color image (your choice depending on your implementation)
-    :x: np array of x coordinates of feature points
-    :y: np array of y coordinates of feature points
+    :image: a grayscale or color image (depending on your implementation)
+    :xs: np.array of x coordinates of feature points
+    :ys: np.array of y coordinates of feature points
     '''
 
-    # TODO: Your implementation here! See block comments and the homework webpage for instructions
+    # TODO: Your implementation here!
 
 def get_feature_points(image, window_width):
     '''
-    Returns feature points for the input image.
+    Implement the Harris corner detector to return feature points for a given image.
 
-    Implement the Harris corner detector.
     You do not need to worry about scale invariance or keypoint orientation estimation
     for your Harris corner detector.
 
     If you're finding spurious (false/fake) feature point detections near the boundaries,
-    it is safe to simply suppress the gradients / corners near the edges of
-    the image.
+    it is safe to suppress the gradients / corners near the edges of the image.
 
     Useful functions: A working solution does not require the use of all of these
     functions, but depending on your implementation, you may find some useful. Please
@@ -48,31 +49,32 @@ def get_feature_points(image, window_width):
     :window_width: the width and height of each local window in pixels
 
     :returns:
-    :xs: an np array of the x coordinates (column indices) of the feature points in the image
-    :ys: an np array of the y coordinates (row indices) of the feature points in the image
+    :xs: an np.array of the x coordinates (column indices) of the feature points in the image
+    :ys: an np.array of the y coordinates (row indices) of the feature points in the image
 
     :optional returns (may be useful for extra credit portions):
-    :confidences: an np array indicating the confidence (strength) of each feature point
-    :scale: an np array indicating the scale of each feature point
-    :orientation: an np array indicating the orientation of each feature point
+    :confidences: an np.array indicating the confidence (strength) of each feature point
+    :scale: an np.array indicating the scale of each feature point
+    :orientation: an np.array indicating the orientation of each feature point
 
     '''
-
-    # These are placeholders - replace with the coordinates of your feature points!
-    xs = np.random.randint(0, image.shape[1], size=100)
-    ys = np.random.randint(0, image.shape[0], size=100)
 
     # STEP 1: Calculate the gradient (partial derivatives on two directions).
     # STEP 2: Apply Gaussian filter with appropriate sigma.
     # STEP 3: Calculate Harris cornerness score for all pixels.
     # STEP 4: Peak local max to eliminate clusters. (Try different parameters.)
 
+    # TODO: Your implementation here!
+    # These are placeholders - replace with the coordinates of your feature points!
+    xs = np.random.randint(0, image.shape[1], size=100)
+    ys = np.random.randint(0, image.shape[0], size=100)
+
     return xs, ys
 
 
-def get_feature_descriptors(image, x_array, y_array, window_width, mode):
+def get_feature_descriptors(image, xs, ys, window_width, mode):
     '''
-    Returns features for a given set of feature points.
+    Computes features for a given set of feature points.
 
     To start with, use image patches as your local feature descriptor. You will 
     then need to implement the more effective SIFT-like feature descriptor. Use 
@@ -81,11 +83,11 @@ def get_feature_descriptors(image, x_array, y_array, window_width, mode):
 
     Your implementation does not need to exactly match the SIFT reference.
     Here are the key properties your (baseline) feature descriptor should have:
-    (1) a 4x4 grid of cells, each feature_width / 4 pixels square.
-    (2) each cell should have a histogram of the local distribution of
+    (1) A 4x4 grid of cells, each feature_width / 4 pixels square.
+    (2) Each cell should have a histogram of the local distribution of
         gradients in 8 orientations. Appending these histograms together will
         give you 4 x 4 x 8 = 128 dimensions.
-    (3) Each feature should be normalized to unit length
+    (3) Each feature should be normalized to unit length.
 
     This is a design task, so many options might help but are not essential.
     - To perform interpolation such that each gradient
@@ -111,11 +113,10 @@ def get_feature_descriptors(image, x_array, y_array, window_width, mode):
 
         - skimage.filters (library)
 
-
     :params:
     :image: a grayscale or color image (your choice depending on your implementation)
-    :x: np array of x coordinates (column indices) of feature points
-    :y: np array of y coordinates (row indices) of feature points
+    :xs: np.array of x coordinates (column indices) of feature points
+    :ys: np.array of y coordinates (row indices) of feature points
     :window_width: in pixels, is the local window width. You can assume
                     that window_width will be a multiple of 4 (i.e. every cell of your
                     local SIFT-like window will have an integer width and height).
@@ -127,19 +128,16 @@ def get_feature_descriptors(image, x_array, y_array, window_width, mode):
     are optional or the autograder will break.
 
     :returns:
-    :features: np array of computed features. features[i] is the descriptor for 
+    :features: np.array of computed features. features[i] is the descriptor for 
                point (x[i], y[i]), so the shape of features should be 
                (len(x), feature dimensionality). For standard SIFT, `feature
                dimensionality` is typically 128. `num points` may be less than len(x) if
                some points are rejected, e.g., if out of bounds.
     '''
 
-    # These are placeholders - replace with the coordinates of your feature points!
-    features = np.random.randint(0, 255, size=(len(x_array), np.random.randint(1, 200)))
-
     # IMAGE PATCH STEPS
     # STEP 1: For each feature point, cut out a window_width x window_width patch 
-    #         of the image (as you will in SIFT)
+    #         of the image around that point (as you will in SIFT)
     # STEP 2: Flatten this image patch into a 1-dimensional vector (hint: np.flatten())
     
     # SIFT STEPS
@@ -153,13 +151,17 @@ def get_feature_descriptors(image, x_array, y_array, window_width, mode):
     #         we have a 128-dimensional feature.
     # STEP 5: Don't forget to normalize your feature.
 
+    # TODO: Your implementation here!
+    # These are placeholders - replace with the coordinates of your feature points!
+    features = np.random.randint(0, 255, size=(len(xs), np.random.randint(1, 200)))
 
     return features
 
 
 def match_features(im1_features, im2_features):
     '''
-    Matches feature descriptors of one image with their nearest neighbor in the other. 
+    Matches feature descriptors of one image with their nearest neighbor in the other.
+
     Implements the Nearest Neighbor Distance Ratio (NNDR) Test to help threshold
     and remove false matches.
 
@@ -186,21 +188,21 @@ def match_features(im1_features, im2_features):
         - np.argsort()
 
     :params:
-    :im1_features: an np array of features returned from get_feature_descriptors() for feature points in image1
-    :im2_features: an np array of features returned from get_feature_descriptors() for feature points in image2
+    :im1_features: an np.array of features returned from get_feature_descriptors() for feature points in image1
+    :im2_features: an np.array of features returned from get_feature_descriptors() for feature points in image2
 
     :returns:
-    :matches: an np array of dimension k x 2 where k is the number of matches. The first
+    :matches: an np.array of dimension k x 2 where k is the number of matches. The first
             column is an index into im1_features and the second column is an index into im2_features
     '''
-
-    # These are placeholders - replace with your matches and confidences!
-    matches = np.random.randint(0, min(len(im1_features), len(im2_features)), size=(50, 2))
     
     # STEP 1: Calculate the distances between each pairs of features between im1_features and im2_features.
     # STEP 2: Sort and find closest features for each feature
     # STEP 3: Compute NNDR for each match
-    # STEP 4: Remove matches whose ratios do not meet a certain threshold
-    
+    # STEP 4: Remove matches whose ratios do not meet a certain threshold 
+
+    # TODO: Your implementation here!
+    # These are placeholders - replace with the coordinates of your feature points!
+    matches = np.random.randint(0, min(len(im1_features), len(im2_features)), size=(50, 2))
 
     return matches

@@ -1,11 +1,11 @@
-"""
+'''
 This code adapted from scikit-image documentation
 http://scikit-image.org/docs/dev/auto_examples/features_detection/plot_corner.html
 
 For CSCI1430 @ Brown University Spring 2019
-"""
+'''
 
-"""
+'''
 ================
 Corner detection
 ================
@@ -16,21 +16,48 @@ subpixel position of corners ([1]_, [2]_).
 .. [1] https://en.wikipedia.org/wiki/Corner_detection
 .. [2] https://en.wikipedia.org/wiki/Interest_point_detection
 
-"""
+'''
 
 from matplotlib import pyplot as plt
+
+import argparse
 
 from skimage import io, color, transform
 from skimage.feature import corner_harris, peak_local_max
 
-# load in different images to see where the Harris Corner Detector finds corners
-image = transform.rescale(color.rgb2gray(io.imread("LaddObservatory1.jpg")),0.25)
+def main():
+    parser = argparse.ArgumentParser(description='Harris corner detector')
+    parser.add_argument('example', choices=['RISHLibrary', 'LaddObservatory', 'Chase'],
+                        help='Select the image pair for corner detection')
+    args = parser.parse_args()
 
-harris_response = corner_harris(image)
-# Note: Feel free to play with these parameters to investigate their effects
-coords = peak_local_max( harris_response, min_distance=5, threshold_rel=0.05 )
+    image1 = transform.rescale(color.rgb2gray(io.imread(f'images/{args.example}1.jpg')),0.25)
+    image2 = transform.rescale(color.rgb2gray(io.imread(f'images/{args.example}2.jpg')),0.25)
 
-plt.imshow(image, cmap=plt.cm.gray)
-plt.plot(coords[:, 1], coords[:, 0], '+r', markersize=15)
-plt.axis((-100, image.shape[1]+100, image.shape[0]+100, -100))
-plt.show()
+    harris_response1 = corner_harris(image1)
+    harris_response2 = corner_harris(image2)
+
+    ##############
+    # TODO: Feel free to play around with these parameters to investigate their effects
+    min_distance = 5
+    threshold_rel = 0.05
+    ##############
+
+    coords1 = peak_local_max( harris_response1, min_distance=min_distance, threshold_rel=threshold_rel )
+    coords2 = peak_local_max( harris_response2, min_distance=min_distance, threshold_rel=threshold_rel )
+
+    fig, ax = plt.subplots(1, 2, figsize=(6, 6))
+
+    ax[0].imshow(image1, cmap=plt.cm.gray)
+    ax[0].plot(coords1[:, 1], coords1[:, 0], '+r', markersize=15)
+    ax[0].axis((0, image1.shape[1], image1.shape[0], 0))
+    ax[0].axis('off')
+
+    ax[1].imshow(image2, cmap=plt.cm.gray)
+    ax[1].plot(coords2[:, 1], coords2[:, 0], '+r', markersize=15)
+    ax[1].axis('off')
+
+    plt.show()
+
+if __name__ == '__main__':
+    main()
