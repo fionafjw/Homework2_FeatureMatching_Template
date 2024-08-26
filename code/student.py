@@ -200,7 +200,6 @@ def match_features(im1_features, im2_features):
     # STEP 1: Calculate the distances between each pairs of features between im1_features and im2_features.
     # STEP 2: Sort and find closest features for each feature
     # STEP 3: Compute NNDR for each match
-    # STEP 4: Remove matches whose ratios do not meet a certain threshold
-    
+    # STEP 4: Remove matches whose ratios do not meet a certain threshold 
 
     return matches

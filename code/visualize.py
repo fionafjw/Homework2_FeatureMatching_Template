@@ -11,9 +11,6 @@ def show_correspondences(imgA, imgB, X1, Y1, X2, Y2, matches, good_matches, file
 		Visualizes corresponding points between two images, either as
 		arrows or dots
 
-		mode='dots': Corresponding points will have the same random color
-		mode='arrows': Corresponding points will be joined by a line
-
 		Writes out a png of the visualization if 'filename' is not None.
 	'''
 
@@ -28,6 +25,8 @@ def show_correspondences(imgA, imgB, X1, Y1, X2, Y2, matches, good_matches, file
 	plot_matches(ax, imgA, imgB, kp1, kp2, matches[good_matches], matches_color='springgreen')
 
 	fig = plt.gcf()
+	plt.title('Correspondences between feature points')
+	plt.axis('off')
 	plt.show()
 
 	if filename:
@@ -41,9 +40,6 @@ def show_correspondences_custom_image(imgA, imgB, X1, Y1, X2, Y2, matches, scale
 	'''
 		Visualizes corresponding points between two images, either as
 		arrows or dots. Unlike show_correspondences, does not take correct_matches argument
-
-		mode='dots': Corresponding points will have the same random color
-		mode='arrows': Corresponding points will be joined by a line
 
 		Writes out a png of the visualization if 'filename' is not None.
 	'''
@@ -63,6 +59,8 @@ def show_correspondences_custom_image(imgA, imgB, X1, Y1, X2, Y2, matches, scale
 	plot_matches(ax, imgA, imgB, kp1, kp2, matches, matches_color='yellow')
 
 	fig = plt.gcf()
+	plt.title('Correspondences between feature points')
+	plt.axis('off')
 	plt.show()
 
 	if filename:
