@@ -18,7 +18,7 @@ def plot_feature_points(image, x, y):
     :y: np array of y coordinates of feature points
     '''
 
-    # TODO: Your implementation here! See block comments and the homework webpage for instructions
+    # TODO: Your implementation here!
 
 def get_feature_points(image, window_width):
     '''
@@ -58,14 +58,15 @@ def get_feature_points(image, window_width):
 
     '''
 
-    # These are placeholders - replace with the coordinates of your feature points!
-    xs = np.random.randint(0, image.shape[1], size=100)
-    ys = np.random.randint(0, image.shape[0], size=100)
-
     # STEP 1: Calculate the gradient (partial derivatives on two directions).
     # STEP 2: Apply Gaussian filter with appropriate sigma.
     # STEP 3: Calculate Harris cornerness score for all pixels.
     # STEP 4: Peak local max to eliminate clusters. (Try different parameters.)
+
+    # TODO: Your implementation here!
+    # These are placeholders - replace with the coordinates of your feature points!
+    xs = np.random.randint(0, image.shape[1], size=100)
+    ys = np.random.randint(0, image.shape[0], size=100)
 
     return xs, ys
 
@@ -134,9 +135,6 @@ def get_feature_descriptors(image, x_array, y_array, window_width, mode):
                some points are rejected, e.g., if out of bounds.
     '''
 
-    # These are placeholders - replace with the coordinates of your feature points!
-    features = np.random.randint(0, 255, size=(len(x_array), np.random.randint(1, 200)))
-
     # IMAGE PATCH STEPS
     # STEP 1: For each feature point, cut out a window_width x window_width patch 
     #         of the image (as you will in SIFT)
@@ -153,6 +151,9 @@ def get_feature_descriptors(image, x_array, y_array, window_width, mode):
     #         we have a 128-dimensional feature.
     # STEP 5: Don't forget to normalize your feature.
 
+    # TODO: Your implementation here!
+    # These are placeholders - replace with the coordinates of your feature points!
+    features = np.random.randint(0, 255, size=(len(x_array), np.random.randint(1, 200)))
 
     return features
 
@@ -193,13 +194,14 @@ def match_features(im1_features, im2_features):
     :matches: an np array of dimension k x 2 where k is the number of matches. The first
             column is an index into im1_features and the second column is an index into im2_features
     '''
-
-    # These are placeholders - replace with your matches and confidences!
-    matches = np.random.randint(0, min(len(im1_features), len(im2_features)), size=(50, 2))
     
     # STEP 1: Calculate the distances between each pairs of features between im1_features and im2_features.
     # STEP 2: Sort and find closest features for each feature
     # STEP 3: Compute NNDR for each match
     # STEP 4: Remove matches whose ratios do not meet a certain threshold 
+
+    # TODO: Your implementation here!
+    # These are placeholders - replace with the coordinates of your feature points!
+    matches = np.random.randint(0, min(len(im1_features), len(im2_features)), size=(50, 2))
 
     return matches
