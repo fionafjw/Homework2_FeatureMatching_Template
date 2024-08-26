@@ -137,7 +137,7 @@ def get_feature_descriptors(image, xs, ys, window_width, mode):
 
     # IMAGE PATCH STEPS
     # STEP 1: For each feature point, cut out a window_width x window_width patch 
-    #         of the image (as you will in SIFT)
+    #         of the image around that point (as you will in SIFT)
     # STEP 2: Flatten this image patch into a 1-dimensional vector (hint: np.flatten())
     
     # SIFT STEPS
