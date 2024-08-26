@@ -3,34 +3,35 @@ import matplotlib.pyplot as plt
 from skimage import filters, feature
 from skimage.measure import regionprops
 
-def plot_feature_points(image, x, y):
+def plot_feature_points(image, xs, ys):
     '''
     Plot feature points for the input image. 
     
-    Show the feature points given on the input image. Be sure to add the images you make to your writeup. 
+    Show the feature points (x, y) over the image. Be sure to add the plots you make to your writeup!
 
-    Useful functions: Some helpful (not necessarily required) functions may include
-        - matplotlib.pyplot.imshow, matplotlib.pyplot.scatter, matplotlib.pyplot.show, matplotlib.pyplot.savefig
+    Useful functions: Some helpful (but not necessarily required) functions may include:
+        - plt.imshow
+        - plt.scatter
+        - plt.show
+        - plt.savefig
     
     :params:
-    :image: a grayscale or color image (your choice depending on your implementation)
-    :x: np array of x coordinates of feature points
-    :y: np array of y coordinates of feature points
+    :image: a grayscale or color image (depending on your implementation)
+    :xs: np array of x coordinates of feature points
+    :ys: np array of y coordinates of feature points
     '''
 
     # TODO: Your implementation here!
 
 def get_feature_points(image, window_width):
     '''
-    Returns feature points for the input image.
+    Implement the Harris corner detector to return feature points for a given image.
 
-    Implement the Harris corner detector.
     You do not need to worry about scale invariance or keypoint orientation estimation
     for your Harris corner detector.
 
     If you're finding spurious (false/fake) feature point detections near the boundaries,
-    it is safe to simply suppress the gradients / corners near the edges of
-    the image.
+    it is safe to suppress the gradients / corners near the edges of the image.
 
     Useful functions: A working solution does not require the use of all of these
     functions, but depending on your implementation, you may find some useful. Please
@@ -71,9 +72,9 @@ def get_feature_points(image, window_width):
     return xs, ys
 
 
-def get_feature_descriptors(image, x_array, y_array, window_width, mode):
+def get_feature_descriptors(image, xs, ys, window_width, mode):
     '''
-    Returns features for a given set of feature points.
+    Computes features for a given set of feature points.
 
     To start with, use image patches as your local feature descriptor. You will 
     then need to implement the more effective SIFT-like feature descriptor. Use 
@@ -82,11 +83,11 @@ def get_feature_descriptors(image, x_array, y_array, window_width, mode):
 
     Your implementation does not need to exactly match the SIFT reference.
     Here are the key properties your (baseline) feature descriptor should have:
-    (1) a 4x4 grid of cells, each feature_width / 4 pixels square.
-    (2) each cell should have a histogram of the local distribution of
+    (1) A 4x4 grid of cells, each feature_width / 4 pixels square.
+    (2) Each cell should have a histogram of the local distribution of
         gradients in 8 orientations. Appending these histograms together will
         give you 4 x 4 x 8 = 128 dimensions.
-    (3) Each feature should be normalized to unit length
+    (3) Each feature should be normalized to unit length.
 
     This is a design task, so many options might help but are not essential.
     - To perform interpolation such that each gradient
@@ -112,11 +113,10 @@ def get_feature_descriptors(image, x_array, y_array, window_width, mode):
 
         - skimage.filters (library)
 
-
     :params:
     :image: a grayscale or color image (your choice depending on your implementation)
-    :x: np array of x coordinates (column indices) of feature points
-    :y: np array of y coordinates (row indices) of feature points
+    :xs: np array of x coordinates (column indices) of feature points
+    :ys: np array of y coordinates (row indices) of feature points
     :window_width: in pixels, is the local window width. You can assume
                     that window_width will be a multiple of 4 (i.e. every cell of your
                     local SIFT-like window will have an integer width and height).
@@ -153,14 +153,15 @@ def get_feature_descriptors(image, x_array, y_array, window_width, mode):
 
     # TODO: Your implementation here!
     # These are placeholders - replace with the coordinates of your feature points!
-    features = np.random.randint(0, 255, size=(len(x_array), np.random.randint(1, 200)))
+    features = np.random.randint(0, 255, size=(len(xs), np.random.randint(1, 200)))
 
     return features
 
 
 def match_features(im1_features, im2_features):
     '''
-    Matches feature descriptors of one image with their nearest neighbor in the other. 
+    Matches feature descriptors of one image with their nearest neighbor in the other.
+
     Implements the Nearest Neighbor Distance Ratio (NNDR) Test to help threshold
     and remove false matches.
 
@@ -187,8 +188,8 @@ def match_features(im1_features, im2_features):
         - np.argsort()
 
     :params:
-    :im1_features: an np array of features returned from get_feature_descriptors() for feature points in image1
-    :im2_features: an np array of features returned from get_feature_descriptors() for feature points in image2
+    :im1_features: an np.array of features returned from get_feature_descriptors() for feature points in image1
+    :im2_features: an np.array of features returned from get_feature_descriptors() for feature points in image2
 
     :returns:
     :matches: an np array of dimension k x 2 where k is the number of matches. The first
