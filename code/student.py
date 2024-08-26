@@ -17,8 +17,8 @@ def plot_feature_points(image, xs, ys):
     
     :params:
     :image: a grayscale or color image (depending on your implementation)
-    :xs: np array of x coordinates of feature points
-    :ys: np array of y coordinates of feature points
+    :xs: np.array of x coordinates of feature points
+    :ys: np.array of y coordinates of feature points
     '''
 
     # TODO: Your implementation here!
@@ -49,13 +49,13 @@ def get_feature_points(image, window_width):
     :window_width: the width and height of each local window in pixels
 
     :returns:
-    :xs: an np array of the x coordinates (column indices) of the feature points in the image
-    :ys: an np array of the y coordinates (row indices) of the feature points in the image
+    :xs: an np.array of the x coordinates (column indices) of the feature points in the image
+    :ys: an np.array of the y coordinates (row indices) of the feature points in the image
 
     :optional returns (may be useful for extra credit portions):
-    :confidences: an np array indicating the confidence (strength) of each feature point
-    :scale: an np array indicating the scale of each feature point
-    :orientation: an np array indicating the orientation of each feature point
+    :confidences: an np.array indicating the confidence (strength) of each feature point
+    :scale: an np.array indicating the scale of each feature point
+    :orientation: an np.array indicating the orientation of each feature point
 
     '''
 
@@ -115,8 +115,8 @@ def get_feature_descriptors(image, xs, ys, window_width, mode):
 
     :params:
     :image: a grayscale or color image (your choice depending on your implementation)
-    :xs: np array of x coordinates (column indices) of feature points
-    :ys: np array of y coordinates (row indices) of feature points
+    :xs: np.array of x coordinates (column indices) of feature points
+    :ys: np.array of y coordinates (row indices) of feature points
     :window_width: in pixels, is the local window width. You can assume
                     that window_width will be a multiple of 4 (i.e. every cell of your
                     local SIFT-like window will have an integer width and height).
@@ -128,7 +128,7 @@ def get_feature_descriptors(image, xs, ys, window_width, mode):
     are optional or the autograder will break.
 
     :returns:
-    :features: np array of computed features. features[i] is the descriptor for 
+    :features: np.array of computed features. features[i] is the descriptor for 
                point (x[i], y[i]), so the shape of features should be 
                (len(x), feature dimensionality). For standard SIFT, `feature
                dimensionality` is typically 128. `num points` may be less than len(x) if
@@ -192,7 +192,7 @@ def match_features(im1_features, im2_features):
     :im2_features: an np.array of features returned from get_feature_descriptors() for feature points in image2
 
     :returns:
-    :matches: an np array of dimension k x 2 where k is the number of matches. The first
+    :matches: an np.array of dimension k x 2 where k is the number of matches. The first
             column is an index into im1_features and the second column is an index into im2_features
     '''
     
