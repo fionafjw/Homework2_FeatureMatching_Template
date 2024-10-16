@@ -106,7 +106,7 @@ def get_feature_points(image, window_width):
     Ixy = ndimage.gaussian_filter(Ixy, sigma=sigma)
 
     #k is a constant
-    k = 0.05
+    k = 0.04
     
     detM = np.multiply(Ixx, Iyy) - np.multiply(Ixy, Ixy)
     #print(detM.shape)
@@ -119,7 +119,7 @@ def get_feature_points(image, window_width):
 
     #thresholding
     c_max = np.max(cornerness)
-    thresh = 0.1 * c_max
+    thresh = 0.05 * c_max
 
     # Find local maxima of the response
     min_d = window_width//2
@@ -394,11 +394,12 @@ def match_features(im1_features, im2_features):
         nndr = d1 / d2 if d2 > 0 else np.inf
 
         # STEP 4: Remove matches whose ratios do not meet a certain threshold 
-        threshold = 0.8
+        threshold = 1
         if nndr < threshold:
             match = [i, nn1]
             matches = np.vstack([matches,match])
 
     #matches = np.delete(matches, 0, axis=0)
+    print(matches)
 
     return matches
