@@ -373,7 +373,7 @@ def match_features(im1_features, im2_features):
     for x in range(len(im1_features)):
         norm = np.linalg.norm(im1_features[x])
         if norm < 0.01: 
-            print(norm, im1_features[x])
+            #print(norm, im1_features[x])
             bad_indices.append(x)
         else:
             im1_features[x] /= norm
@@ -383,7 +383,7 @@ def match_features(im1_features, im2_features):
         norm = np.linalg.norm(im2_features[x])
         im2_features[x] /= norm
     #'''
-    matches = np.zeros((min(len(im1_features), len(im2_features)), 2), dtype = int)
+    matches = np.zeros((max(len(im1_features), len(im2_features)), 2), dtype = int)
     # STEP 1: Calculate the distances between each pairs of features between im1_features and im2_features.
     #im1_features = im2_features
     F1 = im1_features
@@ -411,7 +411,7 @@ def match_features(im1_features, im2_features):
     #print(sorted)
 
     i = 0
-    threshold = 0.92
+    threshold = 0.91
     for x in range(len(im1_features)):
         #first and second index
         nn1 = sorted[x, 0]
