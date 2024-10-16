@@ -2,6 +2,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from skimage import filters, feature
 from skimage.measure import regionprops
+from scipy import ndimage
+from skimage.color import rgb2gray
+from skimage import feature
 
 def plot_feature_points(image, xs, ys):
     '''
@@ -22,6 +25,15 @@ def plot_feature_points(image, xs, ys):
     '''
 
     # TODO: Your implementation here!
+    if image.ndim == 2:
+        plt.imshow(image, cmap = 'gray')
+    else:
+        plt.imshow(image)
+    
+    plt.scatter(xs, ys, c = 'red', marker = 'o', s = 40, label = 'feature points')
+
+    plt.savefig('../results/mypoints.jpg')
+    plt.show()
 
 def get_feature_points(image, window_width):
     '''
@@ -68,7 +80,87 @@ def get_feature_points(image, window_width):
     # These are placeholders - replace with the coordinates of your feature points!
     xs = np.random.randint(0, image.shape[1], size=100)
     ys = np.random.randint(0, image.shape[0], size=100)
+    #count = 0
 
+    #max_coordinates = feature.peak_local_max(image, min_distance=1)
+
+    if image.ndim == 3:
+        image = rgb2gray(image)
+
+    #height, width = image.shape
+    #w = window_width//2
+    #padded_image = np.pad(image, ((1, 1), (1, 1)), 'constant')
+    #padded_image = ndimage.gaussian_filter(padded_image, sigma = 1)
+    sigma = window_width/4
+    #image = ndimage.gaussian_filter(image, sigma = sigma)
+
+    Ix = ndimage.sobel(image, 1) #1 is horizontal?
+    Iy = ndimage.sobel(image, 0) 
+
+    Ixx = np.multiply(Ix, Ix)
+    Iyy = np.multiply(Iy, Iy)
+    Ixy = np.multiply(Ix, Iy)
+
+    Ixx = ndimage.gaussian_filter(Ixx, sigma=sigma)
+    Iyy = ndimage.gaussian_filter(Iyy, sigma=sigma)
+    Ixy = ndimage.gaussian_filter(Ixy, sigma=sigma)
+
+    #k is a constant
+    k = 0.06
+    
+    detM = np.multiply(Ixx, Iyy) - np.multiply(Ixy, Ixy)
+    #print(detM.shape)
+    traceM = Ixx + Iyy
+    #print(traceM.shape)
+
+    #C is a matrix containing all cornerness scores
+    cornerness = detM - k*np.multiply(traceM, traceM)
+    #print(cornerness)
+
+    #thresholding
+    c_max = np.max(cornerness)
+    thresh = 0.1 * c_max
+
+    # Find local maxima of the response
+    min_d = window_width//2
+    coordinates = feature.peak_local_max(cornerness, min_distance=min_d, threshold_abs=thresh)
+    #print(coordinates)
+
+    # Extract x and y coordinates
+    xs = coordinates[:, 1]
+    #print(xs)
+    ys = coordinates[:, 0]
+    #print(ys)
+
+    '''
+    #coordinates are probably off
+    for i in range(height-w):
+        for j in range(width-w):
+            x = i+w
+            y = j+w
+
+            window_Ixx = Ixx[x-w : x+w+1, y-w : y+w+1]
+            window_Iyy = Iyy[x-w : x+w+1, y-w : y+w+1]
+            window_Ixy = Ixy[x-w : x+w+1, y-w : y+w+1]
+
+            #second moment matrix
+            M = np.array([[np.sum(window_Ixx), np.sum(window_Ixy)], 
+                          [np.sum(window_Ixy), np.sum(window_Iyy)]])
+            #cornerness score
+            C = np.linalg.det(M) - k*np.power(np.trace(M), 2)
+
+            #threshold value
+            thresh = 0.5
+            coordinate = [i, j]
+            if C > thresh and coordinate in max_coordinates:
+                if count >= 100:
+                    np.append(xs, i)
+                    np.append(ys, j)
+                else:
+                    xs[count] = i
+                    ys[count] = j
+                    count += 1
+    '''
     return xs, ys
 
 
@@ -134,12 +226,20 @@ def get_feature_descriptors(image, xs, ys, window_width, mode):
                dimensionality` is typically 128. `num points` may be less than len(x) if
                some points are rejected, e.g., if out of bounds.
     '''
+    if mode == "sift":
+        return get_feature_descriptors_SIFT(image, xs, ys, window_width)
+    else:
+        return get_feature_descriptors_patch(image, xs, ys, window_width)
 
+def get_feature_descriptors_patch(image, xs, ys, window_width):
     # IMAGE PATCH STEPS
     # STEP 1: For each feature point, cut out a window_width x window_width patch 
     #         of the image around that point (as you will in SIFT)
     # STEP 2: Flatten this image patch into a 1-dimensional vector (hint: np.flatten())
-    
+
+    return None
+
+def get_feature_descriptors_SIFT(image, xs, ys, window_width):
     # SIFT STEPS
     # STEP 1: Calculate the gradient (partial derivatives on two directions) on all pixels.
     # STEP 2: Decompose the gradient vectors to magnitude and orientation (angle).
@@ -153,8 +253,58 @@ def get_feature_descriptors(image, xs, ys, window_width, mode):
 
     # TODO: Your implementation here!
     # These are placeholders - replace with the coordinates of your feature points!
-    features = np.random.randint(0, 255, size=(len(xs), np.random.randint(1, 200)))
+    features = np.zeros((len(xs), 128))
 
+    #'''
+    #STEP 1: For each feature point, cut out a window_width x window_width patch 
+    #        of the image around that point (as you will in SIFT)
+    w2 = window_width//2 #half of window size
+    
+    for i in range(len(xs)):
+        col = xs[i]
+        row = ys[i]
+
+        window = image[row-w2 : row+w2, col-w2 : col+w2]
+        if(window.shape != (window_width, window_width)):
+            return features
+
+        # STEP 1: Calculate the gradient (partial derivatives on two directions) on all pixels.
+        grad_x = ndimage.sobel(window, 1)
+        grad_y = ndimage.sobel(window, 0)
+
+        # STEP 2: Decompose the gradient vectors to magnitude and orientation (angle).
+        grad_mag = np.sqrt(grad_x ** 2 + grad_y ** 2)
+        grad_ori_index = np.round(np.arctan2(grad_y, grad_x) * 4 / np.pi) #convert to degrees
+        grad_ori_index[grad_ori_index < 0] += 8
+        
+        print(grad_ori_index.shape)
+        assert window.shape == grad_ori_index.shape
+
+        # STEP 3: For each feature point, calculate the local histogram based on related 4x4 grid cells.
+        #         Each cell is a square with window_width / 4 pixels length of side.
+        #         For each cell, we assign these gradient vectors corresponding to these pixels to 8 bins
+        #         based on the orientation (angle) of the gradient vectors. 
+        j = 0
+        jj = 0
+        for u in range(0, 16, 4):
+            for v in range(0, 16, 4):
+                jj = j*8
+                j += 1
+                for k in range(u, u+4):
+                    for l in range(v, v+4):
+                        bin_index = grad_ori_index[k, l]
+                        cur_mag = grad_mag[k, l]
+
+                        # STEP 4: Now for each cell, we have a 8-dimensional vector. Appending the vectors in the 4x4 cells,
+                        #         we have a 128-dimensional features
+                        #print(i, int(jj+bin_index), cur_mag)
+                        features[i][int(jj+bin_index)] += cur_mag
+    # STEP 5: Don't forget to normalize your feature.
+    features[features>0.2] = 0.2
+    #print(features)
+
+
+    #'''
     return features
 
 
