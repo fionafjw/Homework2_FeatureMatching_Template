@@ -391,7 +391,7 @@ def match_features(im1_features, im2_features):
     sorted = np.argsort(D)
 
     i = 0
-    threshold = 0.87
+    threshold = 0.89
     for x in range(len(im1_features)):
         #first index
         nn1 = sorted[x, 0]
