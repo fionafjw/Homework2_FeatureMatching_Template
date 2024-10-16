@@ -118,8 +118,8 @@ def get_feature_points(image, window_width):
     #print(cornerness)
 
     #thresholding
-    c_max = np.max(cornerness)
-    thresh = 0.1 * c_max
+    # c_max = np.max(cornerness)
+    # thresh = 0.1 * c_max
 
     # Find local maxima of the response
     min_d = window_width//2
