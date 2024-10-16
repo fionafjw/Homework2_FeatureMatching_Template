@@ -241,7 +241,7 @@ class live_FFT2():
 
         # Part 4: Understanding amplitude and phase
         # =========================================
-        '''
+        #'''
         # Play with the images. What can you discover? Try uncommenting each modification, one at a time, to see its direct image
         # Feel free to combine these modifications for different effects
         
@@ -260,12 +260,12 @@ class live_FFT2():
         # phase -= np.pi
 
         # Rotate whole image? Together? Individually?
-        # phase = np.rot90(phase)
-        # amplitude = np.rot90(amplitude)
+        phase = np.rot90(phase)
+        amplitude = np.rot90(amplitude)
         
         # Are these manipulations meaningful?
         # What other manipulations might we perform?
-        '''
+        #'''
 
         # Part 5: Reconstruct the original image
         # ======================================

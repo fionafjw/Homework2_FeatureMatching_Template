@@ -123,7 +123,7 @@ def get_feature_points(image, window_width):
 
     # Find local maxima of the response
     min_d = window_width//2
-    coordinates = feature.peak_local_max(cornerness, min_distance=min_d, threshold_abs=thresh)
+    coordinates = feature.peak_local_max(cornerness, min_distance=min_d, threshold_abs=0.00005)
     #print(coordinates)
 
     # Extract x and y coordinates
@@ -411,8 +411,10 @@ def match_features(im1_features, im2_features):
     #print(sorted)
 
     i = 0
-    threshold = 0.91
+    threshold = 0.86
     for x in range(len(im1_features)):
+        if x in bad_indices:
+            continue
         #first and second index
         nn1 = sorted[x, 0]
         nn2 = sorted[x, 1]

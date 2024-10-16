@@ -39,8 +39,8 @@ def main():
 
     ##############
     # TODO: Feel free to play around with these parameters to investigate their effects
-    min_distance = 5
-    threshold_rel = 0.05
+    min_distance = 1
+    threshold_rel = 0.01
     ##############
 
     coords1 = peak_local_max( harris_response1, min_distance=min_distance, threshold_rel=threshold_rel )
