@@ -368,11 +368,11 @@ def match_features(im1_features, im2_features):
 
     # TODO: Your implementation here!
     # These are placeholders - replace with the coordinates of your feature points!
-    matches = np.random.randint(0, min(len(im1_features), len(im2_features)), size=(1, 2))
+    matches = np.empty((0, 2), dtype=int)
 
     # STEP 1: Calculate the distances between each pairs of features between im1_features and im2_features.
-    length_s = min(len(im1_features), len(im2_features))
-    length_m = max(len(im1_features), len(im2_features))
+    length_s = len(im1_features)
+    length_m = len(im2_features)
     
     for i in range(length_s):
         #an array that holds the distances between im1_features[i] and all im2_features
@@ -383,6 +383,7 @@ def match_features(im1_features, im2_features):
 
         # STEP 2: Sort and find closest features for each feature
         sorted = np.argsort(distances)
+
         nn1 = sorted[0]  # closest
         nn2 = sorted[1]  # second closest
 
@@ -395,12 +396,9 @@ def match_features(im1_features, im2_features):
         # STEP 4: Remove matches whose ratios do not meet a certain threshold 
         threshold = 1
         if nndr < threshold:
-            #print([i, nn1])
             match = [i, nn1]
             matches = np.vstack([matches,match])
-            #print("matches: ", matches)
 
-    #matches = np.delete(matches, 0)
-    print(matches)
+    #matches = np.delete(matches, 0, axis=0)
 
     return matches
