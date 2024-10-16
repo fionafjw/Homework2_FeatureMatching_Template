@@ -373,41 +373,35 @@ def match_features(im1_features, im2_features):
     # STEP 1: Calculate the distances between each pairs of features between im1_features and im2_features.
     F1 = im1_features
     F2 = im2_features
-
     B = 2 * np.dot(F1, np.transpose(F2))
 
-    F1_squared = im1_features**2
-    F1_norm = np.sum(F1_squared, axis=1)
-    F1_norm = np.expand_dims(F1_norm, axis = 1)
+    F1_squared = F1**2
+    norm1 = np.sum(F1_squared, axis=1)
 
-    F2_squared = im2_features**2
-    F2_norm = np.sum(F2_squared, axis=1)
-    F2_norm = np.expand_dims(F2_norm, axis = 0)
+    F2_squared = F2**2
+    norm2 = np.sum(F2_squared, axis=1)
 
-    A = F1_norm + F2_norm
+    A = np.expand_dims(norm1, axis = 1) + np.expand_dims(norm2, axis = 0)
     D = np.sqrt(A-B)
 
     # STEP 2: Sort and find closest features for each feature
     sorted = np.argsort(D)
 
-    i = 0
-    threshold = 0.89
-    for x in range(len(im1_features)):
-        #first index
-        nn1 = sorted[x, 0]
-        d1 = D[x, nn1]
-        
-        #second index
-        nn2 = sorted[x, 1]
-        d2 = D[x, nn2]
+    index = 0
+    threshold = 0.87
+    for i in range(len(im1_features)):
+
+        nn1 = sorted[i, 0]
+        d1 = D[i, nn1]
+
+        nn2 = sorted[i, 1]
+        d2 = D[i, nn2]
 
         # STEP 3: Compute NNDR for each match
-        nndr = d1 / d2 if d2 > 0 else np.inf
-
         # STEP 4: Remove matches whose ratios do not meet a certain threshold 
-        if nndr < threshold:
-            matches[i, 0] = x
-            matches[i, 1] = nn1
-            i += 1
+        if nn2 > 0 and (nn1 / nn2) < threshold:
+            matches[index, 0] = i
+            matches[index, 1] = nn1
+            index += 1
 
-    return matches[:i]
+    return matches[:index]
