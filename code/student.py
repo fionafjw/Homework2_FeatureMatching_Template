@@ -106,7 +106,7 @@ def get_feature_points(image, window_width):
     Ixy = ndimage.gaussian_filter(Ixy, sigma=sigma)
 
     #k is a constant
-    k = 0.06
+    k = 0.05
     
     detM = np.multiply(Ixx, Iyy) - np.multiply(Ixy, Ixy)
     #print(detM.shape)
@@ -393,7 +393,7 @@ def match_features(im1_features, im2_features):
         nndr = d1 / d2 if d2 > 0 else np.inf
 
         # STEP 4: Remove matches whose ratios do not meet a certain threshold 
-        threshold = 0.8
+        threshold = 1
         if nndr < threshold:
             #print([i, nn1])
             match = [i, nn1]
