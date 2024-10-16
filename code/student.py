@@ -288,7 +288,7 @@ def get_feature_descriptors_SIFT(image, xs, ys, window_width):
 
         # STEP 2: Decompose the gradient vectors to magnitude and orientation (angle).
         grad_mag = np.sqrt(grad_x ** 2 + grad_y ** 2)
-        grad_ori_index = np.ceil(np.arctan2(grad_y, grad_x) * 4 / np.pi) #convert to degrees
+        grad_ori_index = np.floor(np.arctan2(grad_y, grad_x) * 4 / np.pi) #convert to degrees
         grad_ori_index[grad_ori_index < 0] += 8
         
         #print(grad_ori_index.shape)
