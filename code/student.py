@@ -270,8 +270,7 @@ def get_feature_descriptors_SIFT(image, xs, ys, window_width):
     features = np.zeros((len(xs), 128))
 
     #'''
-    #STEP 1: For each feature point, cut out a window_width x window_width patch 
-    #        of the image around that point (as you will in SIFT)
+   # STEP 1: Calculate the gradient (partial derivatives on two directions) on all pixels.
     w2 = window_width//2 #half of window size
     
     for i in range(len(xs)):
@@ -281,14 +280,14 @@ def get_feature_descriptors_SIFT(image, xs, ys, window_width):
             continue
 
         window = image[row-w2 : row+w2, col-w2 : col+w2]
+        window = ndimage.gaussian_filter(window, sigma = 1)
 
-        # STEP 1: Calculate the gradient (partial derivatives on two directions) on all pixels.
         grad_x = ndimage.sobel(window, 1)
         grad_y = ndimage.sobel(window, 0)
 
         # STEP 2: Decompose the gradient vectors to magnitude and orientation (angle).
         grad_mag = np.sqrt(grad_x ** 2 + grad_y ** 2)
-        grad_ori_index = np.floor(np.arctan2(grad_y, grad_x) * 4 / np.pi) #convert to degrees
+        grad_ori_index = np.round(np.arctan2(grad_y, grad_x) * 4 / np.pi) #convert to degrees
         grad_ori_index[grad_ori_index < 0] += 8
         
         #print(grad_ori_index.shape)
@@ -315,11 +314,15 @@ def get_feature_descriptors_SIFT(image, xs, ys, window_width):
                         features[i][int(jj+bin_index)] += cur_mag
 
 
-                 # STEP 5: Don't forget to normalize your feature.
-                norm = np.linalg.norm(features[i])
-                features[i] /= norm
-   
-    features[features>0.2] = 0.2
+        # STEP 5: Don't forget to normalize your feature.
+        norm = np.linalg.norm(features[i])
+        features[i] /= norm
+        features[features>0.2] = 0.2
+
+        #features = features**0.5
+        #norm = np.linalg.norm(features[i])
+        #features[i] /= norm
+
     #print(features)
 
     #'''
