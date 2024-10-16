@@ -368,7 +368,7 @@ def match_features(im1_features, im2_features):
 
     # TODO: Your implementation here!
     # These are placeholders - replace with the coordinates of your feature points!
-    matches = np.zeros((60, 2), dtype=int)
+    matches = np.zeros((len(im1_features), 2), dtype=int)
     
     F1 = im1_features
     F2 = im2_features
@@ -391,10 +391,11 @@ def match_features(im1_features, im2_features):
     i = 0
     threshold = 0.8
     for x in range(len(im1_features)):
-
+        #first index
         nn1 = sorted[x, 0]
         d1 = D[x, nn1]
-
+        
+        #second index
         nn2 = sorted[x, 1]
         d2 = D[x, nn2]
 
