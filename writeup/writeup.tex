@@ -88,80 +88,51 @@
   \item \textbf{Please make this document anonymous.}
 \end{itemize}
 
-\section*{Assignment Overview}
+\section*{Tasks}
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. See Equation~\ref{eq:one}.
+\begin{itemize}
+    \item \textbf{Task 1: get feature points} \\
+    In get feature points, I found the gradients in x and y directions of the images through a sobel filter. Then, took the squares of the derivatives and applied a Gaussian blur. From there I used those values to calculate the cornerness score for every pixel. Then I used a threshold value of (0.1 times the maximum cornerness score value) and (half the window width) to peak local max and eliminate clusters. 
+    \item \textbf{Task 2: plot feature points} \\
+    For plot feature points I used plt.scatter to show where interest points are.
+    \item \textbf{Task 3: get feature descriptors} \\
+    For image patch, I flattened each window around the interest point to get a descriptor of dimension 256 by 1. \\
+    For SIFT, I took a window around the interest point and calculated the derivatives of the window, in order to map the gradient magnitude to the feature descriptor according to its gradient orientation. After calculating each feature descriptor, I normalized the values and clamped it to less than 0.2.
+    \item \textbf{Task 4: match features} \\
+    I calculated the Euclidean distances between each descriptor by using numpy functions on matrices. Then sorting the distances to take the two closest points, nearest neighbor 1 (nn1) and nearest neighbor 2 (nn2). Then I used a threshold value of 0.89 to evaluate the nearest neighbor distance ratio. Values less than the threshold were valid matches. 
 
-\begin{equation}
-a = b + c
-\label{eq:one}
-\end{equation}
-
-\section*{Implementation Detail}
-
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-My code snippet highlights an interesting point.
-\begin{python}
-one = 1;
-two = one + one;
-if two == 2
-    disp( 'This computer is not broken.' );
-end
-\end{python}
+\end{itemize}
 
 \section*{Result}
 
 \begin{enumerate}
-    \item Result 1 was a total failure, because...
-    \item Result 2 (Figure~\ref{fig:result1}, left) was surprising, because...
-    \item Result 3 (Figure~\ref{fig:result1}, right) blew my socks off, because...
+    \item First three images are of mt\_rushmore. The match features has highest accuracy: 65\%
+    \item Second three images are of notre\_dame. The match features has the second highest accuracy: 65\%
+    \item Last three images are of e\_gaudi. The feature matching didn't really work for this one, the accuracy was 0\%
 \end{enumerate}
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=5cm]{placeholder.jpg}
-    \includegraphics[width=5cm]{placeholder.jpg}
-    \caption{\emph{Left:} My result was spectacular. \emph{Right:} Curious.}
+    \includegraphics[width=4cm]{mt_rushmore1.png}
+    \includegraphics[width=4cm]{mt_rushmore2.png}
+    \includegraphics[width=4cm]{mt_rushmore3.png}
     \label{fig:result1}
 \end{figure}
 
-My results are summarized in Table~\ref{tab:table1}.
-
-\begin{table}[h]
+\begin{figure}[h]
     \centering
-    \begin{tabular}{lr}
-        \toprule
-        Condition & Time (seconds) \\
-        \midrule
-        Test 1 & 1 \\
-        Test 2 & 1000 \\
-        \bottomrule
-    \end{tabular}
-    \caption{Stunning revelation about the efficiency of my code.}
-    \label{tab:table1}
-\end{table}
+    \includegraphics[width=4cm]{notre_dame1.png}
+    \includegraphics[width=4cm]{notre_dame2.png}
+    \includegraphics[width=4cm]{notre_dame3.png}
+    \label{fig:result1}
+\end{figure}
 
-\section*{Extra Credit (Optional)}
-\begin{enumerate}
-   
-    \item Implementation A, code snippets, and results
-        \begin{python}
-        one = 1;
-        two = one + one;
-        if two == 2
-            disp( 'This computer is not broken.' );
-        end
-        \end{python}
-    
-    \item Implementation B, code snippets, and results
-        \begin{python}
-        one = 1;
-        two = one + one;
-        if two == 2
-            disp( 'This computer is not broken.' );
-        end
-        \end{python}
-\end{enumerate}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=4cm]{e_gaudi1.png}
+    \includegraphics[width=4cm]{e_gaudi2.png}
+    \includegraphics[width=4cm]{e_gaudi3.png}
+    \label{fig:result1}
+\end{figure}
 
 \end{document}
