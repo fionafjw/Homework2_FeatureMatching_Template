@@ -370,6 +370,7 @@ def match_features(im1_features, im2_features):
     # These are placeholders - replace with the coordinates of your feature points!
     matches = np.zeros((len(im1_features), 2), dtype=int)
     
+    # STEP 1: Calculate the distances between each pairs of features between im1_features and im2_features.
     F1 = im1_features
     F2 = im2_features
 
@@ -386,10 +387,11 @@ def match_features(im1_features, im2_features):
     A = F1_norm + F2_norm
     D = np.sqrt(A-B)
 
+    # STEP 2: Sort and find closest features for each feature
     sorted = np.argsort(D)
 
     i = 0
-    threshold = 0.8
+    threshold = 0.87
     for x in range(len(im1_features)):
         #first index
         nn1 = sorted[x, 0]
@@ -399,8 +401,10 @@ def match_features(im1_features, im2_features):
         nn2 = sorted[x, 1]
         d2 = D[x, nn2]
 
+        # STEP 3: Compute NNDR for each match
         nndr = d1 / d2 if d2 > 0 else np.inf
 
+        # STEP 4: Remove matches whose ratios do not meet a certain threshold 
         if nndr < threshold:
             matches[i, 0] = x
             matches[i, 1] = nn1
