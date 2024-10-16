@@ -376,17 +376,17 @@ def match_features(im1_features, im2_features):
 
     B = 2 * np.dot(F1, F2.T)
 
-    F1_norm = np.sum(F1 ** 2, axis=1).reshape(-1, 1) # n x 1
-    F2_norm = np.sum(F2 ** 2, axis=1).reshape(1, -1)  # 1 x m
+    F1_norm = np.sum(F1 ** 2, axis=1)
+    F2_norm = np.sum(F2 ** 2, axis=1)
 
-    A = F1_norm + F2_norm
+    A = np.add(F1_norm[:, np.newaxis], F2_norm[np.newaxis, :])
     D = np.sqrt(np.maximum(0, A - B))
 
     # STEP 2: Sort and find closest features for each feature
     sorted = np.argsort(D)
 
     i = 0
-    threshold = 0.9
+    threshold = 0.89
     for x in range(len(im1_features)):
         #first and second index
         nn1 = sorted[x, 0]
