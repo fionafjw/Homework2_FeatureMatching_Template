@@ -394,7 +394,7 @@ def match_features(im1_features, im2_features):
         nndr = d1 / d2 if d2 > 0 else np.inf
 
         # STEP 4: Remove matches whose ratios do not meet a certain threshold 
-        threshold = 1
+        threshold = 0.8
         if nndr < threshold:
             match = [i, nn1]
             matches = np.vstack([matches,match])
