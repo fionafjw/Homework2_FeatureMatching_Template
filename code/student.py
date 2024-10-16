@@ -368,7 +368,7 @@ def match_features(im1_features, im2_features):
 
     # TODO: Your implementation here!
     # These are placeholders - replace with the coordinates of your feature points!
-    matches = np.zeros((len(im1_features), 2), dtype=int)
+    matches = np.zeros((len(im1_features), 2))
     
     # STEP 1: Calculate the distances between each pairs of features between im1_features and im2_features.
     F1 = im1_features
@@ -409,39 +409,5 @@ def match_features(im1_features, im2_features):
             matches[i, 0] = x
             matches[i, 1] = nn1
             i += 1
-    '''
-    # STEP 1: Calculate the distances between each pairs of features between im1_features and im2_features.
-    
-    length_s = len(im1_features)
-    length_m = len(im2_features)
-    
-    for i in range(length_s):
-        #an array that holds the distances between im1_features[i] and all im2_features
-        distances = np.zeros(length_m)
-        for j in range(length_m):
-            distance = np.linalg.norm(im1_features[i] - im2_features[j])
-            distances[j] = distance
 
-        # STEP 2: Sort and find closest features for each feature
-        sorted = np.argsort(distances)
-
-        nn1 = sorted[0]  # closest
-        nn2 = sorted[1]  # second closest
-
-        d1 = distances[nn1]
-        d2 = distances[nn2]
-
-        # STEP 3: Compute NNDR for each match
-        nndr = d1 / d2 if d2 > 0 else np.inf
-
-        # STEP 4: Remove matches whose ratios do not meet a certain threshold 
-        threshold = 0.8
-        if nndr < threshold:
-            match = [i, nn1]
-            matches = np.vstack([matches,match])
-
-    #matches = np.delete(matches, 0, axis=0)
-    print(matches)
-    '''
-
-    return matches
+    return matches[:i]
