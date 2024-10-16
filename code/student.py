@@ -233,11 +233,25 @@ def get_feature_descriptors(image, xs, ys, window_width, mode):
 
 def get_feature_descriptors_patch(image, xs, ys, window_width):
     # IMAGE PATCH STEPS
+    features = np.zeros((len(xs), 256))
     # STEP 1: For each feature point, cut out a window_width x window_width patch 
     #         of the image around that point (as you will in SIFT)
-    # STEP 2: Flatten this image patch into a 1-dimensional vector (hint: np.flatten())
 
-    return None
+    w2 = window_width//2 #half of window size
+
+    for i in range(len(xs)):
+        col = xs[i]
+        row = ys[i]
+        if col < 8 or row < 8 or col > (image.shape[1]-8) or row > (image.shape[0]-8):
+            continue
+
+        window = image[row-w2 : row+w2, col-w2 : col+w2]
+    
+        # STEP 2: Flatten this image patch into a 1-dimensional vector (hint: np.flatten())
+        descriptor = np.ndarray.flatten(window)
+        features[i] = descriptor
+
+    return features
 
 def get_feature_descriptors_SIFT(image, xs, ys, window_width):
     # SIFT STEPS
@@ -263,10 +277,12 @@ def get_feature_descriptors_SIFT(image, xs, ys, window_width):
     for i in range(len(xs)):
         col = xs[i]
         row = ys[i]
+        if col < 8 or row < 8 or col > (image.shape[1]-8) or row > (image.shape[0]-8):
+            continue
 
         window = image[row-w2 : row+w2, col-w2 : col+w2]
-        if(window.shape != (window_width, window_width)):
-            return features
+        #if(window.shape != (window_width, window_width)):
+            #return features
 
         # STEP 1: Calculate the gradient (partial derivatives on two directions) on all pixels.
         grad_x = ndimage.sobel(window, 1)
@@ -277,8 +293,8 @@ def get_feature_descriptors_SIFT(image, xs, ys, window_width):
         grad_ori_index = np.round(np.arctan2(grad_y, grad_x) * 4 / np.pi) #convert to degrees
         grad_ori_index[grad_ori_index < 0] += 8
         
-        print(grad_ori_index.shape)
-        assert window.shape == grad_ori_index.shape
+        #print(grad_ori_index.shape)
+        #assert window.shape == grad_ori_index.shape
 
         # STEP 3: For each feature point, calculate the local histogram based on related 4x4 grid cells.
         #         Each cell is a square with window_width / 4 pixels length of side.
@@ -299,10 +315,13 @@ def get_feature_descriptors_SIFT(image, xs, ys, window_width):
                         #         we have a 128-dimensional features
                         #print(i, int(jj+bin_index), cur_mag)
                         features[i][int(jj+bin_index)] += cur_mag
-    # STEP 5: Don't forget to normalize your feature.
+
+                 # STEP 5: Don't forget to normalize your feature.
+                norm = np.linalg.norm(features[i])
+                features[i] /= norm
+   
     features[features>0.2] = 0.2
     #print(features)
-
 
     #'''
     return features
@@ -354,5 +373,15 @@ def match_features(im1_features, im2_features):
     # TODO: Your implementation here!
     # These are placeholders - replace with the coordinates of your feature points!
     matches = np.random.randint(0, min(len(im1_features), len(im2_features)), size=(50, 2))
+
+    # STEP 1: Calculate the distances between each pairs of features between im1_features and im2_features.
+    num = min(len(im1_features), len(im2_features))
+    
+    for i in range(num):
+        distance = np.linalg.norm(im1_features[i] - im2_features[i])
+        # STEP 2: Sort and find closest features for each feature
+
+    # STEP 3: Compute NNDR for each match
+    # STEP 4: Remove matches whose ratios do not meet a certain threshold 
 
     return matches
