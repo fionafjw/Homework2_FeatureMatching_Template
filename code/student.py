@@ -281,8 +281,6 @@ def get_feature_descriptors_SIFT(image, xs, ys, window_width):
             continue
 
         window = image[row-w2 : row+w2, col-w2 : col+w2]
-        #if(window.shape != (window_width, window_width)):
-            #return features
 
         # STEP 1: Calculate the gradient (partial derivatives on two directions) on all pixels.
         grad_x = ndimage.sobel(window, 1)
@@ -290,7 +288,7 @@ def get_feature_descriptors_SIFT(image, xs, ys, window_width):
 
         # STEP 2: Decompose the gradient vectors to magnitude and orientation (angle).
         grad_mag = np.sqrt(grad_x ** 2 + grad_y ** 2)
-        grad_ori_index = np.round(np.arctan2(grad_y, grad_x) * 4 / np.pi) #convert to degrees
+        grad_ori_index = np.ceil(np.arctan2(grad_y, grad_x) * 4 / np.pi) #convert to degrees
         grad_ori_index[grad_ori_index < 0] += 8
         
         #print(grad_ori_index.shape)
@@ -315,6 +313,7 @@ def get_feature_descriptors_SIFT(image, xs, ys, window_width):
                         #         we have a 128-dimensional features
                         #print(i, int(jj+bin_index), cur_mag)
                         features[i][int(jj+bin_index)] += cur_mag
+
 
                  # STEP 5: Don't forget to normalize your feature.
                 norm = np.linalg.norm(features[i])
