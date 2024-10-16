@@ -106,7 +106,7 @@ def get_feature_points(image, window_width):
     Ixy = ndimage.gaussian_filter(Ixy, sigma=sigma)
 
     #k is a constant
-    k = 0.04
+    k = 0.05
     
     detM = np.multiply(Ixx, Iyy) - np.multiply(Ixy, Ixy)
     #print(detM.shape)
@@ -119,7 +119,7 @@ def get_feature_points(image, window_width):
 
     #thresholding
     c_max = np.max(cornerness)
-    thresh = 0.05 * c_max
+    thresh = 0.1 * c_max
 
     # Find local maxima of the response
     min_d = window_width//2
@@ -368,9 +368,45 @@ def match_features(im1_features, im2_features):
 
     # TODO: Your implementation here!
     # These are placeholders - replace with the coordinates of your feature points!
-    matches = np.empty((0, 2), dtype=int)
+    matches = np.zeros((60, 2), dtype=int)
+    
+    F1 = im1_features
+    F2 = im2_features
 
+    B = 2 * np.dot(F1, np.transpose(F2))
+
+    F1_squared = im1_features**2
+    F1_norm = np.sum(F1_squared, axis=1)
+    F1_norm = np.expand_dims(F1_norm, axis = 1)
+
+    F2_squared = im2_features**2
+    F2_norm = np.sum(F2_squared, axis=1)
+    F2_norm = np.expand_dims(F2_norm, axis = 0)
+
+    A = F1_norm + F2_norm
+    D = np.sqrt(A-B)
+
+    sorted = np.argsort(D)
+
+    i = 0
+    threshold = 0.8
+    for x in range(len(im1_features)):
+
+        nn1 = sorted[x, 0]
+        d1 = D[x, nn1]
+
+        nn2 = sorted[x, 1]
+        d2 = D[x, nn2]
+
+        nndr = d1 / d2 if d2 > 0 else np.inf
+
+        if nndr < threshold:
+            matches[i, 0] = x
+            matches[i, 1] = nn1
+            i += 1
+    '''
     # STEP 1: Calculate the distances between each pairs of features between im1_features and im2_features.
+    
     length_s = len(im1_features)
     length_m = len(im2_features)
     
@@ -394,12 +430,13 @@ def match_features(im1_features, im2_features):
         nndr = d1 / d2 if d2 > 0 else np.inf
 
         # STEP 4: Remove matches whose ratios do not meet a certain threshold 
-        threshold = 1
+        threshold = 0.8
         if nndr < threshold:
             match = [i, nn1]
             matches = np.vstack([matches,match])
 
     #matches = np.delete(matches, 0, axis=0)
     print(matches)
+    '''
 
     return matches
