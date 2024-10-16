@@ -30,7 +30,7 @@ def plot_feature_points(image, xs, ys):
     else:
         plt.imshow(image)
     
-    plt.scatter(xs, ys, c = 'red', marker = 'o', s = 40, label = 'feature points')
+    plt.scatter(xs, ys, c = 'red', marker = 'o', s = 20, label = 'feature points')
 
     plt.savefig('../results/mypoints.jpg')
     plt.show()
@@ -367,26 +367,51 @@ def match_features(im1_features, im2_features):
     # STEP 4: Remove matches whose ratios do not meet a certain threshold 
 
     # TODO: Your implementation here!
-    # These are placeholders - replace with the coordinates of your feature points!
-    matches = np.zeros((len(im1_features), 2))
-    
+    # These are placeholders - replace with the coordinates of your feature points.
+    #'''
+    bad_indices = []
+    for x in range(len(im1_features)):
+        norm = np.linalg.norm(im1_features[x])
+        if norm < 0.01: 
+            print(norm, im1_features[x])
+            bad_indices.append(x)
+        else:
+            im1_features[x] /= norm
+    #im1_features = np.delete(im1_features, bad_indices, axis = 0)
+
+    for x in range(len(im2_features)):
+        norm = np.linalg.norm(im2_features[x])
+        im2_features[x] /= norm
+    #'''
+    matches = np.zeros((min(len(im1_features), len(im2_features)), 2), dtype = int)
     # STEP 1: Calculate the distances between each pairs of features between im1_features and im2_features.
+    #im1_features = im2_features
     F1 = im1_features
     F2 = im2_features
 
     B = 2 * np.dot(F1, F2.T)
 
-    F1_norm = np.sum(F1 ** 2, axis=1)
-    F2_norm = np.sum(F2 ** 2, axis=1)
+    square1 = np.multiply(F1, F1)
+    F1_norm = np.sum(square1, axis=1)
+    square2 = np.multiply(F2, F2)
+    F2_norm = np.sum(square2, axis=1)
+    #print("norm1", F1_norm)
+    #print("norm2", F2_norm)
 
-    A = np.add(F1_norm[:, np.newaxis], F2_norm[np.newaxis, :])
-    D = np.sqrt(np.maximum(0, A - B))
+    A = F1_norm[:, np.newaxis] + F2_norm[np.newaxis, :]
+    D = A-B
+    D[D<0] = 0
+    D = np.sqrt(D)
+    #print("A:", A)
+    #np.savetxt("D.txt", D)
+    #print(D)
 
     # STEP 2: Sort and find closest features for each feature
-    sorted = np.argsort(D)
+    sorted = np.argsort(D, axis = 1)
+    #print(sorted)
 
     i = 0
-    threshold = 0.89
+    threshold = 0.92
     for x in range(len(im1_features)):
         #first and second index
         nn1 = sorted[x, 0]
@@ -397,12 +422,16 @@ def match_features(im1_features, im2_features):
         d2 = D[x, nn2]
 
         # STEP 3: Compute NNDR for each match
-        nndr = d1 / d2 if d2 > 0 else np.inf
-
         # STEP 4: Remove matches whose ratios do not meet a certain threshold 
-        if nndr < threshold:
+        if d2 > 0 and (d1/d2) < threshold:
+            #print(x, nn1)
             matches[i, 0] = x
             matches[i, 1] = nn1
+            #remove = np.where(matches == nn1)
+            #sorted[remove] = -1
+
             i += 1
+    #print(matches)
+    np.savetxt("matches.txt", matches, fmt='%s')
 
     return matches[:i]
