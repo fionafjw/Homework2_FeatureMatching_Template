@@ -319,12 +319,6 @@ def get_feature_descriptors_SIFT(image, xs, ys, window_width):
         features[i] /= norm
         features[features>0.2] = 0.2
 
-        #features = features**0.5
-        #norm = np.linalg.norm(features[i])
-        #features[i] /= norm
-
-    #print(features)
-
     #'''
     return features
 
@@ -374,16 +368,39 @@ def match_features(im1_features, im2_features):
 
     # TODO: Your implementation here!
     # These are placeholders - replace with the coordinates of your feature points!
-    matches = np.random.randint(0, min(len(im1_features), len(im2_features)), size=(50, 2))
+    matches = np.random.randint(0, min(len(im1_features), len(im2_features)), size=(1, 2))
 
     # STEP 1: Calculate the distances between each pairs of features between im1_features and im2_features.
-    num = min(len(im1_features), len(im2_features))
+    length_s = min(len(im1_features), len(im2_features))
+    length_m = max(len(im1_features), len(im2_features))
     
-    for i in range(num):
-        distance = np.linalg.norm(im1_features[i] - im2_features[i])
-        # STEP 2: Sort and find closest features for each feature
+    for i in range(length_s):
+        #an array that holds the distances between im1_features[i] and all im2_features
+        distances = np.zeros(length_m)
+        for j in range(length_m):
+            distance = np.linalg.norm(im1_features[i] - im2_features[j])
+            distances[j] = distance
 
-    # STEP 3: Compute NNDR for each match
-    # STEP 4: Remove matches whose ratios do not meet a certain threshold 
+        # STEP 2: Sort and find closest features for each feature
+        sorted = np.argsort(distances)
+        nn1 = sorted[0]  # closest
+        nn2 = sorted[1]  # second closest
+
+        d1 = distances[nn1]
+        d2 = distances[nn2]
+
+        # STEP 3: Compute NNDR for each match
+        nndr = d1 / d2 if d2 > 0 else np.inf
+
+        # STEP 4: Remove matches whose ratios do not meet a certain threshold 
+        threshold = 0.8
+        if nndr < threshold:
+            #print([i, nn1])
+            match = [i, nn1]
+            matches = np.vstack([matches,match])
+            #print("matches: ", matches)
+
+    #matches = np.delete(matches, 0)
+    print(matches)
 
     return matches
